@@ -22,4 +22,4 @@ Mural-Mateys
 + [Ben Rademacher](https://github.com/Brademacher)  
 + [Kalsang Bhutia](https://github.com/hurlyburly)
 + [Nate Perfetti](https://github.com/perfettiful)    
-+ [Zac Keilholz](hhttps://github.com/ZacKeilholz)  
++ [Zac Keilholz](https://github.com/ZacKeilholz)  
