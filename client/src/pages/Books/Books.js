@@ -15,6 +15,7 @@ class Books extends Component {
     synopsis: ""
   };
 
+
   componentDidMount() {
     this.loadBooks();
   }
@@ -26,6 +27,8 @@ class Books extends Component {
       )
       .catch(err => console.log(err));
   };
+
+
 
   deleteBook = id => {
     API.deleteBook(id)
