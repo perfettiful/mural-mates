@@ -3,49 +3,40 @@ const muralsController = require("../../controllers/muralsController");
 
 // Get route for "/"
 router.route("/")
-  .post(muralssController.create)
+  .post(muralsController.create)
   .get(muralsController.findAll);
 
 // Get route for "/newgame"
 router
   .route("/newgame")
-  .get(muralssController.findById)
-  .put(muralssController.update)
-  .delete(muralssController.remove);
-
+  .get(muralsController.findById)
+  .post(muralsController.create);
 // Get route for "/:uniqueid"
 router
   .route("/:uniqueid")
-  .get(muralssController.findById)
-  .put(muralssController.update)
-  .delete(muralssController.remove);
+  .get(muralsController.findById);
 
   // Get route for "/:uniqeid/mural"
 router
 .route("/:uniqueid/mural")
-.get(muralssController.findById)
-.put(muralssController.update)
-.delete(muralssController.remove);
+.get(muralsController.findMuralById)
+
 
 // Get route that matches with "/api/v1/:uniqueid"
 router
   .route("/api/v1/:uniqueid")
-  .get(muralssController.findById)
-  .put(muralssController.update)
-  .delete(muralssController.remove);
+  .get(muralsController.findById)
+  .put(muralsController.update)
+  .delete(muralsController.remove);
 
   // Post route that matches with "/api/v1"
 router
 .route("/api/v1")
-.get(muralssController.findById)
-.put(muralssController.update)
-.delete(muralssController.remove);
+.post(muralsController.create);
 
 // Put route that matches with "/api/v1/:uniqueid"
 router
   .route("/api/v1/:uniqueid")
-  .get(muralssController.findById)
-  .put(muralssController.update)
-  .delete(muralssController.remove);
+  .put(muralsController.update);
 
 module.exports = router;

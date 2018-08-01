@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const muralSchema = new Schema({
-  imga: { type: String, required: true },
+  imga: { type: String, },
   imgb: { type: String },
   mural: { type: String },
   title: { type: String, required: true },
