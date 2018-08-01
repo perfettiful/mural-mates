@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const muralsController = require("../../controllers/muralsController");
 
-// Get route for "/"
+// Get route for "/api/"
 router.route("/")
   .post(muralsController.create)
   .get(muralsController.findAll);

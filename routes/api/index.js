@@ -2,6 +2,6 @@ const router = require("express").Router();
 const muralRoutes = require("./murals");
 
 // Mural routes
-router.use("/murals", muralRoutes);
+router.use("/", muralRoutes);
 
 module.exports = router;
