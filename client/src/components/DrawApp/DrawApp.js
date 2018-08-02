@@ -119,7 +119,6 @@ class DrawApp extends React.Component {
             lineWidth : 10,
             penColor : 'black'
         })
-
         this.ctx = this.refs.canvas.getContext('2d')
         this.ctx.fillStyle="white"
         this.ctx.fillRect(0,0,400,400)
