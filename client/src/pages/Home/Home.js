@@ -36,7 +36,9 @@ class Home extends Component {
       <div>
         <Container>
           <Input 
-          placeholder="Mural Title" 
+          placeholder="Mural Title"
+          value={this.state.title}
+          name="title"
           onChange={this.handleInputChange} 
           />
           <DrawApp />

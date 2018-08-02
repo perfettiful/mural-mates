@@ -38,7 +38,6 @@ class DrawApp extends React.Component {
     }
 
     
-
     componentDidMount() {
         this.reset()
     }
