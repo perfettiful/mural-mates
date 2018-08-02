@@ -1,46 +1,47 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
+import { FormBtn, Input } from "../../components/Form";
 
-import {
-  Container,
-  Header,
-  Icon,
-  Grid,
-  Message,
-} from "semantic-ui-react";
-
+import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
 class Home extends Component {
   state = {
-    image: "",
-    match: false,
-    matchCount: 0,
-    cards:[]
+    title:"",
+    image:""
   };
 
-  handleImageClick = event => {
-//insert matching logic and click function here
+  // componentDidMount() {
+  //   this.loadBooks();
+  // }
+  handleMuralSubmit=event=> {
+    event.preventDefault();
+    // if (this.state.title && this.state.image) {
+    //   API.saveMural({
+    //     title: this.state.title,
+    //     image: this.state.image
+    //   })
+  
+    // }
+  }
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
-
 
   render() {
     return (
-      <div> 
-        <Container fluid>
-          <Grid.Row>
-            <Grid.Column>
-              <Message>
-                <Header as="h1" color="teal" textAlign="left">
-                  <Icon name="help" circular />Mural Mates
-                </Header>
-              </Message>
-            </Grid.Column>
-          </Grid.Row>
-          </Container>
-          <Container>
-        <DrawApp/>
-         </Container>
+      <div>
+        <Container>
+          <Input 
+          placeholder="Mural Title" 
+          onChange={this.handleInputChange} 
+          />
+          <DrawApp />
+          <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
+        </Container>
       </div>
     );
   }
