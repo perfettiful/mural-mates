@@ -16,5 +16,9 @@ export default {
   // Saves a book to the database
   saveMural: function(muralData) {
     return axios.post("/api/murals", muralData);
+  },
+  logMural:function(muralData){
+    console.log(muralData);
+
   }
 };

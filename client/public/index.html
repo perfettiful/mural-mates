@@ -16,6 +16,86 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <button><a href="#" class="button" id="btn-download">Download as PNG</a></button>
+<div id="da"></div>
+<p>BMP File:<p>
+<p id='bmp'><p>
+  
+<p>PNG File:<p>
+<p id='png'><p>
+  
+<h1>Old Image:</h1> 
+<img id="oldImg" alt = "Where img is sposta be!" src="http://3.bp.blogspot.com/-mM3AC6ZD38Y/VMyW5qewixI/AAAAAAAAA1I/IU6R_wCaQs0/s1600/gudetama%2B3.gif">
+
+<!-- Firebase load -->
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC2T0URHwXvjqs1KauQedzSC-UOUOC4I08",
+    authDomain: "exquisite-corpse-f6e43.firebaseapp.com",
+    databaseURL: "https://exquisite-corpse-f6e43.firebaseio.com",
+    projectId: "exquisite-corpse-f6e43",
+    storageBucket: "",
+    messagingSenderId: "92123646763"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  
+  function downloadCanvas(link, canvasId, filename) {
+    link.href = document.getElementById(canvasId).toDataURL('image/png');
+    var png = link.href;
+    
+    var bmp = document.getElementById(canvasId).toDataURL('image/bmp');
+    
+    var bmpText = document.getElementById("bmp");
+    var pngText = document.getElementById("png");
+    
+    database.ref().push({
+      id: "id-" +firebase.database.ServerValue.TIMESTAMP + "-id",
+      bitmap: bmp,
+      png: png,
+      dateAdded: firebase.database.ServerValue.TIMESTAMP
+     });
+
+    bmpText.innerHTML = bmp;
+    pngText.innerHTML = png;
+    
+    console.log("BMP Substring: "+bmp.substring(0,2000));
+    
+    link.download = filename;
+}//end downloadCanvas()
+/** 
+ * The event handler for the link's onclick event. We give THIS as a
+ * parameter (=the link element), ID of the canvas and a filename.
+*/
+document.getElementById('btn-download').addEventListener('click', function() {
+  
+    downloadCanvas(this, 'canvas', 'test.png');
+  
+     database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", function (snapshot) {
+       var oldImgPng = snapshot.val().png;
+       var oldImgPngStr = JSON.stringify(oldImgPng);
+       var oldImgPngTrunc = 'PNG: '+oldImgPngStr.substring(0,2000);
+      console.log(oldImgPngTrunc); 
+       var oldImgTag = document.getElementById("oldImg");
+       oldImgTag.src = oldImgPng;
+       }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+  
+  //'Snapshot Key: '+JSON.stringify(snapshot.key)
+  //'|==BMP Data URL: '+JSON.stringify(snapshot.val().bitmap)
+  
+}, false);
+ </script>
+
+<!--Canvas2Bmp Library Below VVVVVVVV-->
+<script>
+  (function(){function l(c,b){c.push(b&255);c.push((b&65280)>>8);c.push((b&16711680)>>16);c.push(b>>24)}var m=window.HTMLCanvasElement.prototype.toDataURL;window.HTMLCanvasElement.prototype.toDataURL=function(){if("string"==typeof arguments[0]&&"IMAGE/BMP"==arguments[0].toUpperCase()){var c=this.getContext("2d").getImageData(0,0,this.width,this.height),b=[],e=c.width,f=c.height,d=e*f*4+138,a=[],g=e,h=f,n=e*f*4,c=c.data,k=[];b.push(66);b.push(77);l(b,d);b.push(0);b.push(0);b.push(0);b.push(0);b.push(138);
+b.push(0);b.push(0);b.push(0);a.push(124);a.push(0);a.push(0);a.push(0);l(a,g);l(a,h);a.push(1);a.push(0);a.push(32);a.push(0);a.push(3);a.push(0);a.push(0);a.push(0);l(a,n);a.push(19);a.push(11);a.push(0);a.push(0);a.push(19);a.push(11);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(0);a.push(255);a.push(0);a.push(0);a.push(255);a.push(0);a.push(0);a.push(255);a.push(0);a.push(0);a.push(255);a.push(0);a.push(0);a.push(0);
+a.push(66);a.push(71);a.push(82);a.push(115);for(d=48;0<d;d--)a.push(0);a.push(2);for(d=15;0<d;d--)a.push(0);do for(d=e*(f-1)*4,h=0;h<e;h+=1)g=4*h,k.push(c[g+d+3]),k.push(c[g+d+2]),k.push(c[g+d+1]),k.push(c[g+d]);while(f--);b=b.concat(a).concat(k);a="";e=0;for(f=b.length;e<f;e+=1)a+=String.fromCharCode(b[e]);return"data:image/bmp;base64,"+btoa(a)}return m.apply(this,arguments)}})();
+  </script>
 </body>
 
 </html>
