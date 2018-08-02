@@ -1,24 +1,23 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
+  // Gets all murals
   getMurals: function() {
-    return axios.get("/api/murals");
+    return axios.get("/api/");
   },
-  // Gets the book with the given id
+  // Gets the mural with the given id
   getMural: function(id) {
-    return axios.get("/api/murals/" + id);
+    return axios.get("/api/" + id);
   },
-  // Deletes the book with the given id
+  // Deletes the mural with the given id
   deleteMural: function(id) {
-    return axios.delete("/api/murals/" + id);
+    return axios.delete("/api/" + id);
   },
-  // Saves a book to the database
+  // Saves a mural to the database
   saveMural: function(muralData) {
-    return axios.post("/api/murals", muralData);
+    return axios.post("/api/", muralData);
   },
   logMural:function(muralData){
     console.log(muralData);
-
   }
 };
