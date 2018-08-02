@@ -16,7 +16,6 @@ class Home extends Component {
   // }
   handleMuralSubmit = event => {
     event.preventDefault();
-<<<<<<< HEAD
     this.downloadCanvas("canvas");
     console.log(this.state.title, this.state.image);
     if (this.state.title && this.state.image) {
@@ -27,18 +26,6 @@ class Home extends Component {
 
     }
   };
-=======
-    // if (this.state.title && this.state.image) {
-    //   API.saveMural({
-    //     title: this.state.title,
-    //     image: this.state.image
-    //   })
-  
-    // }
-  }
-
-  
->>>>>>> ce7db3171299663c4383097e9dee4652bf7e69cf
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -46,16 +33,12 @@ class Home extends Component {
     });
   };
 
-<<<<<<< HEAD
   downloadCanvas = canvasId => {
     var jpeg = document.getElementById(canvasId).toDataURL("image/jpeg", 1.0);
     this.setState({
       image: jpeg
     });
   };
-=======
-
->>>>>>> ce7db3171299663c4383097e9dee4652bf7e69cf
   render() {
     return (
       <div>
