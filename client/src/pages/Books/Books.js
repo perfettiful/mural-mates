@@ -29,7 +29,6 @@ class Books extends Component {
   };
 
 
-
   deleteBook = id => {
     API.deleteBook(id)
       .then(res => this.loadBooks())
