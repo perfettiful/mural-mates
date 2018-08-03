@@ -16,14 +16,12 @@ class Home extends Component {
   // }
   handleMuralSubmit = event => {
     event.preventDefault();
-    this.downloadCanvas("canvas");
-    console.log(this.state.title, this.state.image);
-    if (this.state.title && this.state.image) {
+    let canvasDownload = this.downloadCanvas("canvas");
+    if (this.state.title && canvasDownload) {
       API.saveMural({
         title: this.state.title,
-        image: this.state.image
+        imga: canvasDownload
       })
-
     }
   };
   handleInputChange = event => {
@@ -35,9 +33,10 @@ class Home extends Component {
 
   downloadCanvas = canvasId => {
     var jpeg = document.getElementById(canvasId).toDataURL("image/jpeg", 1.0);
-    this.setState({
-      image: jpeg
-    });
+    // this.setState({
+    //   image: jpeg
+    // });
+    return jpeg;
   };
   render() {
     return (
