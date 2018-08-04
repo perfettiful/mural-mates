@@ -17,7 +17,7 @@ module.exports = {
   findMuralById: function(req, res) {
     db.Mural
       .findById(req.params.id)
-      .then(dbModel => res.json(dbModel.imga))
+      .then(dbModel => res.json(dbModel.pImg1))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {

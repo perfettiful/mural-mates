@@ -31,7 +31,7 @@ class Home extends Component {
     });
 
     //Send All user 1 info to mongo
-    API.saveMural({
+    API.createMural({
       title: this.state.title,
       pImg1: canvasDownload
 
@@ -43,8 +43,6 @@ class Home extends Component {
     //Mongo Error handling
       .catch(err => console.log((err))
       )  
-      console.log(this.state.gameId);
-
   };
 
   //Title input form handling
@@ -54,7 +52,8 @@ class Home extends Component {
       [name]: value
     });
   };
-  //gameUrl=()=>("localhost:3000/game/"+this.state.gameId)
+
+  gameUrl=()=>("localhost:3000/game/"+this.state.gameId)
 
   render() {
     return (
@@ -76,8 +75,9 @@ class Home extends Component {
         {/* Display returned data from mongo submission- this is what user 1 and 2 will see */}
 
         {/* The URL link we will need to display- obviously this will need to get cleaned up */}
-       <button><a href={'localhost:3000/game/'+this.state.id}>Game Url</a></button>
-
+       {/* <button><a href={`localhost:3000/game/${this.state.id}`} onClick={this.gameUrl}>Game Url</a></button> */}
+      <Link to={`/game/${this.state.id}`}> <p> Link to the game </p>
+      </Link>
         {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}
         <p>IMG B Image and  Title Loaded: {this.state.title}</p>
         <img src={this.state.pImg2} />
