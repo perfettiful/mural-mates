@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const muralSchema = new Schema({
-  imga: { type: String, },
-  imgb: { type: String },
+  pImg1: { type: String, },
+  pImg2: { type: String },
   mural: { type: String },
   title: { type: String, required: true },
-  playera: { type: String },
-  playerb: { type: String },
+  playerA: { type: String },
+  playerB: { type: String },
   date: { type: Date, default: Date.now }
 });
 
