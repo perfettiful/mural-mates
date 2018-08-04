@@ -3,7 +3,7 @@
 
 This is a group project for the University of Minnesota Coding Bootcamp Cohort 4. 
 
-[Link to the Deployed Project]()
+[Link to the Deployed Project](https://muralmates.herokuapp.com/)
 
 ## **Description:**
 ----
