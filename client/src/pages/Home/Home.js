@@ -7,23 +7,46 @@ import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
 class Home extends Component {
   state = {
-    title: "",
-    image: ""
+
+    //Player 1 State/Submission Data
+    title: "blah",
+    imga: "",
+
+    //Returned info from Mongo- this is quick and dirty for demo purposes
+    imgb: "",
+    submitId: "",
+    imgbTitle: ""
   };
 
-  // componentDidMount() {
-  //   this.loadBooks();
-  // }
+
+  //Submit button press function
   handleMuralSubmit = event => {
     event.preventDefault();
-    let canvasDownload = this.downloadCanvas("canvas");
-    if (this.state.title && canvasDownload) {
-      API.saveMural({
-        title: this.state.title,
-        imga: canvasDownload
-      })
-    }
+
+    //Get current canvas
+    let canvasDownload = document.getElementById("canvas").toDataURL("image/jpeg", .3);
+
+    //Save canvas to state
+    this.setState({
+      imga: canvasDownload
+    });
+
+    //Send All user 1 info to mongo
+    API.saveMural({
+      title: this.state.title,
+      imga: canvasDownload
+
+      //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
+    }).then(res =>
+      this.setState({ imgb: res.data.imga, imgbTitle: res.data.title, submitId: res.data._id })
+
+    )
+    //Mongo Error handling
+      .catch(err => console.log((err))
+      )
   };
+
+  //Title input form handling
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -31,13 +54,7 @@ class Home extends Component {
     });
   };
 
-  downloadCanvas = canvasId => {
-    var jpeg = document.getElementById(canvasId).toDataURL("image/jpeg", 1.0);
-    // this.setState({
-    //   image: jpeg
-    // });
-    return jpeg;
-  };
+
   render() {
     return (
       <div>
@@ -48,10 +65,22 @@ class Home extends Component {
             name="title"
             onChange={this.handleInputChange}
           />
-          <DrawApp/>
+          <DrawApp />
           <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
-          <img src={this.state.image} />
         </Container>
+        <p>IMG A:</p>
+        <img src={this.state.imga} />
+
+
+        {/* Display returned data from mongo submission- this is what user 1 and 2 will see */}
+
+        {/* The URL link we will need to display- obviously this will need to get cleaned up */}
+        <p>mongodblink.com/{this.state.submitId}</p>
+
+        {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}
+        <p>IMG B Image and  Title Loaded: {this.state.imgbTitle}</p>
+        <img src={this.state.imgb} />
+
       </div>
     );
   }
