@@ -9,7 +9,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    res.json(req.params.uniqueid);
+    // console.log("ID!!!!!" + req.params.uniqueid)
     db.Mural
       .findById(req.params.uniqueid)
       .then(dbModel => res.json(dbModel))

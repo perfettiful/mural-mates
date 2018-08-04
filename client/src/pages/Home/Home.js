@@ -35,6 +35,7 @@ class Home extends Component {
       title: this.state.title,
       pImg1: canvasDownload
 
+
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     }).then(res =>
       this.setState({ pImg2:res.data.pImg1, title:res.data.title, id:res.data._id })
