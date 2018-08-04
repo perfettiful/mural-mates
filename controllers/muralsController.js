@@ -9,8 +9,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
+    res.json(req.params.uniqueid);
     db.Mural
-      .findById(req.params.id)
+      .findById(req.params.uniqueid)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
