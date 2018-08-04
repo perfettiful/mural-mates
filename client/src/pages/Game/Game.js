@@ -23,7 +23,7 @@ class Game extends Component {
   componentDidMount() {
     API.getMural(this.props.match.params.id)
       .then(res =>{ this.setState({ 
-        pImg1: res.data.pImg1, title: res.data.title, gameId: res.data._id }) 
+        pImg1: res.data.pImg1, title: res.data.title, gameId: res.data.uniqueid }) 
         console.log(this.state)})
       .catch(err => console.log(err));
      
@@ -42,7 +42,7 @@ class Game extends Component {
     });
 
     //Send All user 1 info to mongo
-    API.saveMural({
+    API.editMural({
       pImg2: canvasDownload
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state

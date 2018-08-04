@@ -9,14 +9,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
+    // console.log("ID!!!!!" + req.params.uniqueid)
     db.Mural
-      .findById(req.params.id)
+      .findById(req.params.uniqueid)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findMuralById: function(req, res) {
     db.Mural
-      .findById(req.params.id)
+      .findById(req.params.uniqueid)
       .then(dbModel => res.json(dbModel.pImg1))
       .catch(err => res.status(422).json(err));
   },
@@ -29,13 +30,13 @@ module.exports = {
   },
   update: function(req, res) {
     db.Mural
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.uniqueid }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
     db.Mural
-      .findById({ _id: req.params.id })
+      .findById({ _id: req.params.uniqueid })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
