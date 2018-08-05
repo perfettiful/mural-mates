@@ -11,32 +11,26 @@ router
   .route("/newgame")
   .get(muralsController.findById)
   .post(muralsController.create);
-// Get route for "/:uniqueid"
-router
-  .route("/:uniqueid")
-  .get(muralsController.findById);
 
   // Get route for "/:uniqeid/mural"
 router
 .route("/:uniqueid/mural")
-.get(muralsController.findMuralById)
+.get(muralsController.findMuralById);
 
 
 // Get route that matches with "/api/v1/:uniqueid"
 router
-  .route("/api/v1/:uniqueid")
-  .get(muralsController.findById)
-  .put(muralsController.update)
-  .delete(muralsController.remove);
+  .route("/v1/game/:uniqueid")
+  .get(muralsController.findById);
 
   // Post route that matches with "/api/v1"
 router
-.route("/api/v1")
+.route("/v1/")
 .post(muralsController.create);
 
 // Put route that matches with "/api/v1/:uniqueid"
 router
-  .route("/api/v1/:uniqueid")
+  .route("/v1/gameupdate/:uniqueid")
   .put(muralsController.update);
 
 module.exports = router;
