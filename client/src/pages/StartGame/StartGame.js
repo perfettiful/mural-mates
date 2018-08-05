@@ -5,7 +5,7 @@ import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
-class Home extends Component {
+class StartGame extends Component {
   state = {
 
     //Player 1 State/Submission Data
@@ -88,4 +88,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default StartGame;
