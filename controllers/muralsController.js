@@ -33,7 +33,6 @@ module.exports = {
 // Method that posts games to the db
 // This sends all game data available to server
   create: function(req, res) {
-    console.log(req.body);
     db.Mural
       .create(req.body)
       .then(dbModel => res.json(dbModel))
