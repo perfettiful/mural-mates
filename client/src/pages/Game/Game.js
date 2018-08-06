@@ -15,7 +15,8 @@ class Game extends Component {
     pImg1: "",
 
     pImg2: "",
-    gameId: ""
+    gameId: "",
+    private:false
   };
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
