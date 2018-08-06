@@ -8,7 +8,8 @@ const muralSchema = new Schema({
   title: { type: String, required: true },
   playerA: { type: String },
   playerB: { type: String },
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  private: { type: Boolean, default: false }
 });
 
 const Mural = mongoose.model("Mural", muralSchema);
