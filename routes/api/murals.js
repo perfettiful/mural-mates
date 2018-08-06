@@ -2,7 +2,8 @@ const router = require("express").Router();
 const muralsController = require("../../controllers/muralsController");
 
 // Get route for "/api/"
-router.route("/")
+router
+.route("/")
   .post(muralsController.create)
   .get(muralsController.findAll);
 
@@ -11,11 +12,6 @@ router
   .route("/newgame")
   .get(muralsController.findById)
   .post(muralsController.create);
-
-  // Get route for "/:uniqeid/mural"
-router
-.route("/:uniqueid/mural")
-.get(muralsController.findMuralById);
 
 
 // Get route that matches with "/api/v1/:uniqueid"
@@ -32,5 +28,9 @@ router
 router
   .route("/v1/gameupdate/:uniqueid")
   .put(muralsController.update);
+
+router
+.route("/v1/murals")
+.get(muralsController.findOpenMurals);
 
 module.exports = router;
