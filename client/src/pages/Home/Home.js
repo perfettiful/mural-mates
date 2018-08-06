@@ -15,7 +15,6 @@ class Home extends Component {
     // //Storage for the murals pulled from the server
     // murals=[]
   };
- 
 
   componentDidMount() {
     this.loadOpenGames();
