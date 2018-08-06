@@ -23,7 +23,7 @@ module.exports = {
 // This is for the World Open Games component
   findOpenMurals: function(req,res) {
     db.Mural
-    .find(req.query)
+    .find({private: false})
     .sort({date: 'desc'})
     .limit(8)
     .then(dbModel => res.json(dbModel))
@@ -33,7 +33,6 @@ module.exports = {
 // Method that posts games to the db
 // This sends all game data available to server
   create: function(req, res) {
-    console.log(req.body);
     db.Mural
       .create(req.body)
       .then(dbModel => res.json(dbModel))

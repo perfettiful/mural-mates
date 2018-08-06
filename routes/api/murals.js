@@ -13,7 +13,6 @@ router
   .get(muralsController.findById)
   .post(muralsController.create);
 
-
 // Get route that matches with "/api/v1/:uniqueid"
 router
   .route("/v1/game/:uniqueid")
@@ -30,7 +29,7 @@ router
   .put(muralsController.update);
 
 router
-.route("/v1/murals")
+.route("/v1/openmurals")
 .get(muralsController.findOpenMurals);
 
 module.exports = router;
