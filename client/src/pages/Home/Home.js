@@ -25,7 +25,7 @@ class Home extends Component {
 
   //API request to get load open world games
   loadOpenGames = () => {
-
+    
   };
 
   //API request to get load games that were started by the user and are still open
