@@ -22,7 +22,6 @@ module.exports = {
 // Method to get a limited number of murals completed
 // This is for the World Open Games component
   findOpenMurals: function(req,res) {
-    console.log("I'm in murals contoroller");
     db.Mural
     .find(req.query)
     .sort({date: 'desc'})

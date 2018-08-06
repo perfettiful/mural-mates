@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FormBtn, Input } from "../../components/Form";
+import { List, ListItem } from "../../components/List";
 import API from "../../utils/API";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
@@ -50,7 +51,22 @@ class Home extends Component {
       <div>
         <Container>
           <h1>User Homepage</h1>
+          <br />
+          <br />
+          <h3>Open World Games</h3>
 
+          <List>
+            {this.state.openMurals.map(game => (
+              <ListItem key={game._id}>
+                <Link to={"/game/" + game._id}>
+                <strong>
+                  Img:   <img src={game.pImg1} />
+                  Title : {game.title}
+                </strong>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
         </Container>
       </div>
     );
