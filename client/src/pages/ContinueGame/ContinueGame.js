@@ -4,10 +4,11 @@ import DrawApp from "../../components/DrawApp";
 import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
+import StitchPic from "../../components/StitchPic";
 
 
 
-class Game extends Component {
+class ContinueGame extends Component {
   state = {
 
     //Player 1 State/Submission Data
@@ -17,7 +18,7 @@ class Game extends Component {
     pImg2: "",
     gameId: "",
     private:false
-  };
+   };
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
@@ -71,16 +72,11 @@ class Game extends Component {
     return (
       <div>
         <Container>
-          <Input
-            placeholder="Mural Title"
-            value={this.state.title}
-            name="title"
-            onChange={this.handleInputChange}
-          />
+        <StitchPic />
           <DrawApp />
           <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
         </Container>
-        <p>COWABUNGAAAAA</p>
+      
         <img src={this.state.pImg1} />
 
 
@@ -100,4 +96,4 @@ class Game extends Component {
   }
 }
 
-export default Game;
+export default ContinueGame;
