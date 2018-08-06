@@ -24,6 +24,7 @@ module.exports = {
   findOpenMurals: function(req,res) {
     db.Mural
     .find(req.query)
+    .sort({date: 'desc'})
     .limit(8)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
