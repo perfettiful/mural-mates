@@ -41,7 +41,7 @@ class App extends Component {
       <Navbar.Header>
         <Navbar fluid>
             <Navbar.Brand>
-              <a href="#">Auth0 - React</a>
+              <a href="/home">Mural Mates</a>
             </Navbar.Brand>
             <Button
               bsStyle="primary"
