@@ -7,29 +7,41 @@ import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 class Home extends Component {
   state = {
     //Storage for Open games that were created by user (do not implement until user profiles are finalized)
-    // userGames=[],
-    
+    ///userGames=[]
+
     // //Storage for Open games that were created by anyone (these are pulled from the server and are non-private, recent games)
-    // openGames=[],
+    openMurals: []
 
     // //Storage for the murals pulled from the server
     // murals=[]
   };
 
   componentDidMount() {
-    this.loadOpenGames();
-    this.loadUserGames();
+    // this.loadOpenGames();
+    API.findOpenMurals()
+      .then(res => {
+        this.setState({
+          openMurals: res.data
+        })
+        console.log(this.state)
+      })
+      .catch(err => console.log(err));
+
   };
 
 
-  //API request to get load open world games
-  loadOpenGames = () => {
-    
-  };
+  // //API request to get load open world games
+  // loadOpenGames = () => {
+  //   API.findOpenMurals()
+  //     .then(res =>
+  //       this.setState({ openMurals: res.data })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   //API request to get load games that were started by the user and are still open
   loadUserGames = () => {
- 
+
   };
 
 
@@ -38,6 +50,7 @@ class Home extends Component {
       <div>
         <Container>
           <h1>User Homepage</h1>
+
         </Container>
       </div>
     );

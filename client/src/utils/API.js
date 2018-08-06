@@ -23,5 +23,11 @@ export default {
   },
   logMural:function(muralData){
     console.log(muralData);
+  },
+
+  findOpenMurals:function(){
+    console.log("I'm in api.js");
+    return axios.get("/api/v1/openmurals");
   }
 };
+

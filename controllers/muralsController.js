@@ -22,6 +22,7 @@ module.exports = {
 // Method to get a limited number of murals completed
 // This is for the World Open Games component
   findOpenMurals: function(req,res) {
+    console.log("I'm in murals contoroller");
     db.Mural
     .find(req.query)
     .sort({date: 'desc'})
@@ -33,7 +34,6 @@ module.exports = {
 // Method that posts games to the db
 // This sends all game data available to server
   create: function(req, res) {
-    console.log(req.body);
     db.Mural
       .create(req.body)
       .then(dbModel => res.json(dbModel))

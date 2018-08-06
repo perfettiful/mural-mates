@@ -30,7 +30,7 @@ router
   .put(muralsController.update);
 
 router
-.route("/v1/murals")
+.route("/v1/openmurals")
 .get(muralsController.findOpenMurals);
 
 module.exports = router;
