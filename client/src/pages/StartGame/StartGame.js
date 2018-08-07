@@ -85,6 +85,7 @@ class StartGame extends Component {
           <Check
             onChange={this.handleCheckbox}
             label=" Make my mural private"
+            toggle
           />
           
           <DrawApp />

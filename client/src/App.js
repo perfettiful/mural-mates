@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Navbar, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Image } from "semantic-ui-react";
-
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
 import ContinueGame from "./pages/ContinueGame";
@@ -95,8 +94,9 @@ class App extends Component {
                   </Button>
               )
             }
-            <h2>Welcome Back, {profile.given_name}</h2>
-            <Image src={profile.picture} alt="profile" avatar />
+            {/* Commented out in the beginning in order to allow us to log in. Once you are logged in, this should be uncommented*/}
+            {/* <h2>Welcome Back, {profile.given_name}</h2>
+            <Image src={profile.picture} alt="profile" avatar/> */}
           </Navbar>
         </Navbar.Header>
         <Switch>
