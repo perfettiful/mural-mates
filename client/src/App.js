@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Navbar, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Image } from "semantic-ui-react";
+
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
 import ContinueGame from "./pages/ContinueGame";
@@ -55,12 +57,10 @@ class App extends Component {
 
     return (
       <div>
-        {/* <pre>{JSON.stringify(profile, null, 2)}</pre>
-        <h3>{profile.nickname}</h3>
-        <h1>{profile.id}</h1>
-        <img src={profile.picture} alt="profile" /> */}
 
-        
+        {/* User Profile Object! */}
+        {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
+     
         <Navbar.Header>
           <Navbar fluid>
             <Navbar.Brand>
@@ -95,6 +95,8 @@ class App extends Component {
                   </Button>
               )
             }
+            <h2>Welcome Back, {profile.given_name}</h2>
+            <Image src={profile.picture} alt="profile" avatar />
           </Navbar>
         </Navbar.Header>
         <Switch>
@@ -103,7 +105,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
 
           {/* Route for when user creates a game */}
-          <Route exact path="/game" component={StartGame} />
+          <Route exact path="/game" component={StartGame} id={profile} />
 
           {/* Route for when user joins a game */}
           <Route exact path="/game/:id" component={ContinueGame} />
