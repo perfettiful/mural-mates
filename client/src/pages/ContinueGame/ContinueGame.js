@@ -14,10 +14,7 @@ class ContinueGame extends Component {
     //Player 1 State/Submission Data
     title: "",
     pImg1: "",
-
-    pImg2: "",
-    gameId: "",
-    private:false
+    pImg2: ""
    };
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
@@ -89,12 +86,12 @@ class ContinueGame extends Component {
         <button><a href={'localhost:3000/game/' + this.state.gameId}>Game Url</a></button>
 
         {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}
-        <p>IMG B Image and  Title Loaded: {this.state.title}</p>
-        <img src={this.state.pImg2} />
-        <p>mongodblink.com/{this.state.gameId}</p>
+
+        <img src={this.state.pImg2}/>
 
 
       </div>
+      
     );
   }
 }

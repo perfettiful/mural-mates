@@ -9,7 +9,7 @@ const muralSchema = new Schema({
   playerA: { type: String },
   playerB: { type: String },
   date: { type: Date, default: Date.now },
-  private: { type: Boolean, default: false }
+  private: { type: Boolean }
 });
 
 const Mural = mongoose.model("Mural", muralSchema);

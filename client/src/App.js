@@ -3,7 +3,7 @@ import { Navbar, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
-import Game from "./pages/Game";
+import ContinueGame from "./pages/ContinueGame";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
@@ -83,7 +83,7 @@ class App extends Component {
             <Route exact path="/game" component={StartGame} />
 
             {/* Route for when user joins a game */}
-            <Route exact path="/game/:id" component={Game} />
+            <Route exact path="/game/:id" component={ContinueGame} />
             <Route component={NoMatch} />
           </Switch>
       </div>
