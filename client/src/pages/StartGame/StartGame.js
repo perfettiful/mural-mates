@@ -13,7 +13,7 @@ class StartGame extends Component {
     pImg1: "",
 
     pImg2: "",
-    id: "",
+    gameid: "",
     mongoTestImg: "",
     private: false
   };
@@ -25,7 +25,7 @@ class StartGame extends Component {
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
-      .toDataURL("image/jpeg", 0.3);
+      .toDataURL("image/jpeg", 0.9);
 
     //Save canvas to state
     this.setState({
@@ -36,7 +36,7 @@ class StartGame extends Component {
     API.createMural({
       title: this.state.title,
       pImg1: canvasDownload,
-      private: false
+      private:this.state.private
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     })
@@ -46,10 +46,11 @@ class StartGame extends Component {
           title: res.data.title,
           id: res.data._id,
           private: res.data.private
-        })
+        })   
       )
       //Mongo Error handling
       .catch(err => console.log(err));
+   
   };
 
   //Title input form handling
@@ -61,13 +62,12 @@ class StartGame extends Component {
   };
 
   handleCheckbox = () => {
-    if (this.state.private == false) {
+    if (this.state.private === false) {
       this.setState({ private: true });
     
-   } else if (this.state.private == true) {
+   } else {
       this.setState({ private: false });
     } 
-    console.log(this.state.private);
   };
 
   gameUrl = () => "localhost:3000/game/" + this.state.gameId;
@@ -83,7 +83,6 @@ class StartGame extends Component {
             onChange={this.handleInputChange}
           />
           <Check
-          toggle
             onChange={this.handleCheckbox}
             label=" Make my mural private"
           />
@@ -100,6 +99,7 @@ class StartGame extends Component {
         <p>IMG B Image and Title Loaded: {this.state.title}</p>
         <img src={this.state.pImg2} />
         <p>mongodblink.com/{this.state.id}</p>
+    
       </div>
     );
   }
