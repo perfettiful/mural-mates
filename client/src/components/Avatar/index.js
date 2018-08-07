@@ -1,2 +1,2 @@
-export {default} from "./Check";
+export {default} from "./Avatar";
 
