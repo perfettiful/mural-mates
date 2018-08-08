@@ -13,7 +13,7 @@ class StartGame extends Component {
     pImg1: "",
 
     pImg2: "",
-    gameid: "",
+    gameId: "",
     mongoTestImg: "",
     private: false
   };
@@ -42,7 +42,7 @@ class StartGame extends Component {
     })
       .then(res =>
         this.setState({
-          pImg2: res.data.pImg1,
+          pImg1: res.data.pImg1,
           title: res.data.title,
           id: res.data._id,
           private: res.data.private
@@ -69,8 +69,6 @@ class StartGame extends Component {
       this.setState({ private: false });
     } 
   };
-
-  gameUrl = () => "localhost:3000/game/" + this.state.gameId;
 
   render() {
     return (

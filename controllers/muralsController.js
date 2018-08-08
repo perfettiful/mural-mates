@@ -43,7 +43,7 @@ module.exports = {
 // This is to make sure player2's image and user info are added to the game
   update: function(req, res) {
     db.Mural
-      .findOneAndUpdate({ _id: req.params.uniqueid }, req.body)
+      .findOneAndUpdate({ _id: req.params.uniqueid }, { $set: req.body})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
