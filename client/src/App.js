@@ -7,35 +7,9 @@ import Game from "./pages/Game";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
-// App.js
-import Auth from './Auth/Auth.js';
-
-const auth = new Auth();
-
 class App extends Component {
-  componentDidMount(){
-    
-    // if (!auth.isAuthenticated()){
-      
-      //   auth.login();
-      // } 
-    }
-    
-    goTo(route) {
-      this.props.history.replace(`/${route}`)
-  }
-  
-  login() {
-    this.props.auth.login();
-  }
-  
-  logout() {
-    this.props.auth.logout();
-  }
   
   render() {
-    const isAuthenticated = auth.isAuthenticated;
-    
     return (
       <div>
       <Navbar.Header>
