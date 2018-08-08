@@ -3,19 +3,24 @@ import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
 import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
-import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
+import {
+  Container,
+  Image,
+  Header,
+  Icon,
+  Grid,
+  Message
+} from "semantic-ui-react";
 import StitchPic from "../../components/StitchPic";
-
-
 
 class ContinueGame extends Component {
   state = {
-
     //Player 1 State/Submission Data
+    gameId:"",
     title: "",
     pImg1: "",
     pImg2: ""
-   };
+  };
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
@@ -23,20 +28,23 @@ class ContinueGame extends Component {
     API.getMural(this.props.match.params.id)
       .then(res => {
         this.setState({
-          pImg1: res.data.pImg1, title: res.data.title, gameId: res.data.uniqueid
-        })
-        console.log(this.state)
+          pImg1: res.data.pImg1,
+          pImg2: res.data.pImg2,
+          title: res.data.title,
+          gameId:this.props.match.params.id
+        });
+        console.log(this.state);
       })
       .catch(err => console.log(err));
-
   }
-
 
   handleMuralSubmit = event => {
     event.preventDefault();
 
     //Get current canvas
-    let canvasDownload = document.getElementById("canvas").toDataURL("image/jpeg", .3);
+    let canvasDownload = document
+      .getElementById("canvas")
+      .toDataURL("image/jpeg", 0.9);
 
     //Save canvas to state
     this.setState({
@@ -44,54 +52,49 @@ class ContinueGame extends Component {
     });
 
     //Send All user 1 info to mongo
-    API.editMural({
-      pImg2: canvasDownload
+    API.editMural(
+      this.state.gameId,
+      canvasDownload
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
-    }).then(res =>
-      this.setState({ pImg2: res.data.pImg1, title: res.data.title, gameId: res.data._id })
-
-    )
-      //Mongo Error handling
-      .catch(err => console.log((err))
+    )      .then(res =>
+        this.setState({
+          pImg1: res.data.pImg1,
+          pImg2: res.data.pImg2,
+          title: res.data.title,
+          id: res.data._id,
+          private: res.data.private
+        })
       )
-    console.log(this.state.gameId);
-
+      //Mongo Error handling
+      .catch(err => console.log(err));
+    console.log(this.state);
   };
-
-  //Title input form handling
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-  //gameUrl=()=>("localhost:3000/game/"+this.state.gameId)
 
   render() {
     return (
       <div>
         <Container>
-        <StitchPic />
+          <Image src={this.state.pImg1} />
           <DrawApp />
-          <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
+          <FormBtn onClick={this.handleMuralSubmit}>
+            Submit Final Drawing
+          </FormBtn>
         </Container>
-      
-        <img src={this.state.pImg1} />
-
-
         {/* Display returned data from mongo submission- this is what user 1 and 2 will see */}
+        <Image src={this.state.pImg1} />
+       <Image src={this.state.pImg2} />
 
         {/* The URL link we will need to display- obviously this will need to get cleaned up */}
-        <button><a href={'localhost:3000/game/' + this.state.gameId}>Game Url</a></button>
+        <button>
+          <a href={"localhost:3000/game/mural/" + this.state.gameId}>
+            Final Mural
+          </a>
+        </button>
 
         {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}
 
-        <img src={this.state.pImg2}/>
-
-
       </div>
-      
     );
   }
 }

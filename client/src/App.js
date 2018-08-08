@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
+import FinalMural from "./pages/FinalMural";
 import ContinueGame from "./pages/ContinueGame";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
@@ -95,8 +96,8 @@ class App extends Component {
               )
             }
             {/* Commented out in the beginning in order to allow us to log in. Once you are logged in, this should be uncommented*/}
-            {/* <h2>Welcome Back, {profile.given_name}</h2>
-            <Image src={profile.picture} alt="profile" avatar/> */}
+            <h2>Welcome Back, {profile.given_name}</h2>
+            <Image src={profile.picture} alt="profile" avatar/>
           </Navbar>
         </Navbar.Header>
         <Switch>
@@ -109,6 +110,7 @@ class App extends Component {
 
           {/* Route for when user joins a game */}
           <Route exact path="/game/:id" component={ContinueGame} />
+          <Route exact path="/game/mural/:id" component={FinalMural} />
           <Route component={NoMatch} />
         </Switch>
       </div>
