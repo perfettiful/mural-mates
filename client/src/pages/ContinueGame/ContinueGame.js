@@ -54,7 +54,7 @@ class ContinueGame extends Component {
     //Send All user 1 info to mongo
     API.editMural(
       this.state.gameId,
-      canvasDownload
+      {pImg2:canvasDownload}
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     )      .then(res =>
@@ -87,9 +87,7 @@ class ContinueGame extends Component {
 
         {/* The URL link we will need to display- obviously this will need to get cleaned up */}
         <button>
-          <a href={"localhost:3000/game/mural/" + this.state.gameId}>
-            Final Mural
-          </a>
+        <Link to={`/game/mural/${this.state.gameId}`}><span>Final Mural Link</span></Link>
         </button>
 
         {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}

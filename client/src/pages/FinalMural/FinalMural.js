@@ -23,7 +23,7 @@ class FinalMural extends Component {
     API.getMural(this.props.match.params.id)
       .then(res => {
         this.setState({
-          pImg1: res.data.pImg1,title: res.data.title, gameId: res.data.uniqueid
+          pImg1: res.data.pImg1,pImg2:res.data.pImg2,title: res.data.title, gameId: res.data.uniqueid
         })
         console.log(this.state)
       })
