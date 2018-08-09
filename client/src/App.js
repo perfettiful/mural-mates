@@ -4,30 +4,49 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
-import FinalMural from "./pages/FinalMural";
-import ContinueGame from "./pages/ContinueGame";
+
+//import Game from "./pages/Game";
+
+
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
-// App.js
-import Auth from './Auth/Auth.js';
+import axios from "axios";
+import {withUser} from "./services/withUser";
 
-const auth = new Auth();
+import {update} from "./services/withUser"
+
+import AdminHomepage from './pages/AdminHomepage';
+import CreateAccountPage from './pages/CreateAccountPage';
+//import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
+import UserList from './pages/UserList'
+import NotFoundPage from './pages/NotFoundPage';
+
 
 class App extends Component {
 
-  componentWillMount() {
+  componentDidMount(){
+    // this is going to double check that the user is still actually logged in
+    // if the app is reloaded. it's possible that we still have a user in sessionStorage
+    // but the user's session cookie expired.
+    axios.get('/api/auth')
+      .then(res => {
+        // if we get here, the user's session is still good. we'll update the user
+        // to make sure we're using the most recent values just in case
+        update(res.data);
+    })
+    .catch(err => {
+      // if we get a 401 response, that means the user is no longer logged in
+      if (err.response.status === 401) {
+        update(null);
+      }
+    });
+}
+    
+    goTo(route) {
+      this.props.history.replace(`/${route}`)
 
-    this.setState({ profile: {} });
-    const { userProfile, getProfile } = this.props.auth;
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        console.log(profile);
-        this.setState({ profile });
-      });
-    } else {
-      this.setState({ profile: userProfile });
-    }
   }
 
   componentDidMount() {
@@ -51,18 +70,14 @@ class App extends Component {
   }
 
   render() {
-    const { profile } = this.state;
 
-    const isAuthenticated = auth.isAuthenticated;
+    const { user } = this.props;
 
     return (
       <div>
-
-        {/* User Profile Object! */}
-        {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-     
-        <Navbar.Header>
-          <Navbar fluid>
+      <Navbar.Header>
+        <Navbar fluid>
+          user={user}
             <Navbar.Brand>
               <a href="/home">Mural Mates</a>
             </Navbar.Brand>
@@ -73,7 +88,7 @@ class App extends Component {
             >
               Home
             </Button>
-            {
+            {/* {
               !isAuthenticated() && (
                 <Button
                   bsStyle="primary"
@@ -93,30 +108,33 @@ class App extends Component {
                 >
                   Log Out
                   </Button>
-              )
-            }
-            {/* Commented out in the beginning in order to allow us to log in. Once you are logged in, this should be uncommented*/}
-            <h2>Welcome Back, {profile.given_name}</h2>
-            <Image src={profile.picture} alt="profile" avatar/>
+
+                )
+              } */}
           </Navbar>
         </Navbar.Header>
-        <Switch>
-          {/* User Homepage that diplays open games, user profile, etc.   */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/" component={Home} />
+            <Router>
+            <Switch>
+            {/* User Homepage that diplays open games, user profile, etc.   */}
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/admin" component={AdminHomepage} />
+            <Route exact path="/admin/users" component={UserList} />
+            <Route exact path="/" component={Home} />
 
-          {/* Route for when user creates a game */}
-          <Route exact path="/game" component={StartGame} id={profile} />
+            {/* Route for when user creates a game */}
+            <Route exact path="/game" component={StartGame} />
+            <Route exact path="/create" component={CreateAccountPage} />
+            <Route component={NotFoundPage} />
 
-          {/* Route for when user joins a game */}
-          <Route exact path="/game/:id" component={ContinueGame} />
-          <Route exact path="/game/mural/:id" component={FinalMural} />
-          <Route component={NoMatch} />
-        </Switch>
+            {/* Route for when user joins a game */}
+            <Route exact path="/game/:id" component={StartGame} />
+            <Route component={NoMatch} />
+          </Switch>
+          </Router>
       </div>
     );
   }
 }
 
 
-export default App;
+export default withUser(App);

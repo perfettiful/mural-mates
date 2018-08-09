@@ -1,3 +1,4 @@
 module.exports = {
-    Mural: require("./mural")
+    Mural: require("./mural"),
+    User: require('./User')
   };

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import App from "./App";
+import App from "./App";
 import {btn} from "semantic-ui-react";
-import { makeMainRoutes } from "./routes";
+import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(makeMainRoutes(), document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
