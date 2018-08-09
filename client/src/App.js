@@ -3,20 +3,22 @@ import { Navbar, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
-import Game from "./pages/Game";
+//import Game from "./pages/Game";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
+import axios from "axios";
+import {withUser} from "./services/withUser";
+
+import {update} from "./services/withUser"
+
 import AdminHomepage from './pages/AdminHomepage';
 import CreateAccountPage from './pages/CreateAccountPage';
-import Homepage from './pages/Homepage';
+//import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
 import UserList from './pages/UserList'
 import NotFoundPage from './pages/NotFoundPage';
-// App.js
-import Auth from './Auth/Auth.js';
 
-const auth = new Auth();
 
 class App extends Component {
   componentDidMount(){
@@ -50,7 +52,6 @@ class App extends Component {
   }
   
   render() {
-    const isAuthenticated = auth.isAuthenticated;
     const { user } = this.props;
 
     return (
@@ -68,7 +69,7 @@ class App extends Component {
               >
               Home
             </Button>
-            {
+            {/* {
               !isAuthenticated() && (
                 <Button
                 bsStyle="primary"
@@ -89,7 +90,7 @@ class App extends Component {
                     Log Out
                   </Button>
                 )
-              }
+              } */}
           </Navbar>
         </Navbar.Header>
             <Switch>
@@ -104,7 +105,7 @@ class App extends Component {
             <Route exact path="/create" component={CreateAccountPage} />
 
             {/* Route for when user joins a game */}
-            <Route exact path="/game/:id" component={Game} />
+            <Route exact path="/game/:id" component={StartGame} />
             <Route component={NoMatch} />
           </Switch>
       </div>
