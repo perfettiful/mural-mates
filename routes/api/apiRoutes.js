@@ -32,7 +32,6 @@ router.route('/auth')
         message: 'Invalid username or password.'
       })
     }
-
     getCurrentUser(req, res);
   })
   // DELETE to /api/auth will log the user out
@@ -51,7 +50,7 @@ router.route('/users')
       .then(user => {
         const { emailAddress, password } = user;
         res.json({
-          emailAddress, passworde
+          emailAddress, password
         });
       })
       .catch(err => {

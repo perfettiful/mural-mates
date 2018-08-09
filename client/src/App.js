@@ -93,6 +93,7 @@ class App extends Component {
               } */}
           </Navbar>
         </Navbar.Header>
+            <Router>
             <Switch>
             {/* User Homepage that diplays open games, user profile, etc.   */}
             <Route exact path="/home" component={Home} />
@@ -103,11 +104,13 @@ class App extends Component {
             {/* Route for when user creates a game */}
             <Route exact path="/game" component={StartGame} />
             <Route exact path="/create" component={CreateAccountPage} />
+            <Route component={NotFoundPage} />
 
             {/* Route for when user joins a game */}
             <Route exact path="/game/:id" component={StartGame} />
             <Route component={NoMatch} />
           </Switch>
+          </Router>
       </div>
     );
   }
