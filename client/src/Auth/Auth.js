@@ -10,7 +10,8 @@ import history from '../history';
       redirectUri: 'http://localhost:3000/callback',
       audience: 'https://mural-mates.auth0.com/userinfo',
       responseType: 'token id_token',
-      scope: 'openid'
+      scope: 'openid profile'
+      
     });
   
     // ...
@@ -19,6 +20,27 @@ import history from '../history';
       this.logout = this.logout.bind(this);
       this.handleAuthentication = this.handleAuthentication.bind(this);
       this.isAuthenticated = this.isAuthenticated.bind(this);
+      this.getProfile = this.getProfile.bind(this);
+    }
+
+    userProfile;
+
+    getAccessToken() {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        throw new Error('No Access Token found');
+      }
+      return accessToken;
+    }
+
+    getProfile(cb) {
+      let accessToken = this.getAccessToken();
+      this.auth0.client.userInfo(accessToken, (err, profile) => {
+        if (profile) {
+          this.userProfile = profile;
+        }
+        cb(err, profile);
+      });
     }
     
     login() {

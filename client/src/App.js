@@ -1,9 +1,13 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Navbar, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Image } from "semantic-ui-react";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
+
 //import Game from "./pages/Game";
+
+
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
@@ -21,6 +25,7 @@ import NotFoundPage from './pages/NotFoundPage';
 
 
 class App extends Component {
+
   componentDidMount(){
     // this is going to double check that the user is still actually logged in
     // if the app is reloaded. it's possible that we still have a user in sessionStorage
@@ -41,17 +46,31 @@ class App extends Component {
     
     goTo(route) {
       this.props.history.replace(`/${route}`)
+
   }
-  
+
+  componentDidMount() {
+
+    // if (!auth.isAuthenticated()){
+
+    //   auth.login();
+    // } 
+  }
+
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
+
   login() {
     this.props.auth.login();
   }
-  
+
   logout() {
     this.props.auth.logout();
   }
-  
+
   render() {
+
     const { user } = this.props;
 
     return (
@@ -66,29 +85,30 @@ class App extends Component {
               bsStyle="primary"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
-              >
+            >
               Home
             </Button>
             {/* {
               !isAuthenticated() && (
                 <Button
-                bsStyle="primary"
-                className="btn-margin"
-                onClick={this.login.bind(this)}
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.login.bind(this)}
                 >
-                    Log In
+                  Log In
                   </Button>
-                )
-              }
+              )
+            }
             {
               isAuthenticated() && (
                 <Button
-                bsStyle="primary"
-                className="btn-margin"
-                onClick={this.logout.bind(this)}
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.logout.bind(this)}
                 >
-                    Log Out
+                  Log Out
                   </Button>
+
                 )
               } */}
           </Navbar>

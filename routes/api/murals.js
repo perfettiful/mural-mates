@@ -18,6 +18,10 @@ router
   .route("/v1/game/:uniqueid")
   .get(muralsController.findById);
 
+  // Get route for final mural that matches with "/api/v1/mural"
+router
+  .route("/v1/game/mural/:uniqueid")
+  .get(muralsController.findById);
   // Post route that matches with "/api/v1"
 router
 .route("/v1/")

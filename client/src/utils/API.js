@@ -17,9 +17,11 @@ export default {
   createMural: function (muralData) {
     return axios.post("/api/v1/", muralData);
   },
-  editMural: function (id) {
-    console.log(id);
-    return axios.post("/api/v1/game/" + id);
+
+  editMural: function(id,muralData) {
+    console.log(id, muralData);
+    return axios.put("/api/v1/gameupdate/" + id, muralData);
+
   },
   logMural: function (muralData) {
     console.log(muralData);
