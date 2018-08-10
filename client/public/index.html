@@ -8,13 +8,36 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/journal/bootstrap.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"/>
+  <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
 
   <title>Mural Mates</title>
 </head>
 
 <body>
-  <div id="root"></div>
+  <noscript>
+    You need to enable JavaScript to run this app.
+    <img id="testImg" href ="" alt = "Where image is sposta be" src="" >
+  </noscript>
+  <script>
+    function downloadCanvas(link, canvasId, filename) {
+      link.href = document.getElementById(canvasId).toDataURL('image/png');
+      var png = link.href;
 
+      var pngText = document.getElementById("png");
+
+      pngText.innerHTML = png;
+
+      console.log("BMP Substring: " + bmp.substring(0, 2000));
+
+      link.download = filename;
+    }
+    setTimeout(() => {document.getElementById('button').addEventListener('click', function () {
+     this.href = document.getElementById("canvas").toDataURL('image/png');
+     console.log(this.href);  
+    }, false)}, 1000);
+  </script>
+  <div id="root"></div>
 </body>
 
 </html>
