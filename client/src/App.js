@@ -21,6 +21,20 @@ class App extends Component {
   componentDidMount() {
     console.log("Called component Did Mount");
     this.populateProfile();
+    console.log("Comp Did Mount",this.props.auth.isAuthenticated());
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //console.log("Called component Did Mount");
+    //this.populateProfile();
+    console.log("Comp Did Update",this.props.auth.isAuthenticated());
+    console.log("Is prevState true or false?",prevState.loggedIn);
+
+    if(this.props.auth.isAuthenticated() && prevState.loggedIn == 
+    false && this.state.loggedIn==false){
+      this.populateProfile();
+    }
+    
   }
 
   populateProfile() {
