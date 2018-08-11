@@ -51,7 +51,6 @@ export const makeMainRoutes = () => {
           <Route exact path="/game/mural/:id" component={FinalMural} />
           <Route component={NoMatch} />
         </Switch>
-
         <Route exact path="/callback" render={(props) => {
           const auth = new Auth(props.history);
           handleAuthentication(auth, props);
