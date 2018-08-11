@@ -10,32 +10,35 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
 // App.js
-import Auth from './Auth/Auth.js';
 
-const auth = new Auth();
 
 class App extends Component {
-
-  componentWillMount() {
-
-    this.setState({ profile: {} });
-    const { userProfile, getProfile } = this.props.auth;
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        console.log(profile);
-        this.setState({ profile });
-      });
-    } else {
-      this.setState({ profile: userProfile });
-    }
-  }
+  state = {
+    profile: {},
+    loggedIn: false
+  };
 
   componentDidMount() {
+    console.log("Called component Did Mount");
+    this.populateProfile();
+  }
 
-    // if (!auth.isAuthenticated()){
-
-    //   auth.login();
-    // } 
+  populateProfile() {
+    let authorized = this.props.auth.isAuthenticated();
+    console.log(authorized);
+    if (authorized) {
+      this.setState({ profile: {}, loggedIn: true });
+      const { userProfile, getProfile } = this.props.auth;
+      if (!userProfile) {
+        getProfile((err, profile) => {
+          console.log(profile);
+          this.setState({ profile });
+        });
+      } else {
+        console.log("i'm in else statement");
+        this.setState({ profile: userProfile });
+      }
+    }
   }
 
   goTo(route) {
@@ -51,16 +54,15 @@ class App extends Component {
   }
 
   render() {
-    const { profile } = this.state;
 
-    const isAuthenticated = auth.isAuthenticated;
+    const isAuthenticated = this.props.auth.isAuthenticated;
 
     return (
       <div>
 
         {/* User Profile Object! */}
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-     
+
         <Navbar.Header>
           <Navbar fluid>
             <Navbar.Brand>
@@ -93,26 +95,17 @@ class App extends Component {
                 >
                   Log Out
                   </Button>
+
               )
+
             }
-            {/* Commented out in the beginning in order to allow us to log in. Once you are logged in, this should be uncommented*/}
-            <h2>Welcome Back, {profile.given_name}</h2>
-            <Image src={profile.picture} alt="profile" avatar/>
+            {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h1>Your Name Could be Here!</h1>}
+            {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h1>Your Image Could be Here!</h1>}
+
           </Navbar>
         </Navbar.Header>
-        <Switch>
-          {/* User Homepage that diplays open games, user profile, etc.   */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/" component={Home} />
 
-          {/* Route for when user creates a game */}
-          <Route exact path="/game" component={StartGame} id={profile} />
 
-          {/* Route for when user joins a game */}
-          <Route exact path="/game/:id" component={ContinueGame} />
-          <Route exact path="/game/mural/:id" component={FinalMural} />
-          <Route component={NoMatch} />
-        </Switch>
       </div>
     );
   }

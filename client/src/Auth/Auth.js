@@ -1,6 +1,4 @@
 import auth0 from 'auth0-js';
-
-import history from '../history';
   
   // ...
   export default class Auth {
@@ -15,7 +13,8 @@ import history from '../history';
     });
   
     // ...
-    constructor() {
+    constructor(history) {
+      this.history = history;
       this.login = this.login.bind(this);
       this.logout = this.logout.bind(this);
       this.handleAuthentication = this.handleAuthentication.bind(this);
@@ -28,7 +27,6 @@ import history from '../history';
     getAccessToken() {
       const accessToken = localStorage.getItem('access_token');
       if (!accessToken) {
-        throw new Error('No Access Token found');
       }
       return accessToken;
     }
@@ -46,13 +44,14 @@ import history from '../history';
     login() {
       this.auth0.authorize();
     }
+
     handleAuthentication() {
       this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
           this.setSession(authResult);
-          history.replace('/');
+          this.history.replace('/');
         } else if (err) {
-          history.replace('/');
+          this.history.replace('/');
           console.log(err);
         }
       });
@@ -65,7 +64,7 @@ import history from '../history';
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', expiresAt);
       // navigate to the home route
-      history.replace('/');
+      this.history.replace('/game');
     }
   
     logout() {
@@ -74,12 +73,13 @@ import history from '../history';
       localStorage.removeItem('id_token');
       localStorage.removeItem('expires_at');
       // navigate to the home route
-      history.replace('/');
+      this.history.replace('/');
     }
   
     isAuthenticated() {
       // Check whether the current time is past the 
       // Access Token's expiry time
+      console.log("isAuthenticated",localStorage.getItem('expires_at'));
       let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
       return new Date().getTime() < expiresAt;
     }
