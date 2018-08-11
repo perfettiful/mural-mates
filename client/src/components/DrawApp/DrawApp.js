@@ -39,15 +39,15 @@ export default class DrawApp extends React.Component {
 
   // What to do if pen is either up or down
   penUp(e) {
-    
+
     let threshold = 5;
     let xLocation = this.state.penCoords.x
     let yLocation = this.state.penCoords.y
     let isMouseUp = e.nativeEvent.type === "mouseup"
-    if(this.state.pen === "down" 
+    if (this.state.pen === "down"
       && (!this.state.ignoreMouse || !isMouseUp)
-      && (Math.abs(xLocation-this.state.drawStart.x) < threshold 
-        && Math.abs(yLocation - this.state.drawStart.y) < threshold)){
+      && (Math.abs(xLocation - this.state.drawStart.x) < threshold
+        && Math.abs(yLocation - this.state.drawStart.y) < threshold)) {
       this.dot(xLocation, yLocation)
     }
     this.setState({
@@ -66,9 +66,10 @@ export default class DrawApp extends React.Component {
   }
 
   penDown(e) {
+    const rect = this.refs.canvas.getBoundingClientRect();
     let coords = {
-      x: e.nativeEvent.offsetX || e.nativeEvent.touches[0].clientX,
-      y: e.nativeEvent.offsetY || e.nativeEvent.touches[0].clientY
+      x: e.nativeEvent.offsetX || e.nativeEvent.touches[0].clientX - rect.left,
+      y: e.nativeEvent.offsetY || e.nativeEvent.touches[0].clientY - rect.top
     }
     this.setState({
       pen: 'down',
@@ -117,14 +118,14 @@ export default class DrawApp extends React.Component {
   }
 
   // Increasing pen size when button is pressed
-  penSizeUp(e) {    
+  penSizeUp(e) {
     this.setState({
       lineWidth: this.state.lineWidth + 5
     })
   }
   // Decreasing pen size when button is pressed
   penSizeDown(e) {
-    this.setState({     
+    this.setState({
       lineWidth: this.state.lineWidth - 5
     })
   }
@@ -133,9 +134,10 @@ export default class DrawApp extends React.Component {
   drawing(e) {
 
     if (this.state.pen === 'down') {
+      const rect = this.refs.canvas.getBoundingClientRect();
       let newCoords = {
-        x: e.nativeEvent.offsetX || e.touches[0].clientX,
-        y: e.nativeEvent.offsetY || e.touches[0].clientY
+        x: e.nativeEvent.offsetX || e.nativeEvent.touches[0].clientX - rect.left,
+        y: e.nativeEvent.offsetY || e.nativeEvent.touches[0].clientY - rect.top
       }
       this.ctx.beginPath()
       this.ctx.lineWidth = this.state.lineWidth
@@ -151,7 +153,7 @@ export default class DrawApp extends React.Component {
 
       // Move to old position
       this.ctx.moveTo(this.state.penCoords.x, this.state.penCoords.y)
-      
+
       // Draw line to new position
       this.ctx.lineTo(newCoords.x, newCoords.y)
       this.ctx.stroke();
