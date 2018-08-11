@@ -23,15 +23,24 @@ export const makeMainRoutes = () => {
   return (
     <Router history={history} component={App}>
       <div>
-        <Route path="/" render={(props) => {
+
+        {/* Toggling exact here causes profile info to auto update after callback */}
+        <Route exact path="/" render={(props) => {
 
           const auth = new Auth(props.history);
           return < App auth={auth} {...props} />
         }} />
-        
+
         <Switch>
           {/* User Homepage that diplays open games, user profile, etc.   */}
-          <Route exact path="/home" component={Home} />
+          {/* <Route exact path="/home" component={Home} /> */}
+
+          <Route exact path="/home" render={(props) => {
+
+            const auth = new Auth(props.history);
+            return < Home auth={auth} {...props} />
+          }} />
+
           <Route exact path="/" component={Home} />
 
           {/* Route for when user creates a game */}

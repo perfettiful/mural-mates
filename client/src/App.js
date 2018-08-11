@@ -18,7 +18,6 @@ class App extends Component {
     loggedIn: false
   };
 
-
   componentDidMount() {
     console.log("Called component Did Mount");
     this.populateProfile();
