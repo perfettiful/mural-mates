@@ -5,12 +5,12 @@ import auth0 from 'auth0-js';
     auth0 = new auth0.WebAuth({
       domain: 'mural-mates.auth0.com',
       clientID: 'G16YKhhHHB2zFSixBS9L0gp9najKLqDH',
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: window.location.href + "callback",
       audience: 'https://mural-mates.auth0.com/userinfo',
       responseType: 'token id_token',
       scope: 'openid profile'
-      
     });
+
   
     // ...
     constructor(history) {
@@ -21,6 +21,7 @@ import auth0 from 'auth0-js';
       this.isAuthenticated = this.isAuthenticated.bind(this);
       this.getProfile = this.getProfile.bind(this);
     }
+
 
     userProfile;
 
@@ -46,6 +47,8 @@ import auth0 from 'auth0-js';
     }
 
     handleAuthentication() {
+      console.log(window.location.href);
+
       this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
           this.setSession(authResult);
@@ -64,7 +67,7 @@ import auth0 from 'auth0-js';
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', expiresAt);
       // navigate to the home route
-      this.history.replace('/game');
+      this.history.replace('/');
     }
   
     logout() {
