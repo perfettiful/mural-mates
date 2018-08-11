@@ -23,11 +23,12 @@ export const makeMainRoutes = () => {
   return (
     <Router history={history} component={App}>
       <div>
-        <Route exact path="/" render={(props) => {
+        <Route path="/" render={(props) => {
 
           const auth = new Auth(props.history);
           return < App auth={auth} {...props} />
         }} />
+        
         <Switch>
           {/* User Homepage that diplays open games, user profile, etc.   */}
           <Route exact path="/home" component={Home} />
