@@ -1,160 +1,200 @@
-import React, {Component} from "react";
+import React from 'react'
 
 const styles = {
-    canvas : {
-        border:'1px solid #333',
-        margin:'20px 0px'
-    },
+  canvas: {
+    border: '2px solid #333',
+  },
 
-    maindiv : {
-        padding:'10px',
-        margin:'auto',
-        width:'800px'
-    },
+  maindiv: {
+    margin: 'auto',
+    padding: '1em',
+    width: '100%'
+  },
 
-    button : {
-        border:'0px',
-        margin:'1px',
-        height:'50px',
-        minWidth:'75px'
-    },
+  button: {
+    border: '0px',
+    margin: '2px',
+    height: '75px',
+    minWidth: '75px'
+  },
 
-    colorSwatches : {        
-        red : {'backgroundColor' : 'red'},    
-        orange : {'backgroundColor' : 'orange'},
-        yellow : {'backgroundColor' : 'yellow'},
-        green : {'backgroundColor' : 'green'},
-        blue : {'backgroundColor' : 'blue'},
-        purple : {'backgroundColor' : 'purple'},
-        black : {'backgroundColor' : 'black'}
-    }
+  colorOptions: {
+    red: { 'backgroundColor': 'red' },
+    orange: { 'backgroundColor': 'orange' },
+    yellow: { 'backgroundColor': 'yellow' },
+    green: { 'backgroundColor': 'green' },
+    blue: { 'backgroundColor': 'blue' },
+    purple: { 'backgroundColor': 'purple' },
+    black: { 'backgroundColor': 'black' }
+  }
 }
 
-//simple draw component made in react
-class DrawApp extends React.Component {
+export default class DrawApp extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
 
+  componentDidMount() {
+    this.reset();
+    this.refs.canvas.addEventListener('touchmove', function (e) { e.preventDefault(); })
+  }
+
+  // What to do if pen is either up or down
+  penUp(e) {
     
-    componentDidMount() {
-        this.reset()
+    let threshold = 5;
+    let xLocation = this.state.penCoords.x
+    let yLocation = this.state.penCoords.y
+    let isMouseUp = e.nativeEvent.type === "mouseup"
+    if(this.state.pen === "down" 
+      && (!this.state.ignoreMouse || !isMouseUp)
+      && (Math.abs(xLocation-this.state.drawStart.x) < threshold 
+        && Math.abs(yLocation - this.state.drawStart.y) < threshold)){
+      this.dot(xLocation, yLocation)
     }
+    this.setState({
+      pen: 'up',
+      ignoreMouse: !isMouseUp
+    })
+  }
 
-    draw(e) { //response to Draw button click 
-        this.setState({
-            mode:'draw'
-        })
+  dot(x, y) {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = '#000000';
+    this.ctx.arc(x, y, 1, 0, Math.PI * 2, true);
+    this.ctx.fill();
+    this.ctx.stroke();
+    this.ctx.closePath();
+  }
+
+  penDown(e) {
+    let coords = {
+      x: e.nativeEvent.offsetX || e.nativeEvent.touches[0].clientX,
+      y: e.nativeEvent.offsetY || e.nativeEvent.touches[0].clientY
     }
+    this.setState({
+      pen: 'down',
+      drawStart: coords,
+      penCoords: coords,
+      ignoreMouse: this.state.ignoreMouse || e.nativeEvent.type === "touchstart"
+    })
+  }
 
-    erase() { //response to Erase button click
-        this.setState({
-            mode:'erase'
-        })
+  // Function used to set pen color
+  setColor(c) {
+    //a color button was clicked
+    this.setState({
+      penColor: c
+    })
+  }
+
+  // Handling buttons being clicked 
+  // Setting mode to draw, when draw button is clicked
+  draw(e) {
+    this.setState({
+      mode: 'draw'
+    })
+  }
+
+  // Setting mode to erase, when erase button is clicked
+  erase() {
+    this.setState({
+      mode: 'erase'
+    })
+  }
+
+  // Reset button to clear canvas back to white and resets states back to originals
+  reset() {
+    this.setState({
+      mode: 'draw',
+      pen: 'up',
+      lineWidth: 5,
+      penColor: 'black'
+    })
+
+    this.ctx = this.refs.canvas.getContext('2d')
+    this.ctx.fillStyle = "white"
+    this.ctx.fillRect(0, 0, 500, 500)
+    this.ctx.lineWidth = 5
+  }
+
+  // Increasing pen size when button is pressed
+  penSizeUp(e) {    
+    this.setState({
+      lineWidth: this.state.lineWidth + 5
+    })
+  }
+  // Decreasing pen size when button is pressed
+  penSizeDown(e) {
+    this.setState({     
+      lineWidth: this.state.lineWidth - 5
+    })
+  }
+
+  // Function to determine what to do while pen is down
+  drawing(e) {
+
+    if (this.state.pen === 'down') {
+      let newCoords = {
+        x: e.nativeEvent.offsetX || e.touches[0].clientX,
+        y: e.nativeEvent.offsetY || e.touches[0].clientY
+      }
+      this.ctx.beginPath()
+      this.ctx.lineWidth = this.state.lineWidth
+      this.ctx.lineCap = 'round';
+
+      if (this.state.mode === 'draw') {
+        this.ctx.strokeStyle = this.state.penColor
+      }
+
+      if (this.state.mode === 'erase') {
+        this.ctx.strokeStyle = '#fff'
+      }
+
+      // Move to old position
+      this.ctx.moveTo(this.state.penCoords.x, this.state.penCoords.y)
+      
+      // Draw line to new position
+      this.ctx.lineTo(newCoords.x, newCoords.y)
+      this.ctx.stroke();
+
+      // Getting new position
+      this.setState({
+        penCoords: newCoords
+      })
     }
+  }
 
-    drawing(e) { //if the pen is down in the canvas, draw/erase
+  render() {
+    return (
+      <div style={styles.maindiv}>
 
-        if(this.state.pen === 'down') {
+        <canvas id='canvas' ref='canvas' width='500px' height='500px' style={styles.canvas}
+          onMouseMove={(e) => this.drawing(e)}
+          onMouseDown={(e) => this.penDown(e)}
+          onMouseUp={(e) => this.penUp(e)}
+          onTouchStart={(e) => this.penDown(e)}
+          onTouchMove={(e) => this.drawing(e)}
+          onTouchEnd={(e) => this.penUp(e)}>
+        </canvas>
 
-            this.ctx.beginPath()
-            this.ctx.lineWidth = this.state.lineWidth
-            this.ctx.lineCap = 'round';
+        <div>
+          <button onClick={(e) => this.draw(e)} style={styles.button}>Draw </button>
+          <button onClick={(e) => this.erase(e)} style={styles.button}>Erase</button>
+          <button onClick={(e) => this.penSizeUp()} style={styles.button}>Pen Size +</button>
+          <button onClick={(e) => this.penSizeDown()} style={styles.button}>Pen Size -</button>
+          <button onClick={() => this.reset()} style={styles.button}>Reset</button>
+        </div>
 
+        <div>
+          <button style={Object.assign({}, styles.colorOptions.red, styles.button)} onClick={() => this.setColor('red')}>Red</button>
+          <button style={Object.assign({}, styles.colorOptions.orange, styles.button)} onClick={() => this.setColor('orange')}>Orange</button>
+          <button style={Object.assign({}, styles.colorOptions.yellow, styles.button)} onClick={() => this.setColor('yellow')}>Yellow</button>
+          <button style={Object.assign({}, styles.colorOptions.green, styles.button)} onClick={() => this.setColor('green')}>Green</button>
+          <button style={Object.assign({}, styles.colorOptions.blue, styles.button)} onClick={() => this.setColor('blue')}>Blue</button>
+          <button style={Object.assign({}, styles.colorOptions.purple, styles.button)} onClick={() => this.setColor('purple')}>Purple</button>
+          <button style={Object.assign({}, styles.colorOptions.black, styles.button)} onClick={() => this.setColor('black')}>Black</button>
+        </div>
 
-            if(this.state.mode === 'draw') {
-                this.ctx.strokeStyle = this.state.penColor
-            }
-
-            if(this.state.mode === 'erase') {
-                this.ctx.strokeStyle = '#ffffff'
-            }
-
-            this.ctx.moveTo(this.state.penCoords[0], this.state.penCoords[1]) //move to old position
-            this.ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY) //draw to new position
-            this.ctx.stroke();
-
-            this.setState({ //save new position 
-                penCoords:[e.nativeEvent.offsetX, e.nativeEvent.offsetY]
-            })
-        }
-    }
-
-    penDown(e) { //mouse is down on the canvas
-        this.setState({
-            pen:'down',
-            penCoords:[e.nativeEvent.offsetX, e.nativeEvent.offsetY]
-        })
-    }
-
-    penUp() { //mouse is up on the canvas
-        this.setState({
-            pen:'up'
-        })
-    }
-
-    penSizeUp(){ //increase pen size button clicked
-        this.setState({
-            lineWidth: this.state.lineWidth += 5
-        })
-    }
-
-    penSizeDown() {//decrease pen size button clicked
-        this.setState({
-            lineWidth: this.state.lineWidth -= 5
-        })
-    }
-
-    setColor(c){ //a color button was clicked
-        this.setState({
-            penColor : c
-        })
-    }
-
-    reset() { //clears it to all white, resets state to original
-        this.setState({
-            mode: 'draw',
-            pen : 'up',
-            lineWidth : 10,
-            penColor : 'black'
-        })
-        this.ctx = this.refs.canvas.getContext('2d')
-        this.ctx.fillStyle="white"
-        this.ctx.fillRect(0,0,400,400)
-        this.ctx.lineWidth = 5
-    }
-
-    render() {
-        return (
-            <div style={styles.maindiv}>
-                <h3>Simple React Drawing Component</h3>
-             
-                <canvas id="canvas" ref="canvas" width="400px" height="400px" style={styles.canvas} 
-                    onMouseMove={(e)=>this.drawing(e)} 
-                    onMouseDown={(e)=>this.penDown(e)} 
-                    onMouseUp={(e)=>this.penUp(e)}>
-                </canvas>
-                <div>
-                    <button onClick={(e)=>this.draw(e)} style={styles.button}>Draw </button>
-                    <button onClick={(e)=>this.erase(e)} style={styles.button}>Erase</button>
-                    <button onClick={(e)=>this.penSizeUp()} style={styles.button}>Pen Size +</button>
-                    <button onClick={(e)=>this.penSizeDown()} style={styles.button}>Pen Size -</button>
-                    <button onClick={()=>this.reset()} style={styles.button}>Reset</button>
-                </div>
-                <div>
-                    <button style={Object.assign({}, styles.colorSwatches.red, styles.button)} onClick={()=>this.setColor('red')}>Red</button>
-                    <button style={Object.assign({}, styles.colorSwatches.orange, styles.button)} onClick={()=>this.setColor('orange')}>Orange</button>
-                    <button style={Object.assign({}, styles.colorSwatches.yellow, styles.button)} onClick={()=>this.setColor('yellow')}>Yellow</button>
-                    <button style={Object.assign({}, styles.colorSwatches.green, styles.button)} onClick={()=>this.setColor('green')}>Green</button>
-                    <button style={Object.assign({}, styles.colorSwatches.blue, styles.button)} onClick={()=>this.setColor('blue')}>Blue</button>
-                    <button style={Object.assign({}, styles.colorSwatches.purple, styles.button)} onClick={()=>this.setColor('purple')}>Purple</button>
-                    <button style={Object.assign({}, styles.colorSwatches.black, styles.button)} onClick={()=>this.setColor('black')}>Black</button>
-                </div>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
-
-
-export default DrawApp;
