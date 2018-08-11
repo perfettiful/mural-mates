@@ -23,7 +23,7 @@ module.exports = {
 // This is for the World Open Games component
   findOpenMurals: function(req,res) {
     db.Mural
-    .find({private: false})
+    .find({private: false, pImg2: null})
     .sort({date: 'desc'})
     .limit(8)
     .then(dbModel => res.json(dbModel))
