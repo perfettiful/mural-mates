@@ -25,7 +25,7 @@ export const makeMainRoutes = () => {
       <div>
 
         {/* Toggling exact here causes profile info to auto update after callback */}
-        <Route exact path="/" render={(props) => {
+        <Route path="/" render={(props) => {
 
           const auth = new Auth(props.history);
           return < App auth={auth} {...props} />
