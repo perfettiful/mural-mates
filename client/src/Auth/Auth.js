@@ -22,7 +22,6 @@ import auth0 from 'auth0-js';
       this.getProfile = this.getProfile.bind(this);
     }
 
-
     userProfile;
 
     getAccessToken() {

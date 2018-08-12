@@ -18,13 +18,51 @@ const handleAuthentication = (auth, nextState, replace) => {
   }
 }
 
+const auth = new Auth();
+
+
 class Routes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: {},
+      loggedIn: false
+    };
+  }
+
+  componentDidMount() {
+    this.populateProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if(auth.isAuthenticated() && prevState.loggedIn == 
+    false && this.state.loggedIn==false){
+      this.populateProfile();
+    }
+  }
+
+  populateProfile() {
+    let authorized = auth.isAuthenticated();
+
+    if (authorized) {
+      this.setState({ profile: {}, loggedIn: true });
+      const { userProfile, getProfile } = auth;
+      if (!userProfile) {
+        getProfile((err, profile) => {
+          this.setState({ profile });
+        });
+      } else {
+        this.setState({ profile: userProfile });
+      }
+    }
+  }
 
   render() {
+
     return (
       <Router history={history} component={App} >
         <div>
-
           {/* Toggling exact here causes profile info to auto update after callback */}
           <Route path="/" render={(props) => {
 
