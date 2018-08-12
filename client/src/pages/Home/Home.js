@@ -58,8 +58,8 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <pre>{JSON.stringify(this.props.profile, null, 2)}</pre>
-        <h1>STATE NAME: {this.state.profile.given_name}</h1>
+        
+        {/* <h1>Home Component Data Flow Test: {this.state.profile.given_name}</h1> */}
         <Container>
           <h2>Welcome Back,</h2>
           <h1>User Homepage</h1>

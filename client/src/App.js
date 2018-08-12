@@ -15,9 +15,9 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    this.populateProfile();
-  }
+  // componentDidMount() {
+  //   this.populateProfile();
+  // }
 
   componentDidUpdate(prevProps, prevState) {
 
@@ -31,13 +31,17 @@ class App extends Component {
     let authorized = this.props.auth.isAuthenticated();
     if (authorized) {
       this.setState({ profile: {}, loggedIn: true });
+
       const { userProfile, getProfile } = this.props.auth;
       if (!userProfile) {
         getProfile((err, profile) => {
           this.setState({ profile });
+          this.props.callbackFromParent(true);
         });
       } else {
         this.setState({ profile: userProfile });
+        this.props.callbackFromParent(true);
+
       }
     }
   }

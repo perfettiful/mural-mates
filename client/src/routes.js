@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import FinalMural from "./pages/FinalMural";
 import ContinueGame from "./pages/ContinueGame";
 import NoMatch from "./pages/NoMatch";
+import { Navbar, Button } from 'react-bootstrap';
+
 
 const handleAuthentication = (auth, nextState, replace) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
@@ -27,8 +29,6 @@ class Routes extends React.Component {
     this.state = {
       profile: {},
       loggedIn: false,
-      test: "blurp",
-      id_token: localStorage.getItem('id_token')
     };
   }
 
@@ -38,7 +38,6 @@ class Routes extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     if (auth.isAuthenticated() && prevState.loggedIn ==
       false && this.state.loggedIn == false) {
       this.populateProfile();
@@ -61,11 +60,9 @@ class Routes extends React.Component {
     }
   }
 
-  //Test if Id Token is Present
-  getIdToken() {
-    if (localStorage.getItem('id_token') !== false && (!this.state.loggedIn)) {
-      this.populateProfile();
-    }
+  //Callback function to force update from App.js when profile is loaded.  This is slightly janky.
+  myCallback = () => {
+    this.forceUpdate();
   }
 
   render() {
@@ -74,12 +71,14 @@ class Routes extends React.Component {
 
 
       <Router history={history} component={App} >
+
         <div>
-        
+
           {/* Toggling exact here causes profile info to auto update after callback */}
           <Route path="/" render={(props) => {
             const auth = new Auth(props.history);
-            return < App auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
+            return < App auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} callbackFromParent={this.myCallback}
+            />
           }} />
 
           <Switch>
@@ -88,29 +87,29 @@ class Routes extends React.Component {
 
             <Route exact path="/home" render={(props) => {
               const auth = new Auth(props.history);
-              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
-            
+
             <Route exact path="/" render={(props) => {
               const auth = new Auth(props.history);
-              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
             <Route exact path="/game" render={(props) => {
               const auth = new Auth(props.history);
-              return < StartGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+              return < StartGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
             {/* Route for when user joins a game */}
             <Route exact path="/game/:id" render={(props) => {
               const auth = new Auth(props.history);
-              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
-             <Route exact path="/game/mural/:id" render={(props) => {
+            <Route exact path="/game/mural/:id" render={(props) => {
               const auth = new Auth(props.history);
-              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
             <Route component={NoMatch} />
