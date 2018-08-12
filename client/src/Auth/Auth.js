@@ -5,7 +5,7 @@ import auth0 from 'auth0-js';
     auth0 = new auth0.WebAuth({
       domain: 'mural-mates.auth0.com',
       clientID: 'G16YKhhHHB2zFSixBS9L0gp9najKLqDH',
-      redirectUri: window.location.href + "callback",
+      redirectUri: this.getCallbackRoute(),
       audience: 'https://mural-mates.auth0.com/userinfo',
       responseType: 'token id_token',
       scope: 'openid profile'
@@ -30,6 +30,10 @@ import auth0 from 'auth0-js';
       if (!accessToken) {
       }
       return accessToken;
+    }
+
+    getCallbackRoute() {
+      window.location.href.includes("localhost") ? "http://localhost:3000/callback":"https://muralmates.herokuapp.com/callback"
     }
 
     getProfile(cb) {
