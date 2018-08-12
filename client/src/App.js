@@ -25,7 +25,6 @@ class App extends Component {
       false && this.state.loggedIn == false) {
       this.populateProfile();
     }
-
   }
 
   populateProfile() {

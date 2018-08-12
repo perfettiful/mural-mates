@@ -91,27 +91,27 @@ class Routes extends React.Component {
               return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
             }} />
 
-            <Route exact path="/" 
-            component={Home} 
-            profile={this.state.profile} 
-            loggedIn={this.state.loggedIn}/>
+            
+            <Route exact path="/" render={(props) => {
+              const auth = new Auth(props.history);
+              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+            }} />
 
-            {/* Route for when user creates a game */}
-            <Route exact path="/game" 
-            component={StartGame} 
-            profile={this.state.profile} 
-            loggedIn={this.state.loggedIn} />
+            <Route exact path="/game" render={(props) => {
+              const auth = new Auth(props.history);
+              return < StartGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+            }} />
 
             {/* Route for when user joins a game */}
-            <Route exact path="/game/:id" 
-            component={ContinueGame} 
-            profile={this.state.profile} 
-            loggedIn={this.state.loggedIn}/>
+            <Route exact path="/game/:id" render={(props) => {
+              const auth = new Auth(props.history);
+              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+            }} />
 
-            <Route exact path="/game/mural/:id" 
-            component={FinalMural}
-            profile={this.state.profile} 
-            loggedIn={this.state.loggedIn}/>
+             <Route exact path="/game/mural/:id" render={(props) => {
+              const auth = new Auth(props.history);
+              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
+            }} />
 
             <Route component={NoMatch} />
           </Switch>
