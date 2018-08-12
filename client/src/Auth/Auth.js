@@ -33,7 +33,7 @@ import Routes from "../routes";
     }
 
     getCallbackRoute() {
-      window.location.href.includes("localhost") ? "http://localhost:3000/callback":"https://muralmates.herokuapp.com/callback"
+      (window.location.href.indexOf("localhost") != -1) ? "http://localhost:3000/callback":"https://muralmates.herokuapp.com/callback"
     }
 
     getProfile(cb) {
