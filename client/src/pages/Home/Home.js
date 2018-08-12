@@ -125,7 +125,7 @@ class Home extends React.Component {
           </List>
 
           <br />
-          <h3>My Open Murals</h3>
+          <h3>My Open Murals- These need to be turned into sharable links/modals</h3>
 
           <List>
             {this.state.userOpenMurals.map(game => (
