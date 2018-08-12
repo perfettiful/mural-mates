@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import Routes from "../Routes";
+import Routes from "../routes";
 
   // ...
   export default class Auth {
