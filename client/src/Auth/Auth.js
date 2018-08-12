@@ -1,5 +1,6 @@
 import auth0 from 'auth0-js';
-  
+import Routes from "../Routes";
+
   // ...
   export default class Auth {
     auth0 = new auth0.WebAuth({
@@ -45,12 +46,12 @@ import auth0 from 'auth0-js';
       });
     }
     
+    
     login() {
       this.auth0.authorize();
     }
 
     handleAuthentication() {
-      console.log(window.location.href);
 
       this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
@@ -58,7 +59,6 @@ import auth0 from 'auth0-js';
           this.history.replace('/');
         } else if (err) {
           this.history.replace('/');
-          console.log(err);
         }
       });
     }
@@ -85,7 +85,6 @@ import auth0 from 'auth0-js';
     isAuthenticated() {
       // Check whether the current time is past the 
       // Access Token's expiry time
-      console.log("isAuthenticated",localStorage.getItem('expires_at'));
       let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
       return new Date().getTime() < expiresAt;
     }
