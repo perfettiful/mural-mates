@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import { Navbar, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Image } from "semantic-ui-react";
-import StartGame from "./pages/StartGame";
-import Home from "./pages/Home";
-import FinalMural from "./pages/FinalMural";
-import ContinueGame from "./pages/ContinueGame";
-import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
 
 // App.js
 

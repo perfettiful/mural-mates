@@ -1,5 +1,4 @@
 // src/routes.js
-
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import App from './App';
@@ -19,44 +18,49 @@ const handleAuthentication = (auth, nextState, replace) => {
   }
 }
 
-export const makeMainRoutes = () => {
-  return (
-    <Router history={history} component={App}>
-      <div>
+class Routes extends React.Component {
 
-        {/* Toggling exact here causes profile info to auto update after callback */}
-        <Route path="/" render={(props) => {
+  render() {
+    return (
+      <Router history={history} component={App} >
+        <div>
 
-          const auth = new Auth(props.history);
-          return < App auth={auth} {...props} />
-        }} />
-
-        <Switch>
-          {/* User Homepage that diplays open games, user profile, etc.   */}
-          {/* <Route exact path="/home" component={Home} /> */}
-
-          <Route exact path="/home" render={(props) => {
+          {/* Toggling exact here causes profile info to auto update after callback */}
+          <Route path="/" render={(props) => {
 
             const auth = new Auth(props.history);
-            return < Home auth={auth} {...props} />
+            return < App auth={auth} {...props} />
           }} />
 
-          <Route exact path="/" component={Home} />
+          <Switch>
+            {/* User Homepage that diplays open games, user profile, etc.   */}
+            {/* <Route exact path="/home" component={Home} /> */}
 
-          {/* Route for when user creates a game */}
-          <Route exact path="/game" component={StartGame} />
+            <Route exact path="/home" render={(props) => {
 
-          {/* Route for when user joins a game */}
-          <Route exact path="/game/:id" component={ContinueGame} />
-          <Route exact path="/game/mural/:id" component={FinalMural} />
-          <Route component={NoMatch} />
-        </Switch>
-        <Route exact path="/callback" render={(props) => {
-          const auth = new Auth(props.history);
-          handleAuthentication(auth, props);
-          return <Callback {...props} />
-        }} />
-      </div>
-    </Router>
-  );
+              const auth = new Auth(props.history);
+              return < Home auth={auth} {...props} />
+            }} />
+
+            <Route exact path="/" component={Home} />
+
+            {/* Route for when user creates a game */}
+            <Route exact path="/game" component={StartGame} />
+
+            {/* Route for when user joins a game */}
+            <Route exact path="/game/:id" component={ContinueGame} />
+            <Route exact path="/game/mural/:id" component={FinalMural} />
+            <Route component={NoMatch} />
+          </Switch>
+          <Route exact path="/callback" render={(props) => {
+            const auth = new Auth(props.history);
+            handleAuthentication(auth, props);
+            return <Callback {...props} />
+          }} />
+        </div>
+      </Router>
+    );
+  }
 }
+
+export default Routes;
