@@ -26,7 +26,6 @@ export default {
   },
 
   findOpenMurals:function(){
-    console.log("I'm in api.js");
     return axios.get("/api/v1/openmurals");
   }
 };
