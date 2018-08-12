@@ -14,7 +14,8 @@ class StartGame extends React.Component {
       title: "",
       pImg1: "",
       gameId: "",
-      private: false
+      private: false,
+      successfulSubmission:false
     };
   }
 
@@ -50,17 +51,15 @@ class StartGame extends React.Component {
       title: this.state.title,
       pImg1: canvasDownload,
       playerId1: this.props.profile.sub,
-      playerName1:  this.props.profile.given_name,
+      playerName1: this.props.profile.given_name,
       playerPhoto1: this.props.profile.picture,
       private: this.state.private
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     })
       .then(res =>
         this.setState({
-          pImg1: res.data.pImg1,
-          title: res.data.title,
           id: res.data._id,
-          private: res.data.private
+          successfulSubmission:true
         })
       )
       //Mongo Error handling
@@ -92,8 +91,13 @@ class StartGame extends React.Component {
 
     return (
 
+
+
       <div>
-        <h1>StartGame Component Data Flow Test: {profile.given_name}</h1>
+        {this.state.successfulSubmission ? <button><Link to={`/game/${this.state.id}`}>
+          {" "}
+          <h3> Image Submission Sucessful!  Click here to send to a friend! </h3>
+        </Link></button> : <h1></h1>}
 
         <Container>
           <Input
@@ -111,15 +115,7 @@ class StartGame extends React.Component {
           <DrawApp />
           <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
         </Container>
-        <p>IMG A:</p>
-        <img src={this.state.pImg1} />
-        <Link to={`/game/${this.state.id}`}>
-          {" "}
-          <p> Link to the game </p>
-        </Link>
-        <p>IMG B Image and Title Loaded: {this.state.title}</p>
-        <img src={this.state.pImg2} />
-        <p>mongodblink.com/{this.state.id}</p>
+
 
       </div>
     );
