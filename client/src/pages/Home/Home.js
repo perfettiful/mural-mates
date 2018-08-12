@@ -26,20 +26,15 @@ class Home extends React.Component {
   }
   
   checkAndUpdateState (props) {
-    this.setState({ profile: props.profile });
+    this.setState({ profile: props.profile, loggedIn:props.loggedIn });
+  
   }
 
 
   componentDidMount() {
-    console.log("DERP",this.props.profile.given_name);
     this.loadOpenWorldGames();
   };
 
-
-  //API request to get load games that were started by the user and are still open
-  loadOpenUserGames = () => {
-
-  };
 
   //API request to get load open world games
   loadOpenWorldGames = () => {
@@ -49,19 +44,19 @@ class Home extends React.Component {
         this.setState({
           openMurals: res.data
         })
-        console.log(this.state)
       })
       .catch(err => console.log(err));
   };
 
 
   render() {
+    const { profile } = this.props;
+
     return (
       <div>
         
-        {/* <h1>Home Component Data Flow Test: {this.state.profile.given_name}</h1> */}
+        <h1>Home Component Data Flow Test: {profile.given_name}</h1>
         <Container>
-          <h2>Welcome Back,</h2>
           <h1>User Homepage</h1>
           <br />
           <br />

@@ -15,16 +15,12 @@ class App extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.populateProfile();
-  // }
-
   componentDidUpdate(prevProps, prevState) {
 
     if (this.props.auth.isAuthenticated() && prevState.loggedIn ==
       false && this.state.loggedIn == false) {
       this.populateProfile();
-    }
+    } 
   }
 
   populateProfile() {
@@ -41,9 +37,8 @@ class App extends Component {
       } else {
         this.setState({ profile: userProfile });
         this.props.callbackFromParent(true);
-
       }
-    }
+    } 
   }
 
   goTo(route) {
@@ -57,6 +52,7 @@ class App extends Component {
   logout() {
     this.props.auth.logout();
     this.setState({loggedIn:false});
+    this.props.callbackFromParent(false);
   }
 
   render() {
