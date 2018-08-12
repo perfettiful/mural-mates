@@ -58,11 +58,20 @@ class Routes extends React.Component {
         this.setState({ profile: userProfile });
       }
     }
+    else {
+      this.setState({ profile: {}, loggedIn: false });
+    }
   }
 
-  //Callback function to force update from App.js when profile is loaded.  This is slightly janky.
-  myCallback = () => {
-    this.forceUpdate();
+  //Callback function to force update from App.js when profile is loaded/logged out from the nav bar.  This is slightly janky.
+  myCallback = (boolean) => {
+    if (boolean === true) {
+      console.log("cb true");
+      this.forceUpdate();
+    } else {
+      console.log("cb false");
+      this.setState({ profile: {}, loggedIn: false });
+    }
   }
 
   render() {
