@@ -11,7 +11,7 @@ const muralSchema = new Schema({
   playerName1:{ type: String, },
   playerPhoto1:{ type: String, },
   playerName2: { type: String },
-  playerId2: { type: String },
+  playerId2: { type: String, require: true },
   playerPhoto2: { type: String },
   date: { type: Date, default: Date.now },
   private: { type: Boolean }
