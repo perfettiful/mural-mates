@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
 import API from "../../utils/API";
+import { Image } from "semantic-ui-react";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
 class Home extends React.Component {
@@ -17,17 +18,17 @@ class Home extends React.Component {
   }
 
 
-  componentWillMount () {
+  componentWillMount() {
     this.checkAndUpdateState(this.props);
   }
-  
-  componentWillReceiveProps (nextProps) {
+
+  componentWillReceiveProps(nextProps) {
     this.checkAndUpdateState(nextProps);
   }
-  
-  checkAndUpdateState (props) {
-    this.setState({ profile: props.profile, loggedIn:props.loggedIn });
-  
+
+  checkAndUpdateState(props) {
+    this.setState({ profile: props.profile, loggedIn: props.loggedIn });
+
   }
 
 
@@ -54,7 +55,10 @@ class Home extends React.Component {
 
     return (
       <div>
-        
+
+        {/* TESTING STUFF:
+        <pre>{JSON.stringify(profile, null, 2)}</pre> */}
+
         <h1>Home Component Data Flow Test: {profile.given_name}</h1>
         <Container>
           <h1>User Homepage</h1>
@@ -74,11 +78,20 @@ class Home extends React.Component {
                   <strong>
                     Img:   <img src={game.pImg1} />
                     Title : {game.title}
+                    Created By : {game.playerName1}
+                    <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+
+                
                   </strong>
                 </Link>
               </ListItem>
             ))}
           </List>
+
+          <br />
+          <h3>My Open Murals</h3>
+
+
         </Container>
       </div>
     );

@@ -6,17 +6,31 @@ import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
-class StartGame extends Component {
-  state = {
-    //Player 1 State/Submission Data
-    title: "",
-    pImg1: "",
+class StartGame extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: {},
+      title: "",
+      pImg1: "",
+      gameId: "",
+      private: false
+    };
+  }
 
-    pImg2: "",
-    gameId: "",
-    mongoTestImg: "",
-    private: false
-  };
+
+  componentWillMount() {
+    this.checkAndUpdateState(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkAndUpdateState(nextProps);
+  }
+
+  checkAndUpdateState(props) {
+    this.setState({ profile: props.profile, loggedIn: props.loggedIn });
+  }
+
 
   //Submit button press function
   handleMuralSubmit = event => {
@@ -36,7 +50,10 @@ class StartGame extends Component {
     API.createMural({
       title: this.state.title,
       pImg1: canvasDownload,
-      private:this.state.private
+      playerId1: this.props.profile.sub,
+      playerName1:  this.props.profile.given_name,
+      playerPhoto1: this.props.profile.picture,
+      private: this.state.private
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     })
@@ -46,11 +63,11 @@ class StartGame extends Component {
           title: res.data.title,
           id: res.data._id,
           private: res.data.private
-        })   
+        })
       )
       //Mongo Error handling
       .catch(err => console.log(err));
-   
+
   };
 
   //Title input form handling
@@ -64,15 +81,22 @@ class StartGame extends Component {
   handleCheckbox = () => {
     if (this.state.private === false) {
       this.setState({ private: true });
-    
-   } else {
+
+    } else {
       this.setState({ private: false });
-    } 
+    }
   };
 
   render() {
+
+    // User Profile Object
+    const { profile } = this.props;
+
     return (
+
       <div>
+        <h1>StartGame Component Data Flow Test: {profile.given_name}</h1>
+
         <Container>
           <Input
             placeholder="Mural Title"
@@ -85,7 +109,7 @@ class StartGame extends Component {
             label=" Make my mural private"
             toggle
           />
-          
+
           <DrawApp />
           <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
         </Container>
@@ -98,7 +122,7 @@ class StartGame extends Component {
         <p>IMG B Image and Title Loaded: {this.state.title}</p>
         <img src={this.state.pImg2} />
         <p>mongodblink.com/{this.state.id}</p>
-    
+
       </div>
     );
   }
