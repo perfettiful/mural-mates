@@ -22,7 +22,8 @@ class ContinueGame extends React.Component {
       pImg1: "",
       pImg2: "",
       gameId: "",
-      private: false
+      private: false,
+      successfulSubmission:false
     };
   }
 
@@ -81,11 +82,7 @@ class ContinueGame extends React.Component {
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     ).then(res =>
       this.setState({
-        pImg1: res.data.pImg1,
-        pImg2: res.data.pImg2,
-        title: res.data.title,
-        id: res.data._id,
-        private: res.data.private
+      successfulSubmission:true
       })
     )
       //Mongo Error handling
@@ -114,16 +111,10 @@ class ContinueGame extends React.Component {
             Submit Final Drawing
           </FormBtn>
         </Container>
-        {/* Display returned data from mongo submission- this is what user 1 and 2 will see */}
-        <Image src={this.state.pImg1} />
-        <Image src={this.state.pImg2} />
-
-        {/* The URL link we will need to display- obviously this will need to get cleaned up */}
-        <button>
-          <Link to={`/game/mural/${this.state.gameId}`}><span>Final Mural Link</span></Link>
-        </button>
-
-        {/* Render the sent image from user A on the page- this is the image pulled from the mongo object */}
+    
+        {this.state.successfulSubmission ? <button>
+          <Link to={`/game/mural/${this.state.gameId}`}><span>See the Full Mural!</span></Link>
+        </button>: <h1></h1>}
 
       </div>
     );
