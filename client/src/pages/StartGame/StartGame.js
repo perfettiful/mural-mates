@@ -18,7 +18,6 @@ class StartGame extends React.Component {
     };
   }
 
-
   componentWillMount() {
     this.checkAndUpdateState(this.props);
   }
@@ -54,7 +53,6 @@ class StartGame extends React.Component {
       playerName1:  this.props.profile.given_name,
       playerPhoto1: this.props.profile.picture,
       private: this.state.private
-
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     })
       .then(res =>
