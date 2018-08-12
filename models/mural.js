@@ -6,7 +6,8 @@ const muralSchema = new Schema({
   pImg1: { type: String, },
   pImg2: { type: String },
   mural: { type: String },
-  playerId1: { type: String },
+  //Requires user to be logged in- this probably isn't super secure, but it will do the job
+  playerId1: { type: String, required: true },
   playerName1:{ type: String, },
   playerPhoto1:{ type: String, },
   playerName2: { type: String },
