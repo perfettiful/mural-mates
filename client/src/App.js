@@ -1,56 +1,47 @@
 import React, { Component } from "react";
 import { Navbar, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Image } from "semantic-ui-react";
-import StartGame from "./pages/StartGame";
-import Home from "./pages/Home";
-import FinalMural from "./pages/FinalMural";
-import ContinueGame from "./pages/ContinueGame";
-import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
 
 // App.js
 
 
 class App extends Component {
-  state = {
-    profile: {},
-    loggedIn: false
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    console.log("Called component Did Mount");
-    this.populateProfile();
-    console.log("Comp Did Mount",this.props.auth.isAuthenticated());
+    this.state = {
+      profile: {},
+      loggedIn: false,
+    };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    //console.log("Called component Did Mount");
-    //this.populateProfile();
-    console.log("Comp Did Update",this.props.auth.isAuthenticated());
-    console.log("Is prevState true or false?",prevState.loggedIn);
+  // componentDidMount() {
+  //   this.populateProfile();
+  // }
 
-    if(this.props.auth.isAuthenticated() && prevState.loggedIn == 
-    false && this.state.loggedIn==false){
+  componentDidUpdate(prevProps, prevState) {
+
+    if (this.props.auth.isAuthenticated() && prevState.loggedIn ==
+      false && this.state.loggedIn == false) {
       this.populateProfile();
     }
-    
   }
 
   populateProfile() {
     let authorized = this.props.auth.isAuthenticated();
-    console.log(authorized);
     if (authorized) {
       this.setState({ profile: {}, loggedIn: true });
+
       const { userProfile, getProfile } = this.props.auth;
       if (!userProfile) {
         getProfile((err, profile) => {
-          console.log(profile);
           this.setState({ profile });
+          this.props.callbackFromParent(true);
         });
       } else {
-        console.log("i'm in else statement");
         this.setState({ profile: userProfile });
+        this.props.callbackFromParent(true);
+
       }
     }
   }
@@ -65,6 +56,7 @@ class App extends Component {
 
   logout() {
     this.props.auth.logout();
+    this.setState({loggedIn:false});
   }
 
   render() {
@@ -76,7 +68,6 @@ class App extends Component {
 
         {/* User Profile Object! */}
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-
         <Navbar.Header>
           <Navbar fluid>
             <Navbar.Brand>
@@ -109,9 +100,8 @@ class App extends Component {
                 >
                   Log Out
                   </Button>
-
               )
-
+              
             }
             {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h1>Your Name Could be Here!</h1>}
             {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h1>Your Image Could be Here!</h1>}

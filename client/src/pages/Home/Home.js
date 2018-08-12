@@ -1,23 +1,37 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { FormBtn, Input } from "../../components/Form";
 import { List, ListItem } from "../../components/List";
 import API from "../../utils/API";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
 
-class Home extends Component {
-  state = {
-    //Storage for Open games that were created by user (do not implement until user profiles are finalized)
-    ///userGames=[]
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: {},
+      openMurals: [],
+      //Storage for the murals pulled from the server
+      murals: []
+      ///userGames=[]
+    };
+  }
 
-    // //Storage for Open games that were created by anyone (these are pulled from the server and are non-private, recent games)
-    openMurals: []
 
-    // //Storage for the murals pulled from the server
-    // murals=[]
-  };
+  componentWillMount () {
+    this.checkAndUpdateState(this.props);
+  }
+  
+  componentWillReceiveProps (nextProps) {
+    this.checkAndUpdateState(nextProps);
+  }
+  
+  checkAndUpdateState (props) {
+    this.setState({ profile: props.profile });
+  }
+
 
   componentDidMount() {
+    console.log("DERP",this.props.profile.given_name);
     this.loadOpenWorldGames();
   };
 
@@ -39,12 +53,15 @@ class Home extends Component {
       })
       .catch(err => console.log(err));
   };
-  
+
 
   render() {
     return (
       <div>
+        
+        {/* <h1>Home Component Data Flow Test: {this.state.profile.given_name}</h1> */}
         <Container>
+          <h2>Welcome Back,</h2>
           <h1>User Homepage</h1>
           <br />
           <br />
