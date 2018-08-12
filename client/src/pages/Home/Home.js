@@ -12,11 +12,10 @@ class Home extends React.Component {
       profile: {},
       openMurals: [],
       //Storage for the murals pulled from the server
-      murals: []
+      completedMurals: []
       ///userGames=[]
     };
   }
-
 
   componentWillMount() {
     this.checkAndUpdateState(this.props);
@@ -31,9 +30,9 @@ class Home extends React.Component {
 
   }
 
-
   componentDidMount() {
     this.loadOpenWorldGames();
+    this.loadCompletedMurals();
   };
 
 
@@ -49,6 +48,19 @@ class Home extends React.Component {
       .catch(err => console.log(err));
   };
 
+  //API request to load Completed murals for background carousel
+  loadCompletedMurals = () => {
+    // this.loadOpenGames();
+    API.getMurals()
+      .then(res => {
+        console.log("mural response",res);
+        this.setState({
+          completedMurals: res.data
+        })
+      })
+      .catch(err => console.log(err));
+  };
+
 
   render() {
     const { profile } = this.props;
@@ -59,7 +71,6 @@ class Home extends React.Component {
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
 
-        <h1>Home Component Data Flow Test: {profile.given_name}</h1>
         <Container>
           <h1>User Homepage</h1>
           <br />
@@ -69,7 +80,7 @@ class Home extends React.Component {
           <Link to={`/game/`}> <p>Create Game</p>
           </Link>
 
-          <h3>Open World Games</h3>
+          <h3>Join a Mural!</h3>
 
           <List>
             {this.state.openMurals.map(game => (
@@ -81,7 +92,7 @@ class Home extends React.Component {
                     Created By : {game.playerName1}
                     <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
 
-                
+
                   </strong>
                 </Link>
               </ListItem>
@@ -91,6 +102,18 @@ class Home extends React.Component {
           <br />
           <h3>My Open Murals</h3>
 
+          <h3>TBD</h3>
+
+          {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
+          <h3>Completed Murals</h3>
+          <List>
+            {this.state.completedMurals.map(game => (
+              <ListItem key={game._id}>
+                    <img src={game.pImg1} />
+                    <img src={game.pImg2} />
+              </ListItem>
+            ))}
+          </List>
 
         </Container>
       </div>

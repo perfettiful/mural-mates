@@ -36,4 +36,10 @@ router
 .route("/v1/openmurals")
 .get(muralsController.findOpenMurals);
 
+//Get route for all murals
+router
+.route("/v1/murals/")
+.get(muralsController.findCompletedMurals);
+
+
 module.exports = router;

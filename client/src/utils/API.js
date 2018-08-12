@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // Gets all murals
   getMurals: function() {
-    return axios.get("/api/murals/");
+    return axios.get("/api/v1/murals/");
   },
   // Gets the mural with the given id
   getMural: function(id) {
