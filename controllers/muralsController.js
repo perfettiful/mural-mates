@@ -33,9 +33,9 @@ module.exports = {
   // Method to get a incompleted 
   findUserMurals: function (req, res) {
     db.Mural
-      .find({ playerId1: req.params.uniqueid })
-      .sort({ date: 'desc' })
+      .find({ playerId1: req.params.uniqueid, pImg2:null})
       .limit(8)
+      .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
