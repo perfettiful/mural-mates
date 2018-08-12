@@ -1,46 +1,68 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import DrawApp from "../../components/DrawApp";
 import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
-import { Container,Image, Header, Icon, Grid, Message } from "semantic-ui-react";
+import { Container, Image, Header, Icon, Grid, Message } from "semantic-ui-react";
 import StitchPic from "../../components/StitchPic";
 
 
+class FinalMural extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: {},
+      title: "",
+      pImg1: "",
+      pImg2: ""
+    };
+  }
 
-class FinalMural extends Component {
-  state = {
+  componentWillMount() {
+    this.checkAndUpdateState(this.props);
+  }
 
-    //Player 1 State/Submission Data
-    title: "",
-    pImg1: "",
-    pImg2: ""
-   };
+  componentWillReceiveProps(nextProps) {
+    this.checkAndUpdateState(nextProps);
+  }
 
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+  checkAndUpdateState(props) {
+    this.setState({ profile: props.profile, loggedIn: props.loggedIn });
+  }
+
   componentDidMount() {
+    //Get Mural Info
     API.getMural(this.props.match.params.id)
       .then(res => {
+        console.log("FINAL RESPONSE",res);
         this.setState({
-          pImg1: res.data.pImg1,pImg2:res.data.pImg2,title: res.data.title, gameId: res.data.uniqueid
+          title: res.data.title,
+          pImg1: res.data.pImg1,
+          playerName1: res.data.playerName1,
+          playerPhoto1: res.data.playerPhoto1,
+          pImg2: res.data.pImg2,
+          playerPhoto2: res.data.playerPhoto2,
+          playerName2: res.data.playerName2,
+          gameId: res.data.uniqueid
         })
-        console.log(this.state)
       })
       .catch(err => console.log(err));
-
   }
 
   render() {
     return (
       <div>
+        
+        <h1>{this.state.title}:
+        By:<Image src={this.state.playerPhoto1} alt={this.state.playerName1} avatar />{this.state.playerName1} 
+        <br/>
+        and: <Image src={this.state.playerPhoto2} alt={this.state.playerName2} avatar /> {this.state.playerName2}</h1>
         <Container>
-        <Image src={this.state.pImg1}/>
-        <Image src={this.state.pImg2}/>
-       
+    
+          <Image src={this.state.pImg1} />
+          <Image src={this.state.pImg2} />
         </Container>
       </div>
-      
+
     );
   }
 }

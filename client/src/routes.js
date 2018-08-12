@@ -116,12 +116,13 @@ class Routes extends React.Component {
               return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
-            <Route exact path="/game/mural/:id" render={(props) => {
+            <Route path="/game/mural/:id" render={(props) => {
+              console.log("searching for /mural");
               const auth = new Auth(props.history);
-              return < ContinueGame auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
+              return < FinalMural auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
             }} />
 
-            <Route component={NoMatch} />
+            {/* <Route component={NoMatch} /> */}
           </Switch>
           <Route exact path="/callback" render={(props) => {
             const auth = new Auth(props.history);
