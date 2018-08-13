@@ -1,6 +1,14 @@
 body > div,
 body > div > div,
-body > div > div > div.landing-page {
+body > div > div > div.home {
   height: 100%;
 }
-
+div.home{
+/* https://uigradients.com/#Horizon */
+  background: #003973; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #003973, #e5e5be); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #003973, #e5e5be); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+div.murals{
+border:10px;
+}

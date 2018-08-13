@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
 import Counter from "../../components/Counter";
 import JoinMural from "../../components/JoinMural";
+import "./Home.css";
 import API from "../../utils/API";
 import {
   Segment,
@@ -119,24 +120,19 @@ class Home extends React.Component {
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         z`
         {/* //NOTIFICATIONS */}
-        <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.home {
-        height: 100%;
-      }
-    `}</style>
-        <Container>
+  
+       
           <Grid
             textAlign="center"
             style={{ height: "100%" }}
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as="h1" color="teal" textAlign="center">
-                <Image src="../../favicon.ico" /> Welcome to Mural Mates
+              <Segment stacked>
+              <Header as="h1" color="grey" textAlign="center">
+                <Image><i className="fas fa-skull"></i> </Image>
+                 Welcome to Mural Mates
               </Header>
-
               <Segment stacked>
                 <Button className="inverted" color="teal" fluid size="large">
                   <Link to={`/game/`}>Create New Mural</Link>
@@ -150,35 +146,42 @@ class Home extends React.Component {
                 >
                   Join Open Murals
                 </Button>
+                </Segment>
               </Segment>
             </Grid.Column>
           </Grid>
-        </Container>
+    
         <h1>User Homepage</h1>
         <br />
         <br />
         <h3>Create a new Game</h3>
         <Counter seenCounter={this.state.userCompletedMurals} />
-        <Container>
+      
           <h3>Completed Murals By User:</h3>
 
           <List>
             {this.state.userCompletedMurals.map(game => (
+              
               <ListItem key={game._id}>
                 Title: {game.title}
                 Created By : {game.playerName1}{" "}
                 <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
                 Completed By : {game.playerName2}
                 <Image src={game.playerPhoto2} alt={game.playerName2} avatar />
-                <img src={game.pImg1} />
-                <img src={game.pImg2} />
+                 <Grid verticalAlign="middle" columns={3} centered>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Image src={game.pImg1} />
+                    <Image src={game.pImg2} />
+                  </Grid.Column>s
+                </Grid.Row>
+              </Grid> 
                 {/* Method for displaying something different to user if they have not seen this mural */}
                 {game.p1seen ? null : <h3> NEW MURAL </h3>}
               </ListItem>
             ))}
           </List>
-        </Container>
-        <Container>
+      
           <h3>
             My Open Murals- These need to be turned into sharable links/modals
           </h3>
@@ -195,15 +198,15 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List>
-        </Container>
+      
         <br />
         {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
-        <Container>
+   
           <h3>Completed Murals</h3>
           <List>
             {this.state.completedMurals.map(game => (
-              <ListItem key={game._id}>
-                <Grid verticalAlign="middle" columns={1} centered>
+              <ListItem key={game._id} className="murals">
+                <Grid verticalAlign="middle" columns={3} centered>
                   <Grid.Row>
                     <Grid.Column>
                       <Image src={game.pImg1} />
@@ -214,7 +217,7 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List>
-        </Container>
+  
       </div>
     );
   }
