@@ -41,9 +41,14 @@ router
 .route("/v1/murals/")
 .get(muralsController.findCompletedMurals);
 
-//Get route for all murals by USER
+//Get route for all murals
 router
 .route("/v1/murals/:uniqueid")
+.get(muralsController.findCompletedMuralsByUser);
+
+//Get route for all murals by USER
+router
+.route("/v1/openmurals/:uniqueid")
 .get(muralsController.findUserMurals);
 
 

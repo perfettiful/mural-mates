@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
-import LandingPage from "../../pages/LandingPage";
+import Counter from "../../components/Counter";
 import API from "../../utils/API";
 import {
   Segment,
@@ -25,29 +25,24 @@ class Home extends React.Component {
       //Storage for the murals pulled from the server
       completedMurals: [],
       userOpenMurals: [],
-      willCreate: false,
-      willJoin: false
+      userCompletedMurals: []
     };
   }
 
   componentWillMount() {
     this.checkAndUpdateState(this.props);
-    console.log("will mount");
     this.loadOpenMuralsByUser();
   }
 
   componentWillReceiveProps(nextProps) {
     this.checkAndUpdateState(nextProps);
-    console.log("will reeive props");
   }
 
   checkAndUpdateState(props) {
-    console.log("check update props");
     this.setState({ profile: props.profile, loggedIn: props.loggedIn });
   }
 
   componentDidMount() {
-    console.log("comp did mount");
     this.loadOpenWorldGames();
     this.loadCompletedMurals();
     this.loadOpenMuralsByUser();
@@ -57,6 +52,7 @@ class Home extends React.Component {
     // Typical usage (don't forget to compare props):
     if (this.props.profile.sub !== prevProps.profile.sub) {
       this.loadOpenMuralsByUser();
+      this.getCompletedMuralsByUser();
     }
   }
 
@@ -83,7 +79,6 @@ class Home extends React.Component {
       })
       .catch(err => console.log(err));
   };
-
   //API request to load Completed murals for background carousel
   loadOpenMuralsByUser = () => {
     API.findOpenMuralsByUser(this.props.profile.sub)
@@ -98,60 +93,62 @@ class Home extends React.Component {
     this.setState({ willJoin: true });
   };
 
-  handleWillCreate = () => {
-    this.setState({ willCreate: true });
+  //API request to load Completed murals for background carousel
+  getCompletedMuralsByUser = () => {
+    API.findCompletedMuralsByUser(this.props.profile.sub)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          userCompletedMurals: res.data
+        })
+      })
+      .catch(err => console.log(err));
   };
 
+
+
   render() {
-    const { profile } = this.props;
-    const willJoin = this.state.willJoin;
 
     return (
       <div>
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-        <style type="text/css">{`
-      body > div,
-      body > div > div,
-      body > div > div > div.landing-page {
-        height: 100%;
-      }
-    `}</style>
 
-        <Grid
-          textAlign="center"
-          style={{ height: "100%" }}
-          verticalAlign="middle"
-          className="landing-page"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h1" color="teal" textAlign="center">
-              <Image src="../../favicon.ico" /> Welcome to Mural Mates
-            </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Button color="primary" fluid size="large" to={`/game/`}>
-                  Create New Mural
-                </Button>
-                <Divider horizontal>Or</Divider>
-                <Button color="secondary" fluid size="large" onClick="">
-                  Join Open Murals
-                </Button>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
-
-
-        {/* Ternary operator */}
-        <Container>
-          <h1>User Homepage</h1>
+        {/* //NOTIFICATIONS */}
+        
+        <h1>User Homepage</h1>
           <br />
           {/* <br />
           <h3>Create a new Game</h3>
 
-          <h3>Join a Mural!</h3> */}
-          if(willJoin){
+          <Link to={`/game/`}> <p>Create Game</p>
+          </Link>
+          
+        <Counter seenCounter={this.state.userCompletedMurals} />
+
+
+
+        <Container>
+          
+        <h3>Completed Murals By User:</h3>
+        <List>
+          {this.state.userCompletedMurals.map(game => (
+            <ListItem key={game._id}>
+              Title: {game.title}
+              Created By : {game.playerName1} <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+
+              Completed By : {game.playerName2}<Image src={game.playerPhoto2} alt={game.playerName2} avatar />
+              <img src={game.pImg1} />
+              <img src={game.pImg2} />
+              {/* Method for displaying something different to user if they have not seen this mural */}
+              {game.p1seen ? null : <h3> NEW MURAL </h3>}
+            </ListItem>
+          ))}
+        </List>
+
+
+          <h3>Join a Mural!</h3>
+
           <List>
             {this.state.openMurals.map(game => (
               <ListItem key={game._id}>
@@ -192,6 +189,11 @@ class Home extends React.Component {
           </List>
           }else{null}
 
+
+
+
+
+          <br />
           {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
           <h3>Completed Murals</h3>
           <List>

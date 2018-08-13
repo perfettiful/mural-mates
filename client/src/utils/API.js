@@ -5,7 +5,12 @@ export default {
   getMurals: function () {
     return axios.get("/api/v1/murals/");
   },
- 
+
+  //Get COMPLETED murals by USER ID
+  findCompletedMuralsByUser: function (id) {
+    return axios.get("/api/v1/murals/" + id);
+  },
+
   // Gets the mural with the given id
   getMural: function (id) {
     return axios.get("/api/v1/game/" + id);
@@ -29,9 +34,9 @@ export default {
   findOpenMurals: function () {
     return axios.get("/api/v1/openmurals");
   },
-   // Gets all in-progress murals by user
-   findOpenMuralsByUser: function (id) {
-    return axios.get("/api/v1/murals/"+id);
+  // Gets all in-progress murals by user
+  findOpenMuralsByUser: function (id) {
+    return axios.get("/api/v1/openmurals/" + id);
   }
 };
 
