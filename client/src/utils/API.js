@@ -31,7 +31,7 @@ export default {
   },
    // Gets all in-progress murals by user
    findOpenMuralsByUser: function (id) {
-    return axios.get("/api/v1/murals/"+id);
+    return axios.get("/api/v1/openmurals/"+id);
   }
 };
 

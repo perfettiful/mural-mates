@@ -43,7 +43,7 @@ router
 
 //Get route for all murals by USER
 router
-.route("/v1/murals/:uniqueid")
+.route("/v1/openmurals/:uniqueid")
 .get(muralsController.findUserMurals);
 
 
