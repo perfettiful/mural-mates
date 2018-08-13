@@ -73,6 +73,7 @@ class ContinueGame extends React.Component {
     API.editMural(
       this.state.gameId,
       {
+        p1seen:false,
         pImg2: canvasDownload,
         playerId2: this.props.profile.sub,
         playerName2: this.props.profile.given_name,

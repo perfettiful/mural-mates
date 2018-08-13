@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
+import Counter from "../../components/Counter";
 import API from "../../utils/API";
 import { Image } from "semantic-ui-react";
 import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
@@ -13,13 +14,13 @@ class Home extends React.Component {
       openMurals: [],
       //Storage for the murals pulled from the server
       completedMurals: [],
-      userOpenMurals: []
+      userOpenMurals: [],
+      userCompletedMurals: []
     };
   }
 
   componentWillMount() {
     this.checkAndUpdateState(this.props);
-    console.log("will mount");
     this.loadOpenMuralsByUser();
 
 
@@ -27,19 +28,15 @@ class Home extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.checkAndUpdateState(nextProps);
-    console.log("will reeive props");
-
 
   }
 
   checkAndUpdateState(props) {
-    console.log("check update props");
     this.setState({ profile: props.profile, loggedIn: props.loggedIn });
 
   }
 
   componentDidMount() {
-    console.log("comp did mount");
     this.loadOpenWorldGames();
     this.loadCompletedMurals();
     this.loadOpenMuralsByUser();
@@ -49,6 +46,7 @@ class Home extends React.Component {
     // Typical usage (don't forget to compare props):
     if (this.props.profile.sub !== prevProps.profile.sub) {
       this.loadOpenMuralsByUser();
+      this.getCompletedMuralsByUser();
     }
   }
 
@@ -76,7 +74,6 @@ class Home extends React.Component {
       })
       .catch(err => console.log(err));
   };
-
   //API request to load Completed murals for background carousel
   loadOpenMuralsByUser = () => {
     API.findOpenMuralsByUser(this.props.profile.sub)
@@ -88,9 +85,21 @@ class Home extends React.Component {
       .catch(err => console.log(err));
   };
 
+  //API request to load Completed murals for background carousel
+  getCompletedMuralsByUser = () => {
+    API.findCompletedMuralsByUser(this.props.profile.sub)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          userCompletedMurals: res.data
+        })
+      })
+      .catch(err => console.log(err));
+  };
+
+
 
   render() {
-    const { profile } = this.props;
 
     return (
       <div>
@@ -98,14 +107,38 @@ class Home extends React.Component {
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
 
-        <Container>
-          <h1>User Homepage</h1>
+        {/* //NOTIFICATIONS */}
+        
+        <h1>User Homepage</h1>
           <br />
           <br />
           <h3>Create a new Game</h3>
 
           <Link to={`/game/`}> <p>Create Game</p>
           </Link>
+          
+        <Counter seenCounter={this.state.userCompletedMurals} />
+
+
+
+        <Container>
+          
+        <h3>Completed Murals By User:</h3>
+        <List>
+          {this.state.userCompletedMurals.map(game => (
+            <ListItem key={game._id}>
+              Title: {game.title}
+              Created By : {game.playerName1} <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+
+              Completed By : {game.playerName2}<Image src={game.playerPhoto2} alt={game.playerName2} avatar />
+              <img src={game.pImg1} />
+              <img src={game.pImg2} />
+              {/* Method for displaying something different to user if they have not seen this mural */}
+              {game.p1seen ? null : <h3> NEW MURAL </h3>}
+            </ListItem>
+          ))}
+        </List>
+
 
           <h3>Join a Mural!</h3>
 
@@ -139,6 +172,10 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List>
+
+
+
+
 
           <br />
           {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}

@@ -30,11 +30,21 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // Method to get a incompleted 
+  // Get incomplete murals by User
   findUserMurals: function (req, res) {
     db.Mural
-      .find({ playerId1: req.params.uniqueid, pImg2:null})
+      .find({ playerId1: req.params.uniqueid, pImg2: null })
       .limit(8)
+      .sort({ date: 'desc' })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // Get COMPLETED murals by USER
+  findCompletedMuralsByUser: function (req, res) {
+    db.Mural
+      .find({ playerId1: req.params.uniqueid, pImg2: { $ne: null }, })
+      .limit(10)
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
