@@ -41,7 +41,7 @@ module.exports = {
   },
 
   // Get COMPLETED murals by USER
-  findCompletedUserMurals: function (req, res) {
+  findCompletedMuralsByUser: function (req, res) {
     db.Mural
       .find({ playerId1: req.params.uniqueid, pImg2: { $ne: null }, })
       .limit(10)

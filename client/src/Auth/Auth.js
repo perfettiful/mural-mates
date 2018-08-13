@@ -34,10 +34,8 @@ export default class Auth {
   // 
   getCallbackRoute() {
     if (window.location.href.indexOf("localhost") != -1) {
-      console.log("Is localhost");
       return "http://localhost:3000/callback";
     } else {
-      console.log("not localhost");
       return window.location.href + "callback";
     }
   }
