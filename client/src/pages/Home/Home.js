@@ -106,16 +106,39 @@ class Home extends React.Component {
 
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-        <h2>{this.state.profile.sub}</h2>
 
-        <Container>
-          <h1>User Homepage</h1>
+        {/* //NOTIFICATIONS */}
+        
+        <h1>User Homepage</h1>
           <br />
           <br />
           <h3>Create a new Game</h3>
 
           <Link to={`/game/`}> <p>Create Game</p>
           </Link>
+          
+        <Counter seenCounter={this.state.userCompletedMurals} />
+
+
+
+        <Container>
+          
+        <h3>Completed Murals By User:</h3>
+        <List>
+          {this.state.userCompletedMurals.map(game => (
+            <ListItem key={game._id}>
+              Title: {game.title}
+              Created By : {game.playerName1} <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+
+              Completed By : {game.playerName2}<Image src={game.playerPhoto2} alt={game.playerName2} avatar />
+              <img src={game.pImg1} />
+              <img src={game.pImg2} />
+              {/* Method for displaying something different to user if they have not seen this mural */}
+              {game.p1seen ? null : <h3> NEW MURAL </h3>}
+            </ListItem>
+          ))}
+        </List>
+
 
           <h3>Join a Mural!</h3>
 
@@ -150,19 +173,6 @@ class Home extends React.Component {
             ))}
           </List>
 
-
-          <h3>Completed Murals By User</h3>
-          <h3> Notifications: </h3>
-          Counter: <Counter seenCounter={this.state.userCompletedMurals} />
-          
-          <List>
-            {this.state.userCompletedMurals.map(game => (
-              <ListItem key={game._id}>
-                <img src={game.pImg1} />
-                <img src={game.pImg2} />
-              </ListItem>
-            ))}
-          </List>
 
 
 
