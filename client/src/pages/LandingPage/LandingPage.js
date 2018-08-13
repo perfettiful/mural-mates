@@ -35,10 +35,7 @@ const LandingPage = () => (
               Join Open Murals
             </Button>
           </Segment>
-        </Form>
-        <Message>
-          New to us? <a href='#'>Sign Up</a>
-        </Message>
+        </Form> 
       </Grid.Column>
     </Grid>
   </div>

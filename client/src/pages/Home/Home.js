@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
 import Counter from "../../components/Counter";
+import JoinMural from "../../components/JoinMural";
 import API from "../../utils/API";
 import {
   Segment,
@@ -25,7 +26,8 @@ class Home extends React.Component {
       //Storage for the murals pulled from the server
       completedMurals: [],
       userOpenMurals: [],
-      userCompletedMurals: []
+      userCompletedMurals: [],
+      willJoin: false
     };
   }
 
@@ -100,77 +102,83 @@ class Home extends React.Component {
         console.log(res.data);
         this.setState({
           userCompletedMurals: res.data
-        })
+        });
       })
       .catch(err => console.log(err));
   };
 
-
-
   render() {
-
+    const willJoin = this.state.willJoin;
+    let openMurals;
+    if (willJoin) {
+      return <JoinMural />;
+    }
     return (
-      <div>
+      <div className="home">
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-
+        z`
         {/* //NOTIFICATIONS */}
-        
-        <h1>User Homepage</h1>
-          <br />
-          {/* <br />
-          <h3>Create a new Game</h3>
-
-          <Link to={`/game/`}> <p>Create Game</p>
-          </Link>
-          
-        <Counter seenCounter={this.state.userCompletedMurals} />
-
-
-
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.home {
+        height: 100%;
+      }
+    `}</style>
         <Container>
-          
-        <h3>Completed Murals By User:</h3>
-        <List>
-          {this.state.userCompletedMurals.map(game => (
-            <ListItem key={game._id}>
-              Title: {game.title}
-              Created By : {game.playerName1} <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+          <Grid
+            textAlign="center"
+            style={{ height: "100%" }}
+            verticalAlign="middle"
+          >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as="h1" color="teal" textAlign="center">
+                <Image src="../../favicon.ico" /> Welcome to Mural Mates
+              </Header>
 
-              Completed By : {game.playerName2}<Image src={game.playerPhoto2} alt={game.playerName2} avatar />
-              <img src={game.pImg1} />
-              <img src={game.pImg2} />
-              {/* Method for displaying something different to user if they have not seen this mural */}
-              {game.p1seen ? null : <h3> NEW MURAL </h3>}
-            </ListItem>
-          ))}
-        </List>
-
-
-          <h3>Join a Mural!</h3>
+              <Segment stacked>
+                <Button className="inverted" color="teal" fluid size="large">
+                  <Link to={`/game/`}>Create New Mural</Link>
+                </Button>
+                <Divider horizontal>Or</Divider>
+                <Button
+                  color="teal"
+                  fluid
+                  size="large"
+                  onClick={this.handleWillJoin}
+                >
+                  Join Open Murals
+                </Button>
+              </Segment>
+            </Grid.Column>
+          </Grid>
+        </Container>
+        <h1>User Homepage</h1>
+        <br />
+        <br />
+        <h3>Create a new Game</h3>
+        <Counter seenCounter={this.state.userCompletedMurals} />
+        <Container>
+          <h3>Completed Murals By User:</h3>
 
           <List>
-            {this.state.openMurals.map(game => (
+            {this.state.userCompletedMurals.map(game => (
               <ListItem key={game._id}>
-                <Link to={"/game/" + game._id}>
-                  <strong>
-                    Img: <img src={game.pImg1} />
-                    <br />
-                    Title : {game.title}
-                    <br />
-                    Created By: {game.playerName1}
-                    <Image
-                      src={game.playerPhoto1}
-                      alt={game.playerName1}
-                      avatar
-                    />
-                  </strong>
-                </Link>
+                Title: {game.title}
+                Created By : {game.playerName1}{" "}
+                <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
+                Completed By : {game.playerName2}
+                <Image src={game.playerPhoto2} alt={game.playerName2} avatar />
+                <img src={game.pImg1} />
+                <img src={game.pImg2} />
+                {/* Method for displaying something different to user if they have not seen this mural */}
+                {game.p1seen ? null : <h3> NEW MURAL </h3>}
               </ListItem>
             ))}
           </List>
-
-
+        </Container>
+        <Container>
           <h3>
             My Open Murals- These need to be turned into sharable links/modals
           </h3>
@@ -180,21 +188,17 @@ class Home extends React.Component {
               <ListItem key={game._id}>
                 <Link to={"/game/" + game._id}>
                   <strong>
-                    Img: <img src={game.pImg1} />
+                    Img: <Image src={game.pImg1} />
                     Title : {game.title}
                   </strong>
                 </Link>
               </ListItem>
             ))}
           </List>
-          }else{null}
-
-
-
-
-
-          <br />
-          {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
+        </Container>
+        <br />
+        {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
+        <Container>
           <h3>Completed Murals</h3>
           <List>
             {this.state.completedMurals.map(game => (

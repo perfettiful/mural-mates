@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       profile: {},
-      loggedIn: false,
+      loggedIn: false
     };
   }
 
@@ -43,7 +43,8 @@ class App extends Component {
   }
 
   goTo(route) {
-    this.props.history.replace(`/${route}`)
+    this.props.history.replace(`/${route}`);
+    
   }
 
   login() {
@@ -55,7 +56,7 @@ class App extends Component {
     this.setState({loggedIn:false});
     this.props.callbackFromParent(false);
   }
-
+ 
   render() {
 
     const isAuthenticated = this.props.auth.isAuthenticated;
@@ -74,6 +75,7 @@ class App extends Component {
               bsStyle="primary"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
+              href="/home"
             >
               Home
             </Button>
@@ -99,9 +101,9 @@ class App extends Component {
                   </Button>
               )
               
-            }
-            {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h4></h4>}
-            {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h4></h4>}
+            }You
+            {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h4>Your Name Could be Here!</h4>}
+            {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h4>Your Image Could be Here!</h4>}
 
           </Navbar>
         </Navbar.Header>
