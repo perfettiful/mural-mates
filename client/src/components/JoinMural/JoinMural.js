@@ -4,7 +4,7 @@ import { Image } from "semantic-ui-react";
 import Home from "../../pages/Home";
 import { List, ListItem } from "../List";
 import API from "../../utils/API";
-
+import "./JoinMural.css";
 class JoinMural extends Component {
   constructor(props) {
     super(props);

@@ -1,40 +1,70 @@
 import React, { Component } from "react";
-import Slider from "../src/slider";
-
+import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import { List, ListItem } from "../List";
+import {
+  Segment,
+  Button,
+  Divider,
+  Container,
+  Header,
+  Icon,
+  Grid,
+  Message,
+  Form,
+  Image
+} from "semantic-ui-react";
+import API from "../../utils/API";
+import "./Carousel.css";
+const styles = {
+  mural: {
+    border: '10px solid #333',
+  }
+}
 export default class AutoPlay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      completedMurals: []
+    };
+  }
+  componentDidMount() {
+    this.loadCompletedMurals();
+  }
+  loadCompletedMurals = () => {
+    // this.loadOpenGames();
+    API.getMurals()
+      .then(res => {
+        this.setState({
+          completedMurals: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
   render() {
     const settings = {
-      dots: true,
+      dots: false,
       infinite: true,
-      slidesToShow: 3,
+      slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      speed: 4000,
-      autoplaySpeed: 4000,
+      speed: 3000,
+      autoplaySpeed: 2000,
       cssEase: "linear"
     };
     return (
       <div>
-        <h2>Auto Play</h2>
         <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
+          {this.state.completedMurals.map(game => (
+            <Grid>
+              <Grid.Row>
+                <Grid.Column key={game._id} styles={styles.murals}>
+                  <Image src={game.pImg1} />
+                  <Image src={game.pImg2} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          ))}
         </Slider>
       </div>
     );

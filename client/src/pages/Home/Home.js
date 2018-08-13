@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { List, ListItem } from "../../components/List";
 import Counter from "../../components/Counter";
 import JoinMural from "../../components/JoinMural";
+import Carousel from "../../components/Carousel";
 import "./Home.css";
 import API from "../../utils/API";
 import {
@@ -47,7 +48,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.loadOpenWorldGames();
-    this.loadCompletedMurals();
+    // this.loadCompletedMurals();
     this.loadOpenMuralsByUser();
   }
 
@@ -116,13 +117,15 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
+
+      <Carousel className="background-carousel">
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         z`
         {/* //NOTIFICATIONS */}
   
        
-          <Grid
+          <Grid id="mural-selection"
             textAlign="center"
             style={{ height: "100%" }}
             verticalAlign="middle"
@@ -155,13 +158,13 @@ class Home extends React.Component {
         <br />
         <br />
         <h3>Create a new Game</h3>
+
         <Counter seenCounter={this.state.userCompletedMurals} />
       
           <h3>Completed Murals By User:</h3>
 
           <List>
             {this.state.userCompletedMurals.map(game => (
-              
               <ListItem key={game._id}>
                 Title: {game.title}
                 Created By : {game.playerName1}{" "}
@@ -201,8 +204,8 @@ class Home extends React.Component {
       
         <br />
         {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
-   
-          <h3>Completed Murals</h3>
+
+          {/* <h3>Completed Murals</h3>
           <List>
             {this.state.completedMurals.map(game => (
               <ListItem key={game._id} className="murals">
@@ -216,8 +219,8 @@ class Home extends React.Component {
                 </Grid>
               </ListItem>
             ))}
-          </List>
-  
+          </List> */}
+</Carousel>
       </div>
     );
   }
