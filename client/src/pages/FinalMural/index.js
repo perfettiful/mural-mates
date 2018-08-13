@@ -1,1 +1,1 @@
-export { default } from "./FinalMural";
+export  {default}  from "./FinalMural";

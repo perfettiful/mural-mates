@@ -8,6 +8,7 @@ import { Image } from "semantic-ui-react";
 class App extends Component {
   constructor(props) {
     super(props);
+    
 
     this.state = {
       profile: {},
@@ -99,8 +100,8 @@ class App extends Component {
               )
               
             }
-            {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h1>Your Name Could be Here!</h1>}
-            {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h1>Your Image Could be Here!</h1>}
+            {this.state.loggedIn ? <h2>Welcome Back, {this.state.profile.given_name}</h2> : <h4></h4>}
+            {this.state.loggedIn ? <Image src={this.state.profile.picture} alt="profile" avatar /> : <h4></h4>}
 
           </Navbar>
         </Navbar.Header>

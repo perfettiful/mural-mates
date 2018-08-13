@@ -14,7 +14,7 @@ class StartGame extends React.Component {
       title: "",
       pImg1: "",
       gameId: "",
-      private: false,
+      private: true,
       successfulSubmission:false
     };
   }
@@ -39,7 +39,7 @@ class StartGame extends React.Component {
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
-      .toDataURL("image/jpeg", 0.9);
+      .toDataURL("image/jpeg", .9);
 
     //Save canvas to state
     this.setState({
