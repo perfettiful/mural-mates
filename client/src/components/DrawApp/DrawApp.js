@@ -3,21 +3,18 @@ import React from 'react'
 const styles = {
   canvas: {
     border: '2px solid #333',
-    height:'auto',
-    width:'100%'
   },
 
   maindiv: {
     margin: 'auto',
-    padding: '1em',
     width: '100%'
   },
 
   button: {
     border: '0px',
     margin: '2px',
-    height: '75px',
-    minWidth: '75px'
+    height: '30px',
+    minWidth: '30px'
   },
 
   colorOptions: {
@@ -115,7 +112,7 @@ export default class DrawApp extends React.Component {
 
     this.ctx = this.refs.canvas.getContext('2d')
     this.ctx.fillStyle = "white"
-    this.ctx.fillRect(0, 0, 500, 500)
+    this.ctx.fillRect(0, 0, 350, 350)
     this.ctx.lineWidth = 5
   }
 
@@ -171,7 +168,7 @@ export default class DrawApp extends React.Component {
     return (
       <div style={styles.maindiv}>
 
-        <canvas id='canvas' ref='canvas' width='300px' height='300px' style={styles.canvas}
+        <canvas id='canvas' ref='canvas' width='350px' height='350px' style={styles.canvas}
           onMouseMove={(e) => this.drawing(e)}
           onMouseDown={(e) => this.penDown(e)}
           onMouseUp={(e) => this.penUp(e)}
@@ -181,21 +178,21 @@ export default class DrawApp extends React.Component {
         </canvas>
 
         <div>
-          <button onClick={(e) => this.draw(e)} style={styles.button}>Draw </button>
-          <button onClick={(e) => this.erase(e)} style={styles.button}>Erase</button>
-          <button onClick={(e) => this.penSizeUp()} style={styles.button}>Pen Size +</button>
-          <button onClick={(e) => this.penSizeDown()} style={styles.button}>Pen Size -</button>
-          <button onClick={() => this.reset()} style={styles.button}>Reset</button>
+          <button className="tiny ui button" onClick={(e) => this.draw(e)} style={styles.button}>Draw </button>
+          <button className="tiny ui button" onClick={(e) => this.erase(e)} style={styles.button}>Erase</button>
+          <button className="tiny ui button" onClick={(e) => this.penSizeUp()} style={styles.button}>Pen Size +</button>
+          <button className="tiny ui button" onClick={(e) => this.penSizeDown()} style={styles.button}>Pen Size -</button>
+          <button className="tiny ui button" onClick={() => this.reset()} style={styles.button}>Reset</button>
         </div>
 
         <div>
-          <button style={Object.assign({}, styles.colorOptions.red, styles.button)} onClick={() => this.setColor('red')}>Red</button>
-          <button style={Object.assign({}, styles.colorOptions.orange, styles.button)} onClick={() => this.setColor('orange')}>Orange</button>
-          <button style={Object.assign({}, styles.colorOptions.yellow, styles.button)} onClick={() => this.setColor('yellow')}>Yellow</button>
-          <button style={Object.assign({}, styles.colorOptions.green, styles.button)} onClick={() => this.setColor('green')}>Green</button>
-          <button style={Object.assign({}, styles.colorOptions.blue, styles.button)} onClick={() => this.setColor('blue')}>Blue</button>
-          <button style={Object.assign({}, styles.colorOptions.purple, styles.button)} onClick={() => this.setColor('purple')}>Purple</button>
-          <button style={Object.assign({}, styles.colorOptions.black, styles.button)} onClick={() => this.setColor('black')}>Black</button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.red, styles.button)} onClick={() => this.setColor('red')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.orange, styles.button)} onClick={() => this.setColor('orange')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.yellow, styles.button)} onClick={() => this.setColor('yellow')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.green, styles.button)} onClick={() => this.setColor('green')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.blue, styles.button)} onClick={() => this.setColor('blue')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.purple, styles.button)} onClick={() => this.setColor('purple')}></button>
+          <button className="ui avatar image" style={Object.assign({}, styles.colorOptions.black, styles.button)} onClick={() => this.setColor('black')}></button>
         </div>
 
       </div>

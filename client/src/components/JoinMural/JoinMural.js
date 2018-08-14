@@ -5,6 +5,15 @@ import Home from "../../pages/Home";
 import { List, ListItem } from "../List";
 import API from "../../utils/API";
 
+const styles = {
+  test: {
+    width: '300px',
+    height: '100px',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: '0 75%',
+  }
+}
+
 class JoinMural extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +46,10 @@ class JoinMural extends Component {
             <ListItem key={game._id}>
               <Link to={"/game/" + game._id}>
                 <strong>
-                  Img: <img src={game.pImg1} />
+                  <div style={styles.test}>
+                  <img src={game.pImg1} />
+                  </div>
+
                   <br />
                   Title : {game.title}
                   <br />

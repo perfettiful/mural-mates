@@ -22,6 +22,7 @@ router
 router
   .route("/v1/game/mural/:uniqueid")
   .get(muralsController.findById);
+  
   // Post route that matches with "/api/v1"
 router
 .route("/v1/")
