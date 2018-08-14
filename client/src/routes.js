@@ -9,6 +9,7 @@ import history from './history';
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
 import FinalMural from "./pages/FinalMural";
+import LandingPage from "./pages/LandingPage";
 import ContinueGame from "./pages/ContinueGame";
 import NoMatch from "./pages/NoMatch";
 import { Navbar, Button } from 'react-bootstrap';
@@ -28,7 +29,7 @@ class Routes extends React.Component {
     super(props);
     this.state = {
       profile: {},
-      loggedIn: false,
+      loggedIn: false
     };
   }
 
@@ -96,13 +97,15 @@ class Routes extends React.Component {
 
             <Route exact path="/home" render={(props) => {
               const auth = new Auth(props.history);
-              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
+
+              return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn}/>
             }} />
 
 
             <Route exact path="/" render={(props) => {
               const auth = new Auth(props.history);
               return < Home auth={auth} {...props} profile={this.state.profile} loggedIn={this.state.loggedIn} />
+            
             }} />
 
             <Route exact path="/game" render={(props) => {

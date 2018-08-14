@@ -8,18 +8,30 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/journal/bootstrap.min.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"/> -->
+  <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
   <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
 
   <title>Mural Mates</title>
 </head>
-
-<body>
+<style>
+  html #root{ 
+      background: linear-gradient(to bottom, #003973, #e5e5be) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+  }
+</style>
+<body
+>
   <noscript>
     You need to enable JavaScript to run this app.
     <img id="testImg" href ="" alt = "Where image is sposta be" src="" >
   </noscript>
-  <script>
+  <!-- <script>
     function downloadCanvas(link, canvasId, filename) {
       link.href = document.getElementById(canvasId).toDataURL('image/png');
       var png = link.href;
@@ -36,7 +48,7 @@
      this.href = document.getElementById("canvas").toDataURL('image/png');
      console.log(this.href);  
     }, false)}, 1000);
-  </script>
+  </script> -->
   <div id="root"></div>
 </body>
 

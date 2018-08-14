@@ -4,7 +4,7 @@ import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
 import { Container, Image, Header, Icon, Grid, Message } from "semantic-ui-react";
 import StitchPic from "../../components/StitchPic";
-
+import styles from "./FinalMural.css";
 
 class FinalMural extends React.Component {
   constructor(props) {
@@ -50,16 +50,22 @@ class FinalMural extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         
         <h1>{this.state.title}:
         By:<Image src={this.state.playerPhoto1} alt={this.state.playerName1} avatar />{this.state.playerName1} 
         <br/>
         and: <Image src={this.state.playerPhoto2} alt={this.state.playerName2} avatar /> {this.state.playerName2}</h1>
-        <Container>
+        <Container className="finalMural">
     
-          <Image src={this.state.pImg1} />
-          <Image src={this.state.pImg2} />
+        <Grid verticalAlign='middle' columns={1} centered>
+        <Grid.Row>
+          <Grid.Column>
+            <Image src={this.state.pImg1} />
+            <Image src={this.state.pImg2} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
         </Container>
       </div>
 

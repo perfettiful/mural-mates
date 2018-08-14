@@ -1,0 +1,12 @@
+body > div,
+body > div > div,
+body > div > div > div.home {
+  height: 100%;
+}
+
+.murals{
+border:10px;
+}
+.background-carousel{
+  z-index: -99; 
+}
