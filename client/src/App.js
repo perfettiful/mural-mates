@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Menu, Button, Dropdown, Responsive } from "semantic-ui-react";
+import { Image, Menu, Dropdown } from "semantic-ui-react";
 
 // App.js
 
@@ -27,7 +27,6 @@ class App extends Component {
     let authorized = this.props.auth.isAuthenticated();
     if (authorized) {
       this.setState({ profile: {}, loggedIn: true });
-
       const { userProfile, getProfile } = this.props.auth;
       if (!userProfile) {
         getProfile((err, profile) => {

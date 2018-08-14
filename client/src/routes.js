@@ -9,10 +9,8 @@ import history from "./history";
 import StartGame from "./pages/StartGame";
 import Home from "./pages/Home";
 import FinalMural from "./pages/FinalMural";
-import LandingPage from "./pages/LandingPage";
+// import LandingPage from "./pages/LandingPage";
 import ContinueGame from "./pages/ContinueGame";
-import NoMatch from "./pages/NoMatch";
-import { Navbar, Button } from "react-bootstrap";
 
 const handleAuthentication = (auth, nextState, replace) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
@@ -38,8 +36,8 @@ class Routes extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       auth.isAuthenticated() &&
-      prevState.loggedIn == false &&
-      this.state.loggedIn == false
+      prevState.loggedIn === false &&
+      this.state.loggedIn === false
     ) {
       this.populateProfile();
     }
@@ -65,10 +63,8 @@ class Routes extends React.Component {
   //Callback function to force update from App.js when profile is loaded/logged out from the nav bar.  This is slightly janky.
   myCallback = boolean => {
     if (boolean === true) {
-      console.log("cb true");
       this.forceUpdate();
     } else {
-      console.log("cb false");
       this.setState({ profile: {}, loggedIn: false });
     }
   };
@@ -167,7 +163,6 @@ class Routes extends React.Component {
             <Route
               path="/game/mural/:id"
               render={props => {
-                console.log("searching for /mural");
                 const auth = new Auth(props.history);
                 return (
                   <FinalMural

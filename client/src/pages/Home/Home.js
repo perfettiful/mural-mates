@@ -101,7 +101,6 @@ class Home extends React.Component {
   getCompletedMuralsByUser = () => {
     API.findCompletedMuralsByUser(this.props.profile.sub)
       .then(res => {
-        console.log(res.data);
         this.setState({
           userCompletedMurals: res.data
         });
@@ -117,11 +116,6 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
-        {/* TESTING STUFF:
-        <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-
-        {/* //NOTIFICATIONS */}
-
         <Grid
           id="mural-selection"
           textAlign="center"
