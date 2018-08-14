@@ -116,25 +116,25 @@ class Home extends React.Component {
       return <JoinMural />;
     }
     return (
-       <div className="home">
-
-    
+      <div className="home">
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-        z`
+
         {/* //NOTIFICATIONS */}
-  
-      
-          <Grid id="mural-selection"
-            textAlign="center"
-            style={{ height: "100%" }}
-            verticalAlign="middle"
-          >
-            <Grid.Column style={{ maxWidth: 450 }}>
-              <Segment stacked>
+
+        <Grid
+          id="mural-selection"
+          textAlign="center"
+          style={{ height: "100%" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Segment stacked>
               <Header as="h1" color="grey" textAlign="center">
-                <Image><i className="fas fa-skull"></i> </Image>
-                 Welcome to Mural Mates
+                <Image>
+                  <i className="fas fa-skull" />{" "}
+                </Image>
+                Welcome to Mural Mates
               </Header>
               <Segment stacked>
                 <Button className="inverted" color="black" fluid size="large">
@@ -149,12 +149,14 @@ class Home extends React.Component {
                 >
                   Join Open Murals
                 </Button>
-                </Segment>
               </Segment>
-            </Grid.Column>
-          </Grid>
-    
-        <h1>User Homepage</h1>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+        {/* <Button color="olive" fluid size="large">
+          <Link to={`/game/`}>Create New Mural</Link>
+        </Button> */}
+        {/* <h1>User Homepage</h1>
         <br />
         <br />
         <h3>Create a new Game</h3>
@@ -178,9 +180,9 @@ class Home extends React.Component {
                     <Image src={game.pImg2} />
                   </Grid.Column>s
                 </Grid.Row>
-              </Grid> 
-                {/* Method for displaying something different to user if they have not seen this mural */}
-                {game.p1seen ? null : <h3> NEW MURAL </h3>}
+              </Grid>  */}
+        {/* Method for displaying something different to user if they have not seen this mural */}
+        {/* {game.p1seen ? null : <h3> NEW MURAL </h3>}
               </ListItem>
             ))}
           </List>
@@ -202,10 +204,10 @@ class Home extends React.Component {
             ))}
           </List>
       
-        <br />
+        <br /> */}
         {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
 
-          {/* <h3>Completed Murals</h3>
+        {/* <h3>Completed Murals</h3>
           <List>
             {this.state.completedMurals.map(game => (
               <ListItem key={game._id} className="murals">
@@ -220,9 +222,7 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List> */}
-
       </div>
-  
     );
   }
 }

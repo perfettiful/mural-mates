@@ -2,9 +2,9 @@ import React from 'react'
 
 const styles = {
   canvas: {
-    border: '2px solid #333',
-    height:'auto',
-    width:'100%'
+    border: '2px solid #333'
+    // height:'auto',
+    // width:'100%'
   },
 
   maindiv: {

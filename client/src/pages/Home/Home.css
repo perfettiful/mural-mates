@@ -4,9 +4,9 @@ body > div > div > div.home {
   height: 100%;
 }
 
-.murals{
-border:10px;
-}
-.background-carousel{
-  z-index: -99; 
+div.home {
+  background: #1D4350;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #A43931, #1D4350);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #A43931, #1D4350); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
