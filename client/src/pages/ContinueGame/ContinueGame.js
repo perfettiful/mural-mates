@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
 import { FormBtn, Input } from "../../components/Form";
+import ImageSlicer from "../../components/ImageSlicer";
 import API from "../../utils/API";
 import {
   Container,
@@ -23,7 +24,7 @@ class ContinueGame extends React.Component {
       pImg2: "",
       gameId: "",
       private: false,
-      successfulSubmission:false
+      successfulSubmission: false
     };
   }
 
@@ -73,7 +74,7 @@ class ContinueGame extends React.Component {
     API.editMural(
       this.state.gameId,
       {
-        p1seen:false,
+        p1seen: false,
         pImg2: canvasDownload,
         playerId2: this.props.profile.sub,
         playerName2: this.props.profile.given_name,
@@ -83,7 +84,7 @@ class ContinueGame extends React.Component {
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     ).then(res =>
       this.setState({
-      successfulSubmission:true
+        successfulSubmission: true
       })
     )
       //Mongo Error handling
@@ -106,16 +107,16 @@ class ContinueGame extends React.Component {
         {/* Original Title of Mural */}
         <h1><i>{this.state.title}</i></h1>
         <Container>
-          <Image src={this.state.pImg1} />
+          Image Hint:<ImageSlicer image={this.state.pImg1} />
           <DrawApp />
           <FormBtn onClick={this.handleMuralSubmit}>
             Submit Final Drawing
           </FormBtn>
         </Container>
-    
+
         {this.state.successfulSubmission ? <button>
           <Link to={`/game/mural/${this.state.gameId}`}><span>See the Full Mural!</span></Link>
-        </button>: <h1></h1>}
+        </button> : <h1></h1>}
 
       </div>
     );
