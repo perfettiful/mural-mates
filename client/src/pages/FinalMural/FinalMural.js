@@ -33,7 +33,6 @@ class FinalMural extends React.Component {
     //Get Mural Info
     API.getMural(this.props.match.params.id)
       .then(res => {
-        console.log("FINAL RESPONSE",res);
         this.setState({
           title: res.data.title,
           pImg1: res.data.pImg1,

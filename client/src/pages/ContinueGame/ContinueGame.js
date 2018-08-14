@@ -52,7 +52,6 @@ class ContinueGame extends React.Component {
           title: res.data.title,
           gameId: this.props.match.params.id
         });
-        console.log(this.state);
       })
       .catch(err => console.log(err));
   }
@@ -89,7 +88,6 @@ class ContinueGame extends React.Component {
     )
       //Mongo Error handling
       .catch(err => console.log(err));
-    console.log(this.state);
   };
 
   render() {
