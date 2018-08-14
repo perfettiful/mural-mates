@@ -116,15 +116,15 @@ class Home extends React.Component {
       return <JoinMural />;
     }
     return (
-      <div className="home">
+       <div className="home">
 
-      <Carousel className="background-carousel">
+    
         {/* TESTING STUFF:
         <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         z`
         {/* //NOTIFICATIONS */}
   
-       
+      
           <Grid id="mural-selection"
             textAlign="center"
             style={{ height: "100%" }}
@@ -137,7 +137,7 @@ class Home extends React.Component {
                  Welcome to Mural Mates
               </Header>
               <Segment stacked>
-                <Button className="inverted" color="teal" fluid size="large">
+                <Button className="inverted" color="black" fluid size="large">
                   <Link to={`/game/`}>Create New Mural</Link>
                 </Button>
                 <Divider horizontal>Or</Divider>
@@ -220,8 +220,9 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List> */}
-</Carousel>
+
       </div>
+  
     );
   }
 }

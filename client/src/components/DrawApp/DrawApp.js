@@ -3,6 +3,8 @@ import React from 'react'
 const styles = {
   canvas: {
     border: '2px solid #333',
+    height:'auto',
+    width:'100%'
   },
 
   maindiv: {
@@ -169,7 +171,7 @@ export default class DrawApp extends React.Component {
     return (
       <div style={styles.maindiv}>
 
-        <canvas id='canvas' ref='canvas' width='500px' height='500px' style={styles.canvas}
+        <canvas id='canvas' ref='canvas' width='300px' height='300px' style={styles.canvas}
           onMouseMove={(e) => this.drawing(e)}
           onMouseDown={(e) => this.penDown(e)}
           onMouseUp={(e) => this.penUp(e)}

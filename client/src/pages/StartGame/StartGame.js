@@ -4,7 +4,17 @@ import DrawApp from "../../components/DrawApp";
 import Check from "../../components/Check";
 import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
-import { Container, Header, Icon, Grid, Message } from "semantic-ui-react";
+import "./StartGame.css";
+import {
+  Container,
+  Segment,
+  Image,
+  Header,
+  Icon,
+  Grid,
+  Message,
+  Button
+} from "semantic-ui-react";
 
 class StartGame extends React.Component {
   constructor(props) {
@@ -15,7 +25,7 @@ class StartGame extends React.Component {
       pImg1: "",
       gameId: "",
       private: true,
-      successfulSubmission:false
+      successfulSubmission: false
     };
   }
 
@@ -31,7 +41,6 @@ class StartGame extends React.Component {
     this.setState({ profile: props.profile, loggedIn: props.loggedIn });
   }
 
-
   //Submit button press function
   handleMuralSubmit = event => {
     event.preventDefault();
@@ -39,7 +48,7 @@ class StartGame extends React.Component {
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
-      .toDataURL("image/jpeg", .9);
+      .toDataURL("image/jpeg", 0.9);
 
     //Save canvas to state
     this.setState({
@@ -59,12 +68,11 @@ class StartGame extends React.Component {
       .then(res =>
         this.setState({
           id: res.data._id,
-          successfulSubmission:true
+          successfulSubmission: true
         })
       )
       //Mongo Error handling
       .catch(err => console.log(err));
-
   };
 
   //Title input form handling
@@ -78,26 +86,34 @@ class StartGame extends React.Component {
   handleCheckbox = () => {
     if (this.state.private === false) {
       this.setState({ private: true });
-
     } else {
       this.setState({ private: false });
     }
   };
 
   render() {
-
     // User Profile Object
     const { profile } = this.props;
 
     return (
-
-
-
-      <div>
-        {this.state.successfulSubmission ? <button><Link to={`/game/${this.state.id}`}>
-          {" "}
-          <h3> Image Submission Sucessful!  Click here to send to a friend! </h3>
-        </Link></button> : <h1></h1>}
+      <div className="start">
+   
+        {this.state.successfulSubmission ? (
+          <Message>Image Submission Sucessful! Send the link below to a friend to complete the game!
+        
+              <Link to={`/game/${this.state.id}`}>
+                {" "}
+                <h3>
+                  {" "}
+                  https://www.mural-mates/game/${this.state.id}
+                  {" "}
+                </h3>
+              </Link>
+      
+          </Message>
+        ) : (
+          <h1 />
+        )}
 
         <Container>
           <Input
@@ -111,12 +127,19 @@ class StartGame extends React.Component {
             label=" Make my mural private"
             toggle
           />
+          <Grid verticalAlign="" columns={1} centered>
+            <Grid.Row>
+              <Grid.Column>
+                <DrawApp />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
-          <DrawApp />
-          <FormBtn onClick={this.handleMuralSubmit}>Submit Drawing</FormBtn>
+          <Button color="teal" onClick={this.handleMuralSubmit}>
+            Submit Drawing
+          </Button>
         </Container>
-
-
+      
       </div>
     );
   }
