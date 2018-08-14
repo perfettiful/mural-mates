@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Menu, Button } from "semantic-ui-react";
+import { Image, Menu, Dropdown } from "semantic-ui-react";
 
 // App.js
 
@@ -27,7 +27,6 @@ class App extends Component {
     let authorized = this.props.auth.isAuthenticated();
     if (authorized) {
       this.setState({ profile: {}, loggedIn: true });
-
       const { userProfile, getProfile } = this.props.auth;
       if (!userProfile) {
         getProfile((err, profile) => {
@@ -64,8 +63,32 @@ class App extends Component {
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         <Menu size="large">
           <Menu.Item header>
-            <a href="/home">Mural Mates</a>
+            <a href="/home">
+              <i className="fas fa-skull" />
+            </a>
           </Menu.Item>
+          <Dropdown item text="User Profile">
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                {" "}
+                {this.state.loggedIn ? (
+                  <div>
+                    <h3>Welcome Back, {this.state.profile.given_name}</h3>
+                    <Image
+                      src={this.state.profile.picture}
+                      alt="profile"
+                      avatar
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <h4>Your Name Could be Here!</h4>{" "}
+                    <h4>Your Image Could be Here!</h4>
+                  </div>
+                )}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <Menu.Item
             name="home"
             className="btn-margin"
@@ -85,6 +108,7 @@ class App extends Component {
           )}
           {isAuthenticated() && (
             <Menu.Item
+             position="right"
               name="logOut"
               className="btn-margin"
               onClick={this.logout.bind(this)}
@@ -92,22 +116,6 @@ class App extends Component {
               Log Out
             </Menu.Item>
           )}
-          <Menu.Menu position="right">
-            <Menu.Item>
-              {this.state.loggedIn ? (
-                <h3>Welcome Back, {this.state.profile.given_name}</h3>
-              ) : (
-                <h4>Your Name Could be Here!</h4>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-            {this.state.loggedIn ? (
-              <Image src={this.state.profile.picture} alt="profile" avatar />
-            ) : (
-              <h4>Your Image Could be Here!</h4>
-            )}
-            </Menu.Item>
-          </Menu.Menu>
         </Menu>
       </div>
     );

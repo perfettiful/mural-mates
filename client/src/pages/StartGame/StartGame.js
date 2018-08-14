@@ -24,7 +24,7 @@ class StartGame extends React.Component {
       title: "",
       pImg1: "",
       gameId: "",
-      private: true,
+      private: false,
       successfulSubmission: false
     };
   }
@@ -99,20 +99,24 @@ class StartGame extends React.Component {
       <div className="start">
    
         {this.state.successfulSubmission ? (
+          
           <Message>Image Submission Sucessful! Send the link below to a friend to complete the game!
         
-              <Link to={`/game/${this.state.id}`}>
+              <Link to={`/game/`+this.state.id}>
                 {" "}
                 <h3>
-                  {" "}
-                  https://www.mural-mates/game/${this.state.id}
-                  {" "}
+                
                 </h3>
+                {" "}
               </Link>
       
           </Message>
         ) : (
-          <h1 />
+          
+          <Message negative>
+            Please make sure to add a title. 
+          </Message>
+
         )}
 
         <Container>
@@ -127,7 +131,7 @@ class StartGame extends React.Component {
             label=" Make my mural private"
             toggle
           />
-          <Grid verticalAlign="" columns={1} centered>
+          <Grid  columns={1} centered>
             <Grid.Row>
               <Grid.Column>
                 <DrawApp />

@@ -2,7 +2,13 @@ import React from 'react'
 
 const styles = {
   canvas: {
+<<<<<<< HEAD
     border: '2px solid #333',
+=======
+    border: '2px solid #333'
+    // height:'auto',
+    // width:'100%'
+>>>>>>> 18c3dedc32c015fd8454c5c202e3ddb1562449a7
   },
 
   maindiv: {

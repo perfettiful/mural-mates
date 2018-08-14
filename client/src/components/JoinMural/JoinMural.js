@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import Home from "../../pages/Home";
+import ImageSlicer from "../ImageSlicer";
 import { List, ListItem } from "../List";
 import API from "../../utils/API";
 
@@ -46,12 +47,17 @@ class JoinMural extends Component {
             <ListItem key={game._id}>
               <Link to={"/game/" + game._id}>
                 <strong>
+<<<<<<< HEAD
                   <div style={styles.test}>
                   <img src={game.pImg1} />
                   </div>
 
+=======
+                  Image Hint:<ImageSlicer image={game.pImg1} />
+                  {/* Img: <img src={game.pImg1} /> */}
+>>>>>>> 18c3dedc32c015fd8454c5c202e3ddb1562449a7
                   <br />
-                  Title : {game.title}
+                  Mural Title : {game.title}
                   <br />
                   Created By: {game.playerName1}
                   <Image
