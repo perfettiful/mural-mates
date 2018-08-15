@@ -91,6 +91,15 @@ class StartGame extends React.Component {
     }
   };
 
+  handleCopyToClipboard = () => {
+
+    
+      document.querySelector(".visible-input").select();
+      // Copy to the clipboard
+      document.execCommand('copy');
+    
+  };//End handleCopyToClipboard()
+
   render() {
     // User Profile Object
     const { profile } = this.props;
@@ -100,9 +109,14 @@ class StartGame extends React.Component {
    
         {this.state.successfulSubmission ? (
           
-          <Message>Image Submission Sucessful! Send the link below to a friend to complete the game!
+          <Message>{`Image Submission Sucessful! Send the link below to a friend to complete the game! Here's your Link: `}
+
+          <br></br>
+          
+          <input type="text" className="visible-input" value={`${window.location.href}${this.state.id}`} />
+          <button onClick={this.handleCopyToClipboard}>COPY</button>
         
-              <Link to={`/game/`+this.state.id}>
+              <Link to={`/game/${this.state.id}`}>
                 {" "}
                 <h3>
                 
