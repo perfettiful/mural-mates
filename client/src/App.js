@@ -68,19 +68,25 @@ class App extends Component {
               <i className="fas fa-skull" />
             </a>
           </Menu.Item>
-
-          {/* <Dropdown item text="User Info">
-           <MenuTabs />
-          </Dropdown> */}
-          <Menu.Item
-            name="home"
-            className="btn-margin"
-            onClick={this.goTo.bind(this, "home")}
-            href="/home"
-          >
-            Home
+          <Menu.Item>
+          {" "}
+        {this.state.loggedIn ? (
+          <div>
+            <h3>Welcome Back, {this.state.profile.given_name}</h3>
+            <Image src={this.state.profile.picture} alt="profile" avatar />
+          </div>
+        ) : (
+          <div>
+            <h4/> <h4 />
+          </div>
+        )}
+        </Menu.Item>
+        <Menu.Item>
+         
+           <MenuTabs auth={this.props.auth} />
+         
           </Menu.Item>
-          {!isAuthenticated() && (
+          {/* {!isAuthenticated() && (
             <Menu.Item
               name="logIn"
               className="btn-margin"
@@ -98,7 +104,7 @@ class App extends Component {
             >
               Log Out
             </Menu.Item>
-          )}
+          )} */}
         </Menu>
       </div>
     );

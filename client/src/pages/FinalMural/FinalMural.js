@@ -61,13 +61,14 @@ class FinalMural extends React.Component {
             <Grid.Row>
               <Grid.Column>
                 <h3>
-                  {this.state.title}: By:
+                  {this.state.title} By:
+                  <br/>
                   <Image
                     src={this.state.playerPhoto1}
                     alt={this.state.playerName1}
                     avatar
                   />
-                  {this.state.playerName1}{" "} and:{" "}
+                  {this.state.playerName1}{" "} and {" "}
                   <Image
                     src={this.state.playerPhoto2}
                     alt={this.state.playerName2}

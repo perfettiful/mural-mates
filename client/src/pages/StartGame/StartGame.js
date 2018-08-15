@@ -143,7 +143,7 @@ class StartGame extends React.Component {
               <Grid.Column>
                 <Input
                   fluid
-                  label={{ icon: "asterisk", color: "red" }}
+                  label={{ icon: "asterisk" }}
                   labelPosition="left corner"
                   className={shouldMarkError("title") ? "error" : ""}
                   onBlur={this.handleBlur("title")}
