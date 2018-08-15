@@ -6,6 +6,15 @@ import ImageSlicer from "../ImageSlicer";
 import { List, ListItem } from "../List";
 import API from "../../utils/API";
 
+const styles = {
+  test: {
+    width: '300px',
+    height: '100px',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: '0 75%',
+  }
+}
+
 class JoinMural extends Component {
   constructor(props) {
     super(props);
