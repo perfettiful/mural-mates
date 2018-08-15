@@ -1,65 +1,79 @@
 import React, { Component } from "react";
 import { Image, Menu, Dropdown } from "semantic-ui-react";
-import MenuTabs from "./components/MenuTabs/MenuTabs";
-
+import MenuTabs from "./components/MenuTabs";
+import MyOpenMurals from "./components/MyOpenMurals";
+import CompletedMurals from "./components/CompletedMurals";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // App.js
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      profile: {},
-      loggedIn: false
-    };
-  }
+  //   this.state = {
+  //     profile: {},
+  //     loggedIn: false
+  //   };
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.auth.isAuthenticated() &&
-      prevState.loggedIn == false &&
-      this.state.loggedIn == false
-    ) {
-      this.populateProfile();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (
+  //     this.props.auth.isAuthenticated() &&
+  //     prevState.loggedIn == false &&
+  //     this.state.loggedIn == false
+  //   ) {
+  //     this.populateProfile();
+  //   }
+  // }
 
-  populateProfile() {
-    let authorized = this.props.auth.isAuthenticated();
-    if (authorized) {
-      this.setState({ profile: {}, loggedIn: true });
-      const { userProfile, getProfile } = this.props.auth;
-      if (!userProfile) {
-        getProfile((err, profile) => {
-          this.setState({ profile });
-          this.props.callbackFromParent(true);
-        });
-      } else {
-        this.setState({ profile: userProfile });
-        this.props.callbackFromParent(true);
-      }
-    }
-  }
+  // populateProfile() {
+  //   let authorized = this.props.auth.isAuthenticated();
+  //   if (authorized) {
+  //     this.setState({ profile: {}, loggedIn: true });
+  //     const { userProfile, getProfile } = this.props.auth;
+  //     if (!userProfile) {
+  //       getProfile((err, profile) => {
+  //         this.setState({ profile });
+  //         this.props.callbackFromParent(true);
+  //       });
+  //     } else {
+  //       this.setState({ profile: userProfile });
+  //       this.props.callbackFromParent(true);
+  //     }
+  //   }
+  // }
 
-  goTo(route) {
-    this.props.history.replace(`/${route}`);
-  }
+  // goTo(route) {
+  //   this.props.history.replace(`/${route}`);
+  // }
 
-  login() {
-    this.props.auth.login();
-  }
+  // login() {
+  //   this.props.auth.login();
+  // }
 
-  logout() {
-    this.props.auth.logout();
-    this.setState({ loggedIn: false });
-    this.props.callbackFromParent(false);
-  }
+  // logout() {
+  //   this.props.auth.logout();
+  //   this.setState({ loggedIn: false });
+  //   this.props.callbackFromParent(false);
+  // }
 
   render() {
     const isAuthenticated = this.props.auth.isAuthenticated;
 
     return (
       <div>
+        <Router>
+    <div>
+    <MenuTabs auth={this.props.auth} />
+      <Route exact path="/openmurals" component={MyOpenMurals} />
+      <Route exact path="/completedmurals" component={CompletedMurals} />
+      <Route exact path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+    </div>
+  </Router>
+
         {/* User Profile Object! */}
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         <Menu size="large">
