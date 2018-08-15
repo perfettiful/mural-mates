@@ -189,20 +189,20 @@ export default class DrawApp extends React.Component {
 
         <div>
           <button className="ui icon button" onClick={(e) => this.draw(e)} style={styles.button}>
-            <i ariaHidden='true' className='paint brush big icon' />
+            <i aria-hidden='true' className='paint brush big icon' />
           </button>
           <button className="ui icon button" onClick={(e) => this.penSizeUp()} style={styles.button}>
-            <i ariaHidden='true' className='plus square big icon' />
+            <i aria-hidden='true' className='plus square big icon' />
           </button>
           <button className="ui icon button" onClick={(e) => this.penSizeDown()} style={styles.button}>
-            <i ariaHidden='true' className='minus big icon' />
+            <i aria-hidden='true' className='minus big icon' />
           </button>
           <button className="ui icon button" onClick={(e) => this.erase(e)} style={styles.button}>
-            <i ariaHidden='true' className='eraser big icon' />
+            <i aria-hidden='true' className='eraser big icon' />
           </button>
 
           <button className="ui icon button" onClick={() => this.reset()} style={styles.button}>
-            <i ariaHidden='true' className='cut big icon' />
+            <i aria-hidden='true' className='cut big icon' />
           </button>
         </div>
 

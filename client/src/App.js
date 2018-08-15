@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image, Menu, Dropdown } from "semantic-ui-react";
+import MenuTabs from "./components/MenuTabs/MenuTabs";
 
 // App.js
 
@@ -67,28 +68,10 @@ class App extends Component {
               <i className="fas fa-skull" />
             </a>
           </Menu.Item>
-          <Dropdown item text="User Profile">
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                {" "}
-                {this.state.loggedIn ? (
-                  <div>
-                    <h3>Welcome Back, {this.state.profile.given_name}</h3>
-                    <Image
-                      src={this.state.profile.picture}
-                      alt="profile"
-                      avatar
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <h4>Your Name Could be Here!</h4>{" "}
-                    <h4>Your Image Could be Here!</h4>
-                  </div>
-                )}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+
+          {/* <Dropdown item text="User Info">
+           <MenuTabs />
+          </Dropdown> */}
           <Menu.Item
             name="home"
             className="btn-margin"

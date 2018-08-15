@@ -147,10 +147,8 @@ class Home extends React.Component {
             </Segment>
           </Grid.Column>
         </Grid>
-        {/* <Button color="olive" fluid size="large">
-          <Link to={`/game/`}>Create New Mural</Link>
-        </Button> */}
-        {/* <h1>User Homepage</h1>
+      
+        <h1>User Homepage</h1>
         <br />
         <br />
         <h3>Create a new Game</h3>
@@ -174,9 +172,9 @@ class Home extends React.Component {
                     <Image src={game.pImg2} />
                   </Grid.Column>s
                 </Grid.Row>
-              </Grid>  */}
+              </Grid>  
         {/* Method for displaying something different to user if they have not seen this mural */}
-        {/* {game.p1seen ? null : <h3> NEW MURAL </h3>}
+        {game.p1seen ? null : <h3> NEW MURAL </h3>}
               </ListItem>
             ))}
           </List>
@@ -197,25 +195,7 @@ class Home extends React.Component {
               </ListItem>
             ))}
           </List>
-      
-        <br /> */}
-        {/* These murals will actually need to be turned into a setTimer carousel background image -ZK */}
-
-        {/* <h3>Completed Murals</h3>
-          <List>
-            {this.state.completedMurals.map(game => (
-              <ListItem key={game._id} className="murals">
-                <Grid verticalAlign="middle" columns={3} centered>
-                  <Grid.Row>
-                    <Grid.Column>
-                      <Image src={game.pImg1} />
-                      <Image src={game.pImg2} />
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </ListItem>
-            ))}
-          </List> */}
+     
       </div>
     );
   }
