@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
 import Check from "../../components/Check";
-import { FormBtn, Input } from "../../components/Form";
 import API from "../../utils/API";
 import "./StartGame.css";
 import {
@@ -13,8 +12,12 @@ import {
   Icon,
   Grid,
   Message,
-  Button
+  Button,
+  Input,
+  GridColumn,
+  GridRow
 } from "semantic-ui-react";
+import { getCiphers } from "crypto";
 
 class StartGame extends React.Component {
   constructor(props) {
@@ -25,10 +28,18 @@ class StartGame extends React.Component {
       pImg1: "",
       gameId: "",
       private: false,
-      successfulSubmission: false
+      successfulSubmission: false,
+      touched: { title: false }
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMuralSubmit = this.handleMuralSubmit.bind(this);
+  }
+  validateSubmission(title) {
+    //This function validates if the title field is empty
+    return {
+      title: this.state.title.length === 0
     };
   }
-
   componentWillMount() {
     this.checkAndUpdateState(this.props);
   }
@@ -43,8 +54,11 @@ class StartGame extends React.Component {
 
   //Submit button press function
   handleMuralSubmit = event => {
-    event.preventDefault();
-
+    if (!this.canBeSubmitted()) {
+      event.preventDefault();
+      return;
+    }
+    const { email, password } = this.state;
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
@@ -92,72 +106,123 @@ class StartGame extends React.Component {
   };
 
   handleCopyToClipboard = () => {
+    document.querySelector(".visible-input").select();
+    // Copy to the clipboard
+    document.execCommand("copy");
+  }; //End handleCopyToClipboard()
 
-    
-      document.querySelector(".visible-input").select();
-      // Copy to the clipboard
-      document.execCommand('copy');
-    
-  };//End handleCopyToClipboard()
+  handleBlur = field => evt => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true }
+    });
+  };
 
+  canBeSubmitted() {
+    const errors = this.validateSubmission(this.state.title);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
   render() {
     // User Profile Object
     const { profile } = this.props;
+    const shouldMarkError = field => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+      return hasError ? shouldShow : false;
+    };
+    //Handles controlled input validation in title input for murals
+    const errors = this.validateSubmission(this.state.title);
+    //set const equal to errors that may exist
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <div className="start">
-   
-        {this.state.successfulSubmission ? (
-          
-          <Message>{`Image Submission Sucessful! Send the link below to a friend to complete the game! Here's your Link: `}
-
-          <br></br>
-          
-          <input type="text" className="visible-input" value={`${window.location.href}${this.state.id}`} />
-          <button onClick={this.handleCopyToClipboard}>COPY</button>
-        
-              <Link to={`/game/${this.state.id}`}>
-                {" "}
-                <h3>
-                
-                </h3>
-                {" "}
-              </Link>
-      
-          </Message>
-        ) : (
-          null
-          // <Message negative>
-          //   Please make sure to add a title. 
-          // </Message>
-
-        )}
-
         <Container>
-          <Input
-            placeholder="Mural Title"
-            value={this.state.title}
-            name="title"
-            onChange={this.handleInputChange}
-          />
-          <Check
-            onChange={this.handleCheckbox}
-            label=" Make my mural private"
-            toggle
-          />
-          <Grid  columns={1} centered>
+          <Grid columns={1} centered>
             <Grid.Row>
               <Grid.Column>
-                <DrawApp />
+                <Input
+                  fluid
+                  label={{ icon: "asterisk", color: "red" }}
+                  labelPosition="left corner"
+                  className={shouldMarkError("title") ? "error" : ""}
+                  onBlur={this.handleBlur("title")}
+                  type="text"
+                  placeholder="Enter Title To Save Mural"
+                  value={this.state.title}
+                  name="title"
+                  onChange={this.handleInputChange}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <br />
+                <Check
+                  className="toggleCheck"
+                  onChange={this.handleCheckbox}
+                  label=" Make my mural private"
+                  toggle
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <br />
+                <DrawApp fluid />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <br />
+                <Button
+                  fluid
+                  animated
+                  // If errors exist button will be disabled, if errors do not exist button will be enabled
+                  disabled={isDisabled}
+                  color="blue"
+                  onClick={this.handleMuralSubmit}
+                >
+                  <Button.Content visible>Save Mural</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="arrow right" />
+                  </Button.Content>
+                </Button>{" "}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <br />
+                {this.state.successfulSubmission ? (
+                  <Message>
+                    {`Submission Sucessful! Send the link below to a friend to complete the game!`}
+                    <br />
+                    <Input
+                      fluid
+                      type="text"
+                      className="visible-input"
+                      value={`${window.location.href}${this.state.id}`}
+                      action={
+                        <Button
+                          onClick={this.handleCopyToClipboard}
+                          color="blue"
+                          labelPosition="right"
+                          icon="copy"
+                          content="COPY"
+                        />
+                      }
+                    />
+
+                    <Link to={`/game/${this.state.id}`}>
+                      {" "}
+                      <h3 />{" "}
+                    </Link>
+                  </Message>
+                ) : null}
               </Grid.Column>
             </Grid.Row>
           </Grid>
-
-          <Button color="teal" onClick={this.handleMuralSubmit}>
-            Submit Drawing
-          </Button>
         </Container>
-      
       </div>
     );
   }
