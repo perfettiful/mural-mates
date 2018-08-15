@@ -47,15 +47,8 @@ class JoinMural extends Component {
             <ListItem key={game._id}>
               <Link to={"/game/" + game._id}>
                 <strong>
-<<<<<<< HEAD
-                  <div style={styles.test}>
-                  <img src={game.pImg1} />
-                  </div>
-
-=======
                   Image Hint:<ImageSlicer image={game.pImg1} />
                   {/* Img: <img src={game.pImg1} /> */}
->>>>>>> 18c3dedc32c015fd8454c5c202e3ddb1562449a7
                   <br />
                   Mural Title : {game.title}
                   <br />
