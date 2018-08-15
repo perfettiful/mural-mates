@@ -126,10 +126,10 @@ class StartGame extends React.Component {
       
           </Message>
         ) : (
-          
-          <Message negative>
-            Please make sure to add a title. 
-          </Message>
+          null
+          // <Message negative>
+          //   Please make sure to add a title. 
+          // </Message>
 
         )}
 
