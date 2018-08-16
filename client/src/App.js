@@ -147,12 +147,12 @@ class App extends Component {
                     <Menu>
                       <Menu.Item>
                        
-                          <Link to="/game"> <Button
+                          <Button
                           className="inverted"
                           color="black"
                           fluid
                           size="large"
-                        >Create New Mural </Button></Link>
+                        > <Link to="/game">Create New Mural </Link></Button>
                        
                       </Menu.Item>
                       <Menu.Item>
