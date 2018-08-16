@@ -149,7 +149,7 @@ class StartGame extends React.Component {
                   className={shouldMarkError("title") ? "error" : ""}
                   onBlur={this.handleBlur("title")}
                   type="text"
-                  placeholder="Enter Title To Save Mural"
+                  placeholder="Enter Hint To Save Mural"
                   value={this.state.title}
                   name="title"
                   onChange={this.handleInputChange}

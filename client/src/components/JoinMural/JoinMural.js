@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Image } from "semantic-ui-react";
+import { Container,
+  Segment,
+  Image,
+  Header,
+  Icon,
+  Grid,
+  Message,
+  Button,
+  Input,
+  GridColumn,
+  GridRow } from "semantic-ui-react";
 import Home from "../../pages/Home";
 import ImageSlicer from "../ImageSlicer";
 import { List, ListItem } from "../List";
@@ -40,17 +50,18 @@ class JoinMural extends Component {
   render() {
 
     return (
-      <div>
+      <div className="joinMural">
+        <Container>
         <h3>Join a Mural!</h3>
         <List>
           {this.state.openMurals.map(game => (
-            <ListItem key={game._id}>
+            <ListItem key={game._id} >
               <Link to={"/game/" + game._id}>
-                <strong>
+                <strong className="muralText">
                   Image Hint:<ImageSlicer image={game.pImg1} />
                   {/* Img: <img src={game.pImg1} /> */}
                   <br />
-                  Mural Title : {game.title}
+                  Mural Hint : {game.title}
                   <br />
                   Created By: {game.playerName1}
                   <Image
@@ -63,6 +74,7 @@ class JoinMural extends Component {
             </ListItem>
           ))}
         </List>
+        </Container>
       </div>
     );
   }

@@ -112,8 +112,8 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
-       <Message><Counter seenCounter={this.state.userCompletedMurals} />
-       </Message>
+      <Counter seenCounter={this.state.userCompletedMurals} />
+      
        <hr/>
          <Grid
           id="mural-selection"
@@ -122,13 +122,7 @@ class Home extends React.Component {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Segment stacked>
-              {/* <Header as="h1" color="grey" textAlign="center">
-                <Image>
-                  <i className="fas fa-skull" />{" "}
-                </Image>
-                Welcome to Mural Mates
-              </Header> */}
+          
               <Segment stacked>
                 <Button className="inverted" color="black" fluid size="large">
                   <Link to="/game">Create New Mural</Link>
@@ -143,7 +137,7 @@ class Home extends React.Component {
                   Join Open Murals
                 </Button>
               </Segment>
-            </Segment>
+         
           </Grid.Column>
         </Grid> 
       </div>
