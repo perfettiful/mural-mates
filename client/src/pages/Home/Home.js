@@ -16,7 +16,9 @@ import {
   Grid,
   Message,
   Form,
-  Image
+  Image,
+  Menu,
+  Tab
 } from "semantic-ui-react";
 
 class Home extends React.Component {
@@ -116,7 +118,7 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
-        <Grid
+         <Grid
           id="mural-selection"
           textAlign="center"
           style={{ height: "100%" }}
@@ -124,15 +126,15 @@ class Home extends React.Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Segment stacked>
-              <Header as="h1" color="grey" textAlign="center">
+              {/* <Header as="h1" color="grey" textAlign="center">
                 <Image>
                   <i className="fas fa-skull" />{" "}
                 </Image>
                 Welcome to Mural Mates
-              </Header>
+              </Header> */}
               <Segment stacked>
                 <Button className="inverted" color="black" fluid size="large">
-                  <Link to={`/game/`}>Create New Mural</Link>
+                  <Link to="/game">Create New Mural</Link>
                 </Button>
                 <Divider horizontal>Or</Divider>
                 <Button
@@ -146,7 +148,7 @@ class Home extends React.Component {
               </Segment>
             </Segment>
           </Grid.Column>
-        </Grid>
+        </Grid> 
 {/*       
         <h1>User Homepage</h1>
         <br />
@@ -202,3 +204,5 @@ class Home extends React.Component {
 }
 
 export default Home;
+
+ 

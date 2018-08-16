@@ -99,9 +99,9 @@ class MenuDropdown extends Component {
               </Link>
             </Dropdown.Item>
 
-            {/* <Dropdown.Item>
+            <Dropdown.Item>
               <Link
-                to="openmurals"
+                to="/openmurals"
                 className={
                   window.location.pathname === "/openmurals"
                     ? "nav-link active"
@@ -110,8 +110,8 @@ class MenuDropdown extends Component {
               >
                 Open Murals
               </Link>
-            </Dropdown.Item> */}
-            {/* <Dropdown.Item>
+            </Dropdown.Item> 
+            <Dropdown.Item>
               <Link
                 to="/completedmurals"
                 className={
@@ -122,8 +122,8 @@ class MenuDropdown extends Component {
               >
                 Completed Murals
               </Link>
-            </Dropdown.Item> */}
-            {/* <Dropdown.Item>
+            </Dropdown.Item>
+            <Dropdown.Item>
               {!isAuthenticated() && (
                 <Menu.Item
                   name="logIn"
@@ -133,7 +133,7 @@ class MenuDropdown extends Component {
                   Log In
                 </Menu.Item>
               )}
-            </Dropdown.Item> */}
+            </Dropdown.Item>
             <Dropdown.Item>
               {isAuthenticated() && (
                 <Menu.Item

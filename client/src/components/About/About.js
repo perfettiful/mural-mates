@@ -18,8 +18,8 @@ class Contact extends React.Component {
   render () {
     return (
       <div>
-    <Button />
-    Contact Stuff goes here.
+  
+ About stuff goes here.
       </div>
     );
   }
