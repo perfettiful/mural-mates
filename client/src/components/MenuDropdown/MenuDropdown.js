@@ -112,14 +112,14 @@ class MenuDropdown extends Component {
 
             <Dropdown.Item>
               <Link
-                to="/openmurals"
+                to="/myopenmurals"
                 className={
                   window.location.pathname === "/openmurals"
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
-                Open Murals
+                My Open Murals
               </Link>
             </Dropdown.Item> 
             <Dropdown.Item>

@@ -273,6 +273,21 @@ class App extends Component {
                     );
                   }}
                 />
+                   <Route
+                  exact
+                  path="/myopenmurals"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <MyOpenMurals
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
                 <Route
                   exact
                   path="/completedmurals"
