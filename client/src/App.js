@@ -96,7 +96,7 @@ class App extends Component {
           <div>
             <Menu size="large">
               <Menu.Item header>
-                <a href="/home">
+                <a href="/">
                   <i className="fas fa-skull fa-2x" />
                 </a>
               </Menu.Item>
