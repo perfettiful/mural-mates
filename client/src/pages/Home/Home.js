@@ -48,12 +48,6 @@ class Home extends React.Component {
     this.setState({ profile: props.profile, loggedIn: props.loggedIn });
   }
 
-  componentDidMount() {
-    this.loadOpenWorldGames();
-    // this.loadCompletedMurals();
-    this.loadOpenMuralsByUser();
-  }
-
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.profile.sub !== prevProps.profile.sub) {
@@ -118,6 +112,9 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
+       <Message><Counter seenCounter={this.state.userCompletedMurals} />
+       </Message>
+       <hr/>
          <Grid
           id="mural-selection"
           textAlign="center"
@@ -149,55 +146,6 @@ class Home extends React.Component {
             </Segment>
           </Grid.Column>
         </Grid> 
-{/*       
-        <h1>User Homepage</h1>
-        <br />
-        <br />
-        <h3>Create a new Game</h3> */}
-
-        <Counter seenCounter={this.state.userCompletedMurals} />
-      
-          <h3>Completed Murals By User:</h3>
-
-          <List>
-            {this.state.userCompletedMurals.map(game => (
-              <ListItem key={game._id}>
-                Title: {game.title}
-                Created By : {game.playerName1}{" "}
-                <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
-                Completed By : {game.playerName2}
-                <Image src={game.playerPhoto2} alt={game.playerName2} avatar />
-                 <Grid verticalAlign="middle" columns={3} centered>
-                <Grid.Row>
-                  <Grid.Column>
-                    <Image src={game.pImg1} />
-                    <Image src={game.pImg2} />
-                  </Grid.Column>s
-                </Grid.Row>
-              </Grid>  
-        {/* Method for displaying something different to user if they have not seen this mural */}
-        {game.p1seen ? null : <h3> NEW MURAL </h3>}
-              </ListItem>
-            ))}
-          </List>
-      
-          {/* <h3>
-            My Open Murals- These need to be turned into sharable links/modals
-          </h3> */}
-
-          <List>
-            {this.state.userOpenMurals.map(game => (
-              <ListItem key={game._id}>
-                <Link to={"/game/" + game._id}>
-                  <strong>
-                    Img: <Image src={game.pImg1} />
-                    Title : {game.title}
-                  </strong>
-                </Link>
-              </ListItem>
-            ))}
-          </List>
-     
       </div>
     );
   }

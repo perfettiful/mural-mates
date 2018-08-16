@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Image, Menu, Dropdown,Icon } from "semantic-ui-react";
+import { Image, Menu, Dropdown,Icon, Message } from "semantic-ui-react";
 import { BrowserRouter as Router, Route,Link } from "react-router-dom";
 import MyOpenMurals from "../MyOpenMurals";
-
+import Counter from "../Counter";
+import API from "../../utils/API";
 
 class MenuDropdown extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class MenuDropdown extends Component {
     this.logout = this.logout.bind(this);
     this.state = {
       profile: {},
-      loggedIn: false
+      loggedIn: false,
+      userCompletedMurals: []
     };
   }
 
@@ -44,7 +46,15 @@ class MenuDropdown extends Component {
       }
     }
   }
-
+  getCompletedMuralsByUser = () => {
+    API.findCompletedMuralsByUser(this.props.profile.sub)
+      .then(res => {
+        this.setState({
+          userCompletedMurals: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
   goTo(route) {
     this.props.history.replace(`/${route}`);
   }
