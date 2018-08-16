@@ -63,7 +63,6 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-
   // Method that posts games to the db
   // This sends all game data available to server
   create: function (req, res) {
