@@ -13,6 +13,7 @@ class MenuDropdown extends Component {
     this.goTo = this.goTo.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+
     this.state = {
       profile: {},
       loggedIn: false,
@@ -38,11 +39,11 @@ class MenuDropdown extends Component {
       if (!userProfile) {
         getProfile((err, profile) => {
           this.setState({ profile });
-          // this.props.callbackFromParent(true);
+          this.props.callbackFromParent(true);
         });
       } else {
         this.setState({ profile: userProfile });
-        // this.props.callbackFromParent(true);
+        this.props.callbackFromParent(true);
       }
     }
   }
@@ -66,7 +67,7 @@ class MenuDropdown extends Component {
   logout() {
     this.props.auth.logout();
     this.setState({ loggedIn: false });
-    // this.props.callbackFromParent(false);
+    this.props.callbackFromParent(false);
   }
 
   render() {
