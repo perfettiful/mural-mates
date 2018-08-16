@@ -1,7 +1,24 @@
 import React, { Component } from "react";
-import { Image, Menu, Dropdown } from "semantic-ui-react";
-import MenuTabs from "./components/MenuTabs/MenuTabs";
-
+import {
+  Segment,
+  Button,
+  Divider,
+  Container,
+  Header,
+  Icon,
+  Grid,
+  Message,
+  Form,
+  Image,
+  Menu
+} from "semantic-ui-react";
+import MenuDropdown from "./components/MenuDropdown";
+import MyOpenMurals from "./components/MyOpenMurals";
+import CompletedMurals from "./components/CompletedMurals";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // App.js
 
 class App extends Component {
@@ -60,27 +77,77 @@ class App extends Component {
 
     return (
       <div>
+        <Router>
+          <div>
+            <Menu size="large">
+              <Menu.Item header>
+                <a href="/home">
+                  <i className="fas fa-skull fa-2x" />
+                </a>
+              </Menu.Item>
+              <Menu.Menu position="right">
+                <MenuDropdown auth={this.props.auth} />
+              </Menu.Menu>
+            </Menu>
+            <br />
+            {!isAuthenticated() && (
+            <Grid
+              id="mural-selection"
+              textAlign="center"
+              style={{ height: "100%" }}
+              verticalAlign="middle"
+            >
+              <Grid.Column style={{ maxWidth: 450 }}>
+                <Segment stacked>
+                  <Header as="h1" color="grey" textAlign="center">
+                    <Image>
+                      <i className="fas fa-skull" />{" "}
+                    </Image>
+                    Welcome to Mural Mates
+                  </Header>
+                  <Segment stacked>
+                    <Button
+                      className="inverted"
+                      color="black"
+                      fluid
+                      size="large"
+                      name="logIn"
+                      className="btn-margin"
+                      onClick={this.login.bind(this)}
+                    >
+                      Log In
+                    </Button>
+                  </Segment>
+                </Segment>
+              </Grid.Column>
+            </Grid>
+            )}
+            <Route exact path="/openmurals" component={MyOpenMurals} />
+            <Route exact path="/completedmurals" component={CompletedMurals} />
+            <Route exact path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+          </div>
+        </Router>
+
         {/* User Profile Object! */}
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
-        <Menu size="large">
-          <Menu.Item header>
-            <a href="/home">
-              <i className="fas fa-skull" />
-            </a>
-          </Menu.Item>
-
-          {/* <Dropdown item text="User Info">
-           <MenuTabs />
-          </Dropdown> */}
-          <Menu.Item
-            name="home"
-            className="btn-margin"
-            onClick={this.goTo.bind(this, "home")}
-            href="/home"
-          >
-            Home
-          </Menu.Item>
-          {!isAuthenticated() && (
+        {/* <Menu.Item>
+            {" "}
+            {this.state.loggedIn ? (
+              <div>
+                <h3>Welcome Back, {this.state.profile.given_name}</h3>
+                <Image src={this.state.profile.picture} alt="profile" avatar />
+              </div>
+            ) : (
+              <div>
+                <h4 /> <h4 />
+              </div>
+            )}
+          </Menu.Item> */}
+        {/* <Menu.Item>
+            <MenuTabs auth={this.props.auth} />
+          </Menu.Item> */}
+        {/* {!isAuthenticated() && (
             <Menu.Item
               name="logIn"
               className="btn-margin"
@@ -98,8 +165,8 @@ class App extends Component {
             >
               Log Out
             </Menu.Item>
-          )}
-        </Menu>
+          )} */}
+        {/* </Menu> */}
       </div>
     );
   }

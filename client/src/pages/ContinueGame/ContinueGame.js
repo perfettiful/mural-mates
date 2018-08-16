@@ -148,15 +148,16 @@ class ContinueGame extends React.Component {
                     <Message>
                       <p>Submission Sucessful!</p>
                       <br />
-                      <Button
+                      <Link color="red"to={`/game/mural/${this.state.gameId}`}>Hello</Link>
+                      {/* <Button
                         color="blue"
                         labelPosition="right"
                         icon="right arrow"
                         content="See the full mural"
                         action={
-                          <Link to={`/game/mural/${this.state.gameId}`} />
-                        }
-                      />{" "}
+                          
+                        } */}
+                      {/* />{" "} */}
                     </Message>
                   </div>
                 ) : null}

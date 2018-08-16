@@ -15,13 +15,13 @@ import {
   Image
 } from "semantic-ui-react";
 import API from "../../utils/API";
-import "./MyOpenMurals.css";
+import "./CompletedMurals.css";
 const styles = {
   mural: {
     border: "10px solid #333"
   }
 };
-export default class MyOpenMurals extends Component {
+export default class CompletedMurals extends Component {
   constructor(props) {
     super(props);
     this.state = {
