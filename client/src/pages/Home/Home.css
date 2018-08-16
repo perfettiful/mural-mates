@@ -3,8 +3,8 @@ body,
 body > div,
 body > div > div,
 body > div > div > div.home {
-  /* min-height:100%;
-  margin:0; */
+   min-height:100%;
+  margin:0;
   /* height:auto; */
   background: #1D4350;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #A43931, #1D4350);  /* Chrome 10-25, Safari 5.1-6 */

@@ -37,7 +37,7 @@ class App extends Component {
     this.state = {
       profile: {},
       loggedIn: false,
-      willJoin:false,
+      willJoin: false
     };
   }
 
@@ -146,28 +146,32 @@ class App extends Component {
                   <Grid.Column style={{ maxWidth: 450 }}>
                     <Menu>
                       <Menu.Item>
-                       
-                          <Button
+                        <Button
                           className="inverted"
                           color="black"
                           fluid
                           size="large"
-                        > <Link to="/game">Create New Mural </Link></Button>
-                       
+                        >
+                          {" "}
+                          <Link to="/game">Create New Mural </Link>
+                        </Button>
                       </Menu.Item>
                       <Menu.Item>
                         <Button
-                          color="teal"
+                        className="inverted"
+                          color="black"
                           fluid
                           size="large"
                           onClick={this.handleWillJoin}
                         >
-                          Join Open Murals
+                          <Link to="/openmurals"> Join Open Murals</Link>
                         </Button>
                       </Menu.Item>
                     </Menu>
                   </Grid.Column>
+               
                 )}
+               
               </Grid.Row>
             </Grid>
             <div>
@@ -260,7 +264,7 @@ class App extends Component {
                   render={props => {
                     const auth = new Auth(props.history);
                     return (
-                      <MyOpenMurals
+                      <JoinMural
                         auth={auth}
                         {...props}
                         profile={this.state.profile}
@@ -291,7 +295,7 @@ class App extends Component {
             </div>
           </div>
         </Router>
-
+        
         {/* User Profile Object! */}
         {/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
         {/* <Menu.Item>

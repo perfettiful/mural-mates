@@ -1,4 +1,12 @@
-html,body{
-    min-height:100%;
-    margin:0;
+body > div,
+body > div > div,
+body > div > div > div.join {
+   min-height:100%;
+  margin:0;
+  /* height:auto; */
+  background:white;
+}
+
+ body>div>div>div>.join.muralText {
+    color:white !important;
 }
