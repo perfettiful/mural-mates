@@ -143,6 +143,7 @@ class StartGame extends React.Component {
               <Grid.Column>
                 <Input
                   fluid
+                  // autoFocus
                   label={{ icon: "asterisk" }}
                   labelPosition="left corner"
                   className={shouldMarkError("title") ? "error" : ""}
@@ -175,24 +176,6 @@ class StartGame extends React.Component {
             <Grid.Row>
               <Grid.Column>
                 <br />
-                <Button
-                  fluid
-                  animated
-                  // If errors exist button will be disabled, if errors do not exist button will be enabled
-                  disabled={isDisabled}
-                  color="blue"
-                  onClick={this.handleMuralSubmit}
-                >
-                  <Button.Content visible>Save Mural</Button.Content>
-                  <Button.Content hidden>
-                    <Icon name="arrow right" />
-                  </Button.Content>
-                </Button>{" "}
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <br />
                 {this.state.successfulSubmission ? (
                   <Message>
                     {`Submission Sucessful! Send the link below to a friend to complete the game!`}
@@ -201,7 +184,7 @@ class StartGame extends React.Component {
                       fluid
                       type="text"
                       className="visible-input"
-                      value={`${window.location.href}${this.state.id}`}
+                      defaultValue={`${window.location.href}${this.state.id}`}
                       action={
                         <Button
                           onClick={this.handleCopyToClipboard}
@@ -221,6 +204,25 @@ class StartGame extends React.Component {
                 ) : null}
               </Grid.Column>
             </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <br />
+                <Button
+                  fluid
+                  animated
+                  // If errors exist button will be disabled, if errors do not exist button will be enabled
+                  disabled={isDisabled}
+                  color="blue"
+                  onClick={this.handleMuralSubmit}
+                >
+                  <Button.Content visible>Save Mural</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="arrow right" />
+                  </Button.Content>
+                </Button>{" "}
+              </Grid.Column>
+            </Grid.Row>
+           
           </Grid>
         </Container>
       </div>

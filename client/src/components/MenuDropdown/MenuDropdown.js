@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Image, Menu, Dropdown } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Image, Menu, Dropdown,Icon } from "semantic-ui-react";
+import { BrowserRouter as Router, Route,Link } from "react-router-dom";
 import MyOpenMurals from "../MyOpenMurals";
 
 
-class MenuTabs extends Component {
+class MenuDropdown extends Component {
   constructor(props) {
     super(props);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
@@ -36,11 +36,11 @@ class MenuTabs extends Component {
       if (!userProfile) {
         getProfile((err, profile) => {
           this.setState({ profile });
-          this.props.callbackFromParent(true);
+          // this.props.callbackFromParent(true);
         });
       } else {
         this.setState({ profile: userProfile });
-        this.props.callbackFromParent(true);
+        // this.props.callbackFromParent(true);
       }
     }
   }
@@ -56,7 +56,7 @@ class MenuTabs extends Component {
   logout() {
     this.props.auth.logout();
     this.setState({ loggedIn: false });
-    this.props.callbackFromParent(false);
+    // this.props.callbackFromParent(false);
   }
 
   render() {
@@ -64,15 +64,15 @@ class MenuTabs extends Component {
 
     return (
       <div>
-        <Dropdown
-          item
-          className="fas fa-skull"
-          action={
-            <a href="/home">
-              <i />
-            </a>
-          }
-        >
+       <Dropdown  placeholder={this.state.loggedIn ? (
+              <div>
+                <Image avatar src={this.state.profile.picture} />
+              </div>
+            ) : (
+              <div>
+            <Icon name='sidebar' size="large" />
+              </div>
+            )} fluid>
           <Dropdown.Menu>
             <Dropdown.Item>
               <Link
@@ -99,7 +99,7 @@ class MenuTabs extends Component {
               </Link>
             </Dropdown.Item>
 
-            <Dropdown.Item>
+            {/* <Dropdown.Item>
               <Link
                 to="openmurals"
                 className={
@@ -110,8 +110,8 @@ class MenuTabs extends Component {
               >
                 Open Murals
               </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
+            </Dropdown.Item> */}
+            {/* <Dropdown.Item>
               <Link
                 to="/completedmurals"
                 className={
@@ -122,8 +122,8 @@ class MenuTabs extends Component {
               >
                 Completed Murals
               </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
+            </Dropdown.Item> */}
+            {/* <Dropdown.Item>
               {!isAuthenticated() && (
                 <Menu.Item
                   name="logIn"
@@ -133,11 +133,10 @@ class MenuTabs extends Component {
                   Log In
                 </Menu.Item>
               )}
-            </Dropdown.Item>
+            </Dropdown.Item> */}
             <Dropdown.Item>
               {isAuthenticated() && (
                 <Menu.Item
-                  position="right"
                   name="logOut"
                   className="btn-margin"
                   onClick={this.logout}
@@ -153,4 +152,4 @@ class MenuTabs extends Component {
   }
 }
 
-export default MenuTabs;
+export default MenuDropdown;

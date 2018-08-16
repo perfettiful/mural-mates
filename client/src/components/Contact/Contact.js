@@ -14,15 +14,8 @@ import {
 
  
 class Contact extends React.Component {
-  componentDidMount() {
-    this.ctx = this.canvas.getContext('2d');
-    this.draw();
-  }
+
  
-  draw() {
-    // Draw whatever
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  }
  
   render () {
     return (
