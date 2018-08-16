@@ -184,15 +184,12 @@ class StartGame extends React.Component {
                       fluid
                       type="text"
                       className="visible-input"
-<<<<<<< HEAD
-                      defaultValue={`${window.location.href}${this.state.id}`}
-=======
                       id="shareLink"
                       value={`${window.location.href}${this.state.id}`}
->>>>>>> 433e8701bd2113d2c124da62640e172b18f4a758
                       action={
                         <Button
                           onClick={this.handleCopyToClipboard}
+                          onPress={this.handleCopyToClipboard}
                           color="blue"
                           labelPosition="right"
                           icon="copy"
@@ -219,6 +216,7 @@ class StartGame extends React.Component {
                   disabled={isDisabled}
                   color="blue"
                   onClick={this.handleMuralSubmit}
+                  onPress={this.handleMuralSubmit}
                 >
                   <Button.Content visible>Save Mural</Button.Content>
                   <Button.Content hidden>

@@ -147,11 +147,11 @@ class Home extends React.Component {
             </Segment>
           </Grid.Column>
         </Grid>
-      
+{/*       
         <h1>User Homepage</h1>
         <br />
         <br />
-        <h3>Create a new Game</h3>
+        <h3>Create a new Game</h3> */}
 
         <Counter seenCounter={this.state.userCompletedMurals} />
       
@@ -179,9 +179,9 @@ class Home extends React.Component {
             ))}
           </List>
       
-          <h3>
+          {/* <h3>
             My Open Murals- These need to be turned into sharable links/modals
-          </h3>
+          </h3> */}
 
           <List>
             {this.state.userOpenMurals.map(game => (
