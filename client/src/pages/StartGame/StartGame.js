@@ -106,7 +106,7 @@ class StartGame extends React.Component {
   };
 
   handleCopyToClipboard = () => {
-    document.querySelector(".visible-input").select();
+    document.querySelector("#shareLink").select();
     // Copy to the clipboard
     document.execCommand("copy");
   }; //End handleCopyToClipboard()
@@ -201,6 +201,7 @@ class StartGame extends React.Component {
                       fluid
                       type="text"
                       className="visible-input"
+                      id="shareLink"
                       value={`${window.location.href}${this.state.id}`}
                       action={
                         <Button

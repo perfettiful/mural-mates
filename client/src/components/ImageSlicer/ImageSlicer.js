@@ -7,11 +7,13 @@ const ImageSlicer = (props) => {
   let newImage=props.image;
   const divStyle = {
     width: '300px',
-    height: '10px',
+    height: '20px',
+    border: '2px solid #333',
+    align: 'bottom',
     backgroundColor: "yellow",
     backgroundImage: 'url(' + newImage + ')',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: "0 80%"
+    backgroundPosition: "0 100%"
   }
 
   return <div style={divStyle}></div>
