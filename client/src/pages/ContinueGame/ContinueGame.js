@@ -99,7 +99,7 @@ class ContinueGame extends React.Component {
       <div className="continue">
         {/* Pull info about creator of the mural */}
         <Container>
-          <Grid centered> 
+          <Grid centered>
             <Grid.Row>
               <Grid.Column width={16}>
                 <br />
@@ -131,16 +131,7 @@ class ContinueGame extends React.Component {
                 <DrawApp />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={16}>
-                <Button animated color="blue" onClick={this.handleMuralSubmit}>
-                  <Button.Content visible>Save Mural</Button.Content>
-                  <Button.Content hidden>
-                    <Icon name="arrow right" />
-                  </Button.Content>
-                </Button>
-              </Grid.Column>
-            </Grid.Row>
+
             <Grid.Row>
               <Grid.Column width={16}>
                 {this.state.successfulSubmission ? (
@@ -148,7 +139,9 @@ class ContinueGame extends React.Component {
                     <Message>
                       <p>Submission Sucessful!</p>
                       <br />
-                      <Link color="red"to={`/game/mural/${this.state.gameId}`}>Hello</Link>
+                      <Link color="red" to={`/game/mural/${this.state.gameId}`}>
+                        See Final Mural
+                      </Link>
                       {/* <Button
                         color="blue"
                         labelPosition="right"
@@ -161,6 +154,16 @@ class ContinueGame extends React.Component {
                     </Message>
                   </div>
                 ) : null}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={16}>
+                <Button animated color="blue" onClick={this.handleMuralSubmit}>
+                  <Button.Content visible>Save Mural</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="arrow right" />
+                  </Button.Content>
+                </Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>

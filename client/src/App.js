@@ -10,15 +10,24 @@ import {
   Message,
   Form,
   Image,
-  Menu
+  Menu,
+  Tab,
+  Panes
 } from "semantic-ui-react";
 import MenuDropdown from "./components/MenuDropdown";
 import MyOpenMurals from "./components/MyOpenMurals";
 import CompletedMurals from "./components/CompletedMurals";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import StartGame from "./pages/StartGame";
+import FinalMural from "./pages/FinalMural";
+// import LandingPage from "./pages/LandingPage";
+import ContinueGame from "./pages/ContinueGame";
+import Auth from "./Auth/Auth";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import JoinMural from "./components/JoinMural";
+
 // App.js
 
 class App extends Component {
@@ -74,7 +83,6 @@ class App extends Component {
 
   render() {
     const isAuthenticated = this.props.auth.isAuthenticated;
-
     return (
       <div>
         <Router>
@@ -85,45 +93,159 @@ class App extends Component {
                   <i className="fas fa-skull fa-2x" />
                 </a>
               </Menu.Item>
+
               <Menu.Menu position="right">
                 <MenuDropdown auth={this.props.auth} />
               </Menu.Menu>
             </Menu>
             <br />
-            {!isAuthenticated() && (
-            <Grid
-              id="mural-selection"
-              textAlign="center"
-              style={{ height: "100%" }}
-              verticalAlign="middle"
-            >
-              <Grid.Column style={{ maxWidth: 450 }}>
-                <Segment stacked>
-                  <Header as="h1" color="grey" textAlign="center">
-                    <Image>
-                      <i className="fas fa-skull" />{" "}
-                    </Image>
-                    Welcome to Mural Mates
-                  </Header>
+            {!isAuthenticated() ? (
+              <Grid
+                id="mural-selection"
+                textAlign="center"
+                style={{ height: "100%" }}
+                verticalAlign="middle"
+              >
+                <Grid.Column style={{ maxWidth: 450 }}>
                   <Segment stacked>
-                    <Button
-                      className="inverted"
-                      color="black"
-                      fluid
-                      size="large"
-                      name="logIn"
-                      className="btn-margin"
-                      onClick={this.login.bind(this)}
-                    >
-                      Log In
-                    </Button>
+                    <Header as="h1" color="grey" textAlign="center">
+                      <Image>
+                        <i className="fas fa-skull" />{" "}
+                      </Image>
+                      Welcome to Mural Mates
+                    </Header>
+                    <Segment stacked>
+                      <Button
+                        className="inverted"
+                        color="black"
+                        fluid
+                        size="large"
+                        name="logIn"
+                        className="btn-margin"
+                        onClick={this.login.bind(this)}
+                      >
+                        Log In
+                      </Button>
+                    </Segment>
                   </Segment>
-                </Segment>
-              </Grid.Column>
-            </Grid>
-            )}
-            <Route exact path="/openmurals" component={MyOpenMurals} />
-            <Route exact path="/completedmurals" component={CompletedMurals} />
+                </Grid.Column>
+              </Grid>
+            ) : null}
+            <Switch>
+              {/* User Homepage that diplays open games, user profile, etc.   */}
+              {/* <Route exact path="/home" component={Home} /> */}
+
+              <Route
+                exact
+                path="/home"
+                render={props => {
+                  const auth = new Auth(props.history);
+
+                  return (
+                    <Home
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+
+              <Route
+                exact
+                path="/"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <Home
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/game"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <StartGame
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+
+              {/* Route for when user joins a game */}
+              <Route
+                exact
+                path="/game/:id"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <ContinueGame
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+
+              <Route
+                path="/game/mural/:id"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <FinalMural
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/openmurals"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <MyOpenMurals
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/completedmurals"
+                render={props => {
+                  const auth = new Auth(props.history);
+                  return (
+                    <CompletedMurals
+                      auth={auth}
+                      {...props}
+                      profile={this.state.profile}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  );
+                }}
+              />
+            </Switch>
+
             <Route exact path="/about" component={About} />
             <Route path="/contact" component={Contact} />
           </div>

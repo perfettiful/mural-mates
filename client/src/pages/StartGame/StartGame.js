@@ -185,7 +185,7 @@ class StartGame extends React.Component {
                       type="text"
                       className="visible-input"
                       id="shareLink"
-                      value={`${window.location.href}${this.state.id}`}
+                      value={`${window.location.href}/${this.state.id}`}
                       action={
                         <Button
                           onClick={this.handleCopyToClipboard}

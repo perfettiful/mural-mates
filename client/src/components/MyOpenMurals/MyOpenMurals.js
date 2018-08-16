@@ -25,18 +25,37 @@ export default class MyOpenMurals extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      completedMurals: []
+      userOpenMurals: []
     };
   }
-  componentDidMount() {
-    this.loadCompletedMurals();
+  componentWillMount() {
+    this.checkAndUpdateState(this.props);
+    this.loadOpenMuralsByUser();
   }
-  loadCompletedMurals = () => {
-    // this.loadOpenGames();
-    API.getMurals()
+
+  componentWillReceiveProps(nextProps) {
+    this.checkAndUpdateState(nextProps);
+  }
+
+  checkAndUpdateState(props) {
+    this.setState({ profile: props.profile, loggedIn: props.loggedIn });
+  }
+  componentDidMount() {
+    this.loadOpenMuralsByUser();
+  }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.profile.sub !== prevProps.profile.sub) {
+      this.loadOpenMuralsByUser();
+
+    }
+  }
+
+  loadOpenMuralsByUser = () => {
+    API.findOpenMuralsByUser(this.props.profile.sub)
       .then(res => {
         this.setState({
-          completedMurals: res.data
+          userOpenMurals: res.data
         });
       })
       .catch(err => console.log(err));
