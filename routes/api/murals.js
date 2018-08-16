@@ -37,17 +37,17 @@ router
 .route("/v1/openmurals")
 .get(muralsController.findOpenMurals);
 
-//Get route for all murals
+//Get route for all completed murals
 router
 .route("/v1/murals/")
 .get(muralsController.findCompletedMurals);
 
-//Get route for all murals
+//Get route for all completed murals by specific user
 router
 .route("/v1/murals/:uniqueid")
 .get(muralsController.findCompletedMuralsByUser);
 
-//Get route for all murals by USER
+//Get route for all open murals by user
 router
 .route("/v1/openmurals/:uniqueid")
 .get(muralsController.findUserMurals);
