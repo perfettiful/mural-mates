@@ -31,7 +31,7 @@ class Contact extends React.Component {
                   <Card.Content>
                     <Card.Header>
                       {" "}
-                      <Image avatar src="../Images/Ben.png" />
+                      <Image avatar src="../Images/Ben.jpg" />
                       Ben Rademacher
                     </Card.Header>
                     <Card.Description />
