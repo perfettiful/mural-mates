@@ -43,7 +43,11 @@ module.exports = {
   // Get COMPLETED murals by USER
   findCompletedMuralsByUser: function (req, res) {
     db.Mural
-      .find({ playerId1: req.params.uniqueid, pImg2: { $ne: null }, })
+      .find(
+        { $and:[ 
+          { $or: [{ playerId1: req.params.uniqueid}, { playerId2: req.params.uniqueid}] },
+          { pImg2: { $ne: null }} 
+        ]})
       .limit(10)
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
