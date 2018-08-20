@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
 import ImageSlicer from "../../components/ImageSlicer";
 import API from "../../utils/API";
+import Firebase from '../../Firebase'; // <--- add this line
+
+
 import {
   Container,
   Image,
@@ -56,9 +59,21 @@ class ContinueGame extends React.Component {
       .catch(err => console.log(err));
   }
 
+  submitToFirebase() {
+    //props.location tells which folder to put item in (i.e. completedGames.....)
+    let location = Firebase.database().ref("completedGames");
+
+    //props.data
+    let newFinishedGame = this.props.match.params.id;
+    location.push(newFinishedGame);
+
+  }
+
+
   handleMuralSubmit = event => {
     event.preventDefault();
 
+    this.submitToFirebase();
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
