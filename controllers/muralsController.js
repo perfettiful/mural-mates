@@ -23,7 +23,37 @@ module.exports = {
   // This is for the World Open Games component
   findOpenMurals: function (req, res) {
     db.Mural
-      .find({ private: false, pImg2: null })
+      .find(
+        {
+          $or: [
+            // Checking if two player games are completed
+            {
+              $and: [
+                { playerCount: 2 },
+                { playerId1: req.params.uniqueid },
+                { pImg2: null },
+                { private: false }
+              ]
+            },
+
+            // Checking if three player games are completed
+            {
+              $and: [
+                { playerCount: 3 },
+                {
+                  $or: [
+                    // Open games will show up whether user is player 1 or player 2
+                    { playerId1: req.params.uniqueid },
+                    { playerId2: req.params.uniqueid }
+                  ]
+                },
+                { pImg3: null },
+                { private: false }
+              ]
+            }
+          ]
+        }
+      )
       .sort({ date: 'desc' })
       .limit(8)
       .then(dbModel => res.json(dbModel))
@@ -33,7 +63,34 @@ module.exports = {
   // Get incomplete murals by User
   findUserMurals: function (req, res) {
     db.Mural
-      .find({ playerId1: req.params.uniqueid, pImg2: null })
+      .find(
+        {
+          $or: [
+            // Checking if two player games are completed
+            {
+              $and: [
+                { playerCount: 2 },
+                { playerId1: req.params.uniqueid },
+                { pImg2: null }
+              ]
+            },
+
+            // Checking if three player games are completed
+            {
+              $and: [
+                { playerCount: 3 },
+                {
+                  $or: [
+                    // Open games will show up whether user is player 1 or player 2
+                    { playerId1: req.params.uniqueid },
+                    { playerId2: req.params.uniqueid }
+                  ]
+                },
+                { pImg3: null }
+              ]
+            }
+          ]
+        })
       .limit(8)
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
@@ -44,10 +101,42 @@ module.exports = {
   findCompletedMuralsByUser: function (req, res) {
     db.Mural
       .find(
-        { $and:[ 
-          { $or: [{ playerId1: req.params.uniqueid}, { playerId2: req.params.uniqueid}] },
-          { pImg2: { $ne: null }} 
-        ]})
+        {
+          $or: [
+            // Logic for 2 player game
+            {
+              $and: [
+                { playerCount: 2 },
+                {
+                  $or: [
+                    { playerId1: req.params.uniqueid },
+                    { playerId2: req.params.uniqueid }
+                  ]
+                },
+                { pImg2: { $ne: null } }
+              ]
+            },
+
+            // Logic for 3 player game
+            {
+              $and: [
+                { playerCount: 3 },
+                {
+                  $or: [
+                    { playerId1: req.params.uniqueid },
+                    { playerId2: req.params.uniqueid },
+                    { playerId3: req.params.uniqueid }
+                  ]
+                },
+                {
+                  $and: [
+                    { pImg2: { $ne: null } },
+                    { pImg3: { $ne: null } }
+                  ]
+                }
+              ]
+            }]
+        })
       .limit(10)
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
@@ -58,8 +147,26 @@ module.exports = {
   findCompletedMurals: function (req, res) {
     db.Mural
       .find({
-        pImg1: { $ne: null },
-        pImg2: { $ne: null }
+        $or: [
+          // Checking 2 player games
+          {
+            $and: [
+              { playerCount: 2 },
+              { pImg1: { $ne: null } },
+              { pImg2: { $ne: null } }
+            ]
+          },
+
+          // Checking 3 player games
+          {
+            $and: [
+              { playerCount: 3 },
+              { pImg1: { $ne: null } },
+              { pImg2: { $ne: null } },
+              { pImg3: { $ne: null } }
+            ]
+          }
+        ]
       })
       .sort({ date: 'desc' })
       .limit(20)
