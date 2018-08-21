@@ -12,6 +12,7 @@ import {
   Icon,
   Grid,
   Message,
+  Modal,
   Button,
   Input,
   GridColumn,
@@ -19,6 +20,8 @@ import {
 } from "semantic-ui-react";
 import { getCiphers } from "crypto";
 
+import {FacebookShareButton, FacebookIcon, FacebookShareCount} from 'react-share';
+import {TwitterShareButton, TwitterIcon, TwitterShareCount} from 'react-share';
 class StartGame extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +32,7 @@ class StartGame extends React.Component {
       gameId: "",
       private: false,
       successfulSubmission: false,
-      touched: { title: false }
+      touched: { title: false },
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMuralSubmit = this.handleMuralSubmit.bind(this);
@@ -202,6 +205,27 @@ class StartGame extends React.Component {
                       {" "}
                       <h3 />{" "}
                     </Link>
+                    
+                    {/* Start Facebook Share */}
+                    <FacebookShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <FacebookIcon className="socialButton" size={32} round={false} />
+                    <FacebookShareCount url={`${window.location.href}/${this.state.id}`}>
+                      </FacebookShareCount>
+                    </FacebookShareButton>
+                    {/* End Facebook Share */}
+
+                    {/* Start TwitterShare
+                    <TwitterShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <TwitterIcon className="facebookButton" size={32} round={false} />
+                    {/* <TwitterShareCount url={`${window.location.href}/${this.state.id}`}>
+                      </TwitterShareCount> 
+                    </TwitterShareButton>
+                    End Twitter Share */}
+
+                    
+    
                   </Message>
                 ) : null}
               </Grid.Column>

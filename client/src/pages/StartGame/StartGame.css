@@ -15,3 +15,8 @@ body > div > div > div.toggleCheck {
 color:white !important;
 font-weight: Bold
 }
+
+
+.socialButton{
+  width: 32px;
+}
