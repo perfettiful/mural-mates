@@ -73,7 +73,6 @@ class ContinueGame extends React.Component {
   handleMuralSubmit = event => {
     event.preventDefault();
 
-    this.submitToFirebase();
     //Get current canvas
     let canvasDownload = document
       .getElementById("canvas")
@@ -97,13 +96,15 @@ class ContinueGame extends React.Component {
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     )
-      .then(res =>
+      .then(res => {
         this.setState({
           successfulSubmission: true
-        })
-      )
+        });
+        this.submitToFirebase();
+      })
+
       //Mongo Error handling
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   };
 
   render() {
