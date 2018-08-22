@@ -4,7 +4,7 @@ import DrawApp from "../../components/DrawApp";
 import Check from "../../components/Check";
 import API from "../../utils/API";
 import "./StartGame.css";
-import FirebaseRetrieve from "../../components/FirebaseRetrieve";
+import WorldCompletedMurals from "../../components/WorldCompletedMurals";
 
 import {
   Container,
@@ -107,9 +107,6 @@ class StartGame extends React.Component {
     }
   };
 
-  getCompletedGames = (games) => {
-    console.log("mygames",games);
-  };
 
   handleCopyToClipboard = () => {
     document.querySelector("#shareLink").select();
@@ -232,11 +229,10 @@ class StartGame extends React.Component {
                 </Button>{" "}
               </Grid.Column>
             </Grid.Row>
-           
+
           </Grid>
         </Container>
-        <FirebaseRetrieve 
-        callback={this.getCompletedGames}/>
+        <WorldCompletedMurals />
 
       </div>
     );
