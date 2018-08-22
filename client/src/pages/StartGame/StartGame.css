@@ -19,4 +19,8 @@ font-weight: Bold
 
 .socialButton{
   width: 32px;
+  display: inline-block;
+}
+.emailText{
+  margin-top: -3px;
 }
