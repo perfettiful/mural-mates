@@ -45,6 +45,7 @@ class ContinueGame extends React.Component {
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   componentDidMount() {
+
     API.getMural(this.props.match.params.id)
       .then(res => {
         this.setState({

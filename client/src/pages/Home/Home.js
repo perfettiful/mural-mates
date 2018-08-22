@@ -112,34 +112,34 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
-      <Counter seenCounter={this.state.userCompletedMurals} />
-      
-       <hr/>
-         <Grid
+        <Counter seenCounter={this.state.userCompletedMurals} />
+
+        <hr />
+        <Grid
           id="mural-selection"
           textAlign="center"
           style={{ height: "100%" }}
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-          
-              <Segment stacked>
-                <Button className="inverted" color="black" fluid size="large">
-                  <Link to="/game">Create New Mural</Link>
+
+            <Segment stacked>
+              <Button className="inverted" color="black" fluid size="large">
+                <Link to="/game">Create New Mural</Link>
+              </Button>
+              <Divider horizontal>Or</Divider>
+              <Button
+                color="teal"
+                fluid
+                size="large"
+                onClick={this.handleWillJoin}
+              >
+                Join Open Murals
                 </Button>
-                <Divider horizontal>Or</Divider>
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  onClick={this.handleWillJoin}
-                >
-                  Join Open Murals
-                </Button>
-              </Segment>
-         
+            </Segment>
+
           </Grid.Column>
-        </Grid> 
+        </Grid>
       </div>
     );
   }
@@ -147,4 +147,4 @@ class Home extends React.Component {
 
 export default Home;
 
- 
+

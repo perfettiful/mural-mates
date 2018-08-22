@@ -4,6 +4,8 @@ import DrawApp from "../../components/DrawApp";
 import Check from "../../components/Check";
 import API from "../../utils/API";
 import "./StartGame.css";
+import FirebaseRetrieve from "../../components/FirebaseRetrieve";
+
 import {
   Container,
   Segment,
@@ -228,6 +230,8 @@ class StartGame extends React.Component {
            
           </Grid>
         </Container>
+        <FirebaseRetrieve />
+
       </div>
     );
   }
