@@ -19,7 +19,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // Method to get a limited number of murals completed
+  // Method to get a limited number of murals not completed
   // This is for the World Open Games component
   findOpenMurals: function (req, res) {
     db.Mural
@@ -30,7 +30,6 @@ module.exports = {
             {
               $and: [
                 { playerCount: 2 },
-                { playerId1: req.params.uniqueid },
                 { pImg2: null },
                 { private: false }
               ]
@@ -43,11 +42,10 @@ module.exports = {
                 {
                   $or: [
                     // Open games will show up whether user is player 1 or player 2
-                    { playerId1: req.params.uniqueid },
-                    { playerId2: req.params.uniqueid }
+                    { pImg2: null },
+                    { pImg3: null },
                   ]
                 },
-                { pImg3: null },
                 { private: false }
               ]
             }
@@ -86,7 +84,10 @@ module.exports = {
                     { playerId2: req.params.uniqueid }
                   ]
                 },
-                { pImg3: null }
+                { $or: [
+                  { pImg2: null },
+                  { pImg3: null }
+                ]}
               ]
             }
           ]
