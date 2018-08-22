@@ -13,7 +13,8 @@ export default class FirebaseRetrieve extends React.Component {
     componentDidMount() {
         console.log("mounted");
 
-        //Pass file location props here
+        //Pass file location props here- also can pass a quantity props              .limitToFirst(3)
+
         let location = Firebase.database().ref("completedGames");
         //Use file location props 
         location.on('value', (snapshot) => {
@@ -28,6 +29,8 @@ export default class FirebaseRetrieve extends React.Component {
             this.setState({
                 completedGames: newState
             });
+
+            this.props.callback(this.state.completedGames);
         });
     }
 
