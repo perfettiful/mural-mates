@@ -206,6 +206,7 @@ class StartGame extends React.Component {
                 ) : null}
               </Grid.Column>
             </Grid.Row>
+            {!this.state.successfulSubmission?(
             <Grid.Row>
               <Grid.Column>
                 <br />
@@ -224,7 +225,8 @@ class StartGame extends React.Component {
                   </Button.Content>
                 </Button>{" "}
               </Grid.Column>
-            </Grid.Row>
+            </Grid.Row>):null
+  }
            
           </Grid>
         </Container>

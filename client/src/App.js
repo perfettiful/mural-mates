@@ -96,8 +96,9 @@ class App extends Component {
           <div>
             <Menu size="large">
               <Menu.Item header>
-                <a href="/">
-                  <i className="fas fa-skull fa-2x" />
+                <a href="/"><h2>Mural{" "}
+                  <i className="fas fa-skull fa-x" />
+                   {" "}Mates</h2>
                 </a>
               </Menu.Item>
               {isAuthenticated() ? (
