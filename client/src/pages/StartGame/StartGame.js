@@ -24,7 +24,7 @@ import {FacebookShareButton, FacebookIcon, FacebookShareCount} from 'react-share
 import {TwitterShareButton, TwitterIcon, TwitterShareCount} from 'react-share';
 import {RedditShareButton, RedditIcon, RedditShareCount} from 'react-share';
 import {TumblrShareButton, TumblrIcon, TumblrShareCount} from 'react-share';
-import {EmailShareButton, EmailIcon, } from 'react-share';
+import {EmailShareButton, EmailIcon } from 'react-share';
 class StartGame extends React.Component {
   constructor(props) {
     super(props);
