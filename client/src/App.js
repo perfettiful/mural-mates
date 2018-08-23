@@ -19,7 +19,6 @@ import MyOpenMurals from "./components/MyOpenMurals";
 import CompletedMurals from "./components/CompletedMurals";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import Home from "./pages/Home";
 import StartGame from "./pages/StartGame";
 import FinalMural from "./pages/FinalMural";
 // import LandingPage from "./pages/LandingPage";

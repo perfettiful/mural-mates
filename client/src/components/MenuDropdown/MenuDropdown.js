@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyOpenMurals from "../MyOpenMurals";
 import Counter from "../Counter";
 import API from "../../utils/API";
+import "./MenuDropdown.css";
 
 class MenuDropdown extends Component {
   constructor(props) {
@@ -82,24 +83,33 @@ class MenuDropdown extends Component {
 
     return (
       <div>
-        <Dropdown pointing floating
+        <Dropdown
+          pointing
+          floating
           placeholder={
             this.state.loggedIn ? (
               <div>
-                <Image avatar src={this.state.profile.picture} size="tiny" spaced/>
+                <Image
+                  avatar
+                  src={this.state.profile.picture}
+                  size="tiny"
+                  className="bioPic"
+                  spaced
+                />
                 <Icon name="caret down" size="large" />
               </div>
             ) : (
-             
-                <Icon name="sidebar" size="large" />
-           
+              <Icon name="sidebar" size="large" />
             )
           }
           fluid
         >
           <Dropdown.Menu>
-         
-          <Dropdown.Header icon='sidebar' size="medium" content='Menu' />
+            <Dropdown.Header
+              icon="sidebar"
+              size="medium"
+              content={"Welcome Back " + this.state.profile.given_name}
+            />
             <Dropdown.Item>
               <Link
                 to="/about"

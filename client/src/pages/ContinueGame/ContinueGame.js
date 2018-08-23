@@ -156,6 +156,7 @@ class ContinueGame extends React.Component {
                 ) : null}
               </Grid.Column>
             </Grid.Row>
+            {!this.state.successfulSubmission ? (
             <Grid.Row>
               <Grid.Column width={16}>
                 <Button animated color="blue" onClick={this.handleMuralSubmit}>
@@ -165,7 +166,7 @@ class ContinueGame extends React.Component {
                   </Button.Content>
                 </Button>
               </Grid.Column>
-            </Grid.Row>
+            </Grid.Row>):null}
           </Grid>
 
           {/* Original Title of Mural */}
