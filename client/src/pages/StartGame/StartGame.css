@@ -12,7 +12,12 @@ body > div > div > div.toggleCheck {
 color:white !important;
 font-weight: Bold
 }
-/*   background: #145b82;
-  background: -webkit-linear-gradient(to top, #85D8CE, #145b82);  
-  background: linear-gradient(to top, #85D8CE, #145b82); 
-   */
+
+
+.socialButton{
+  width: 32px;
+  display: inline-block;
+}
+.emailText{
+  margin-top: -3px;
+}
