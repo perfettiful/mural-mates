@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const muralSchema = new Schema({
   title: { type: String, required: true },
+  // playerCount: { type: Number },
   pImg1: { type: String, },
   pImg2: { type: String },
-  pImg3: { type: String },
+  // pImg3: { type: String },
   mural: { type: String },
   //p1seen is used for notification purposes
   //It's initially set to true and toggled to false when player2 submits the second drawing
@@ -18,9 +19,9 @@ const muralSchema = new Schema({
   playerName2: { type: String },
   playerId2: { type: String, require: true },
   playerPhoto2: { type: String },
-  playerId3: { type: String },
-  playerName3: { type: String, },
-  playerPhoto3: { type: String, },
+  // playerId3: { type: String },
+  // playerName3: { type: String, },
+  // playerPhoto3: { type: String, },
   date: { type: Date, default: Date.now },
   private: { type: Boolean }
 });
