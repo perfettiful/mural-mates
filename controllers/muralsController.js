@@ -176,6 +176,15 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  getAllCompletedGames: function (req, res) {
+    db.Mural
+      .find({ _id: { $in: req.body.data } })
+      .sort({ date: 'desc' })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+
   // Method that posts games to the db
   // This sends all game data available to server
   create: function (req, res) {
