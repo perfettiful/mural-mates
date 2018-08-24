@@ -42,6 +42,11 @@ router
 .route("/v1/murals/")
 .get(muralsController.findCompletedMurals);
 
+//Get route for all completed game using an array of id's to search
+router
+.route("/v1/complete/")
+.post(muralsController.getAllCompletedGames);
+
 //Get route for all completed murals by specific user
 router
 .route("/v1/murals/:uniqueid")

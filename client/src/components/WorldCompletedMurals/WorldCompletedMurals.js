@@ -30,7 +30,7 @@ export default class WorldCompletedMurals extends Component {
     super(props);
     this.state = {
       completedGameIds: [],
-      worldCompletedGames: []
+      worldCompletedMurals: []
     };
   }
   componentDidMount() {
@@ -50,13 +50,22 @@ export default class WorldCompletedMurals extends Component {
 
 
 
-  //API request to load Completed murals for background carousel
-  getCompletedWorldMurals = (list) => {
-    let searchArr = list.map
+  // //API request to load Completed murals for background carousel
+  getAllCompletedGames = (list) => {
+    console.log("list",list);
+    let searchArr = [];
 
+    //Turn object containing ids and values into just an array of values for searching mongoose
+    list.forEach(function(element,index) {
+      searchArr.push(element.id);
+    });
 
-    API.getCompletedWorldMurals(games)
+    let searchObj = {};
+
+    searchObj.data=searchArr;
+    API.getAllCompletedGames(searchObj)
       .then(res => {
+        console.log(res.data[0]);
         this.setState({
           worldCompletedMurals: res.data
         });
@@ -68,22 +77,39 @@ export default class WorldCompletedMurals extends Component {
   //do a mongoose query using that list of id's, and then render images from those returned games on the page.  
   getGamesFromFirebase = (games) => {
     this.setState({ completedGameIds: games })
-    console.log("mygames", games);
+    this.getAllCompletedGames(this.state.completedGameIds);
+    //API Function Call
   };
 
 
   render() {
     return (
+
+      //I've added the below html just for testing purposes- we need this to render the completed pairs of images in a way 
+      //that shows multiple on a page, etc.
       <div>
         <h3>
           World Completed Murals
         </h3>
-    
+        <h1>{this.state.WorldCompletedMurals}</h1>
         <FirebaseRetrieve
           callback={this.getGamesFromFirebase}
           //Tells Firebase to pull from completedGames folder in database
           location="completedGames"
         />
+
+         <List>
+          {this.state.worldCompletedMurals.map(game => (
+            <ListItem key={game._id}>
+              <Link to={"/game/" + game._id}>
+                <strong>
+                  Img1: <Image src={game.pImg1} />
+                  Img2 : {game.pImg2}
+                </strong>
+              </Link>
+            </ListItem>
+          ))}
+        </List>
 
       </div>
     );

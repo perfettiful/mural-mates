@@ -174,6 +174,18 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  getAllCompletedGames: function (req, res) {
+    console.log("BODY",req.body);
+    console.log(req.body[0]);
+    // console.log("CONTROLLER DATA",JSON.parse(req.body));
+    // let array = JSON.parse(req.body.data);
+    db.Mural
+      .find({ _id: { $in: req.body.data } })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+
   // Method that posts games to the db
   // This sends all game data available to server
   create: function (req, res) {

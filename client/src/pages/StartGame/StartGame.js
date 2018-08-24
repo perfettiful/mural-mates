@@ -233,7 +233,6 @@ class StartGame extends React.Component {
           </Grid>
         </Container>
         <WorldCompletedMurals />
-
       </div>
     );
   }

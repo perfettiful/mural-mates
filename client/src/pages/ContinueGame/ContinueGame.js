@@ -63,13 +63,12 @@ class ContinueGame extends React.Component {
   submitToFirebase() {
     //props.location tells which folder to put item in (i.e. completedGames.....)
     let location = Firebase.database().ref("completedGames");
-
     //props.data
-    let newFinishedGame = this.props.match.params.id;
-    location.push(newFinishedGame);
-
+    const item = {
+      id:this.props.match.params.id,
+    }
+    location.push(item);
   }
-
 
   handleMuralSubmit = event => {
     event.preventDefault();

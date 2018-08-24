@@ -39,7 +39,6 @@ export default class CompletedMurals extends Component {
   }
   componentDidMount() {
     this.getCompletedMuralsByUser();
-    
   }
   loadCompletedMurals = () => {
     // this.loadOpenGames();
