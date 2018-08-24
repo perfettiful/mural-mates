@@ -275,14 +275,9 @@ class StartGame extends React.Component {
                   </Button.Content>
                 </Button>{" "}
               </Grid.Column>
-<<<<<<< HEAD
             </Grid.Row>):null
   }
            
-=======
-            </Grid.Row>
-
->>>>>>> b8eeeb02c72aef26539257642ed8887dadc184fb
           </Grid>
         </Container>
         <WorldCompletedMurals />
