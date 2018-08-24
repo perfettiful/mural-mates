@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import DrawApp from "../../components/DrawApp";
 import ImageSlicer from "../../components/ImageSlicer";
 import API from "../../utils/API";
+import Firebase from '../../Firebase'; // <--- add this line
+
+
 import {
   Container,
   Image,
@@ -42,6 +45,7 @@ class ContinueGame extends React.Component {
 
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   componentDidMount() {
+
     API.getMural(this.props.match.params.id)
       .then(res => {
         this.setState({
@@ -54,6 +58,16 @@ class ContinueGame extends React.Component {
         });
       })
       .catch(err => console.log(err));
+  }
+
+  submitToFirebase() {
+    //props.location tells which folder to put item in (i.e. completedGames.....)
+    let location = Firebase.database().ref("completedGames");
+    //props.data
+    const item = {
+      id:this.props.match.params.id,
+    }
+    location.push(item);
   }
 
   handleMuralSubmit = event => {
@@ -82,13 +96,15 @@ class ContinueGame extends React.Component {
 
       //Take the returned data and as a demonstration of pulling info from mongo and rendering it, add this res.data stuff to the current state
     )
-      .then(res =>
+      .then(res => {
         this.setState({
           successfulSubmission: true
-        })
-      )
+        });
+        this.submitToFirebase();
+      })
+
       //Mongo Error handling
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   };
 
   render() {

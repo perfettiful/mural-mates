@@ -11,6 +11,11 @@ export default {
     return axios.get("/api/v1/murals/" + id);
   },
 
+  //Get ALL COMPLETED murals by Firebase stored ID's
+  getAllCompletedGames: function (idData) {
+    return axios.post("/api/v1/complete/", idData);
+  },
+
   // Gets the mural with the given id
   getMural: function (id) {
     return axios.get("/api/v1/game/" + id);
@@ -24,11 +29,9 @@ export default {
     return axios.post("/api/v1/", muralData);
   },
   editMural: function (id, muralData) {
-    console.log(id, muralData);
     return axios.put("/api/v1/gameupdate/" + id, muralData);
   },
   logMural: function (muralData) {
-    console.log(muralData);
   },
 
   findOpenMurals: function () {
@@ -38,5 +41,7 @@ export default {
   findOpenMuralsByUser: function (id) {
     return axios.get("/api/v1/openmurals/" + id);
   }
+
+  
 };
 

@@ -4,6 +4,8 @@ import DrawApp from "../../components/DrawApp";
 import Check from "../../components/Check";
 import API from "../../utils/API";
 import "./StartGame.css";
+import WorldCompletedMurals from "../../components/WorldCompletedMurals";
+
 import {
   Container,
   Segment,
@@ -111,6 +113,7 @@ class StartGame extends React.Component {
     }
   };
 
+
   handleCopyToClipboard = () => {
     document.querySelector("#shareLink").select();
     // Copy to the clipboard
@@ -140,6 +143,7 @@ class StartGame extends React.Component {
     const errors = this.validateSubmission(this.state.title);
     //set const equal to errors that may exist
     const isDisabled = Object.keys(errors).some(x => errors[x]);
+
 
     return (
       <div className="start">
@@ -271,9 +275,10 @@ class StartGame extends React.Component {
                 </Button>{" "}
               </Grid.Column>
             </Grid.Row>
-           
+
           </Grid>
         </Container>
+        <WorldCompletedMurals />
       </div>
     );
   }
