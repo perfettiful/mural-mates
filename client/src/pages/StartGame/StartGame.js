@@ -14,6 +14,7 @@ import {
   Icon,
   Grid,
   Message,
+  Modal,
   Button,
   Input,
   GridColumn,
@@ -21,6 +22,11 @@ import {
 } from "semantic-ui-react";
 import { getCiphers } from "crypto";
 
+import {FacebookShareButton, FacebookIcon, FacebookShareCount} from 'react-share';
+import {TwitterShareButton, TwitterIcon, TwitterShareCount} from 'react-share';
+import {RedditShareButton, RedditIcon, RedditShareCount} from 'react-share';
+import {TumblrShareButton, TumblrIcon, TumblrShareCount} from 'react-share';
+import {EmailShareButton, EmailIcon } from 'react-share';
 class StartGame extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +37,7 @@ class StartGame extends React.Component {
       gameId: "",
       private: false,
       successfulSubmission: false,
-      touched: { title: false }
+      touched: { title: false },
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMuralSubmit = this.handleMuralSubmit.bind(this);
@@ -206,6 +212,46 @@ class StartGame extends React.Component {
                       {" "}
                       <h3 />{" "}
                     </Link>
+                    <h3>{"Share Your Mural with All Your Mateys!"}</h3>
+                    {/* Start Facebook Share */}
+                    <FacebookShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <FacebookIcon className="socialButton" size={32} round={false} />
+                    <FacebookShareCount url={`${window.location.href}/${this.state.id}`}>
+                      </FacebookShareCount>
+                    </FacebookShareButton>
+                    {/* End Facebook Share */}
+
+                    {/* Start TwitterShare
+                    <TwitterShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <TwitterIcon className="facebookButton" size={32} round={false} />
+                    {/* <TwitterShareCount url={`${window.location.href}/${this.state.id}`}>
+                      </TwitterShareCount> 
+                    </TwitterShareButton>
+                    End Twitter Share */}
+                    <RedditShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <RedditIcon className="socialButton" size={32} round={false} />
+                    <RedditShareCount url={`${window.location.href}/${this.state.id}`} title="Your Mate sent you a Mural to finish!">
+                    </RedditShareCount>
+                    </RedditShareButton>
+
+                    <TumblrShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`} quote={`'Ahoy Mural Matey'`} >
+
+                    <TumblrIcon className="socialButton" size={32} round={false} />
+                    <TumblrShareCount url={`${window.location.href}/${this.state.id}`} title="Your Mate sent you a Mural to finish!">
+                    </TumblrShareCount>
+                    </TumblrShareButton>
+
+                    <EmailShareButton className="socialButton" url={`${window.location.href}/${this.state.id}`}  subject={"Your Mate sent you a Mural to finish!"} body={`${window.location.href}/${this.state.id}`}>
+
+                    <EmailIcon className="socialButton" size={32} round={false} />
+                    <h3 className="emailText">{'Email'}</h3>
+
+                    </EmailShareButton>
+                    
+    
                   </Message>
                 ) : null}
               </Grid.Column>
