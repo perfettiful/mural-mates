@@ -52,7 +52,6 @@ export default class WorldCompletedMurals extends Component {
 
   // //API request to load Completed murals for background carousel
   getAllCompletedGames = (list) => {
-    console.log("list",list);
     let searchArr = [];
 
     //Turn object containing ids and values into just an array of values for searching mongoose
@@ -65,7 +64,6 @@ export default class WorldCompletedMurals extends Component {
     searchObj.data=searchArr;
     API.getAllCompletedGames(searchObj)
       .then(res => {
-        console.log(res.data[0]);
         this.setState({
           worldCompletedMurals: res.data
         });
@@ -104,7 +102,7 @@ export default class WorldCompletedMurals extends Component {
               <Link to={"/game/" + game._id}>
                 <strong>
                   Img1: <Image src={game.pImg1} />
-                  Img2 : {game.pImg2}
+                  Img2 : <Image src={game.pImg2} />
                 </strong>
               </Link>
             </ListItem>

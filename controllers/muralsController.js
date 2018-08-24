@@ -177,12 +177,9 @@ module.exports = {
   },
 
   getAllCompletedGames: function (req, res) {
-    console.log("BODY",req.body);
-    console.log(req.body[0]);
-    // console.log("CONTROLLER DATA",JSON.parse(req.body));
-    // let array = JSON.parse(req.body.data);
     db.Mural
       .find({ _id: { $in: req.body.data } })
+      .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
