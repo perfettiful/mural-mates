@@ -1,11 +1,4 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { List, ListItem } from "../../components/List";
-import Counter from "../../components/Counter";
-import JoinMural from "../../components/JoinMural";
-import Carousel from "../../components/Carousel";
-import "./Home.css";
-import API from "../../utils/API";
+import React from "react";
 import {
   Segment,
   Button,
@@ -17,11 +10,12 @@ import {
   Message,
   Form,
   Image,
-  Menu,
-  Tab
+  Item
 } from "semantic-ui-react";
-
-class Home extends React.Component {
+const styles = {
+  color: "#555"
+};
+class Contact extends React.Component {
   constructor(props) {
     super(props);
 
@@ -73,10 +67,6 @@ class Home extends React.Component {
     this.props.callbackFromParent(false);
   }
   render() {
-    const isAuthenticated = this.props.auth.isAuthenticated;
-    const willJoin = this.state.willJoin;
-    let openMurals;
-
     return (
       <div>
                <Grid
@@ -145,6 +135,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
-
-
+export default Contact;

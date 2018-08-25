@@ -26,7 +26,7 @@ class Contact extends React.Component {
           <Grid container style={styles}centered >
               
              
-              <Grid.Column mobile={16} tablet={8} computer={8} centered>
+              <Grid.Column mobile={16} tablet={8} computer={8}>
                 <Card>
                   <Card.Content>
                     <Card.Header>
