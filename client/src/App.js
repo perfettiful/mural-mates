@@ -106,15 +106,15 @@ class App extends Component {
     let openMurals;
 
     return (
-      <Router history={history} >
+      <Router>
         <div>
           <Menu size="large">
             <Menu.Item header>
-              <a href="/">
+              <Link to="/">
                 <h2>
                   Mural <i className="fas fa-skull fa-x" /> Mates
                 </h2>
-              </a>
+              </Link>
             </Menu.Item>
             {isAuthenticated() ? (
               <Menu.Menu position="right">
