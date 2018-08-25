@@ -52,6 +52,7 @@ export default class MyOpenMurals extends Component {
   }
 
   loadOpenMuralsByUser = () => {
+    if(this.props.profile){
     API.findOpenMuralsByUser(this.props.profile.sub)
       .then(res => {
         this.setState({
@@ -59,7 +60,8 @@ export default class MyOpenMurals extends Component {
         });
       })
       .catch(err => console.log(err));
-  };
+  };}
+  
   render() {
     return (
       <div>
