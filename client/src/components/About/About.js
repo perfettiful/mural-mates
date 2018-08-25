@@ -10,16 +10,19 @@ import {
   Message,
   Form,
   Image,
-  Item
+  Item, Link
 } from "semantic-ui-react";
 const styles = {
-  color: "#555"
+  color: "#999",
 };
-class Contact extends React.Component {
+class About extends React.Component {
+
+
+
   render() {
     return (
       <div>
-        <Container text>
+      <Container text>
         <br/>
           <Item.Group>
             <Item>
@@ -92,4 +95,4 @@ class Contact extends React.Component {
   }
 }
 
-export default Contact;
+export default About;
