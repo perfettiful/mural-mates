@@ -20,3 +20,6 @@ font-weight: Bold
 .emailText{
   margin-top: -3px;
 }
+.ui.toggle.checkbox.toggleCheck label,{
+  color:white;
+}

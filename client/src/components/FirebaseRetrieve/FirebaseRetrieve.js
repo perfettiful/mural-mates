@@ -23,8 +23,9 @@ export default class FirebaseRetrieve extends React.Component {
         location.on('value', (snapshot) => {
             let items = snapshot.val();
             let newState = [];
+            console.log(items);
             for (let item in items) {
-                console.log("id",item.id);
+                console.log("id",items[item].id);
                 newState.push({
                     id: items[item].id
                 });

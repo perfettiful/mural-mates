@@ -19,7 +19,6 @@ export default class WorldCompletedMurals extends Component {
       completedGameIds: [],
       worldCompletedMurals: []
     };
-    this.getGamesFromFirebase=this.getGamesFromFirebase.bind(this);
   }
   componentDidMount() {
    
@@ -62,7 +61,7 @@ export default class WorldCompletedMurals extends Component {
   //do a mongoose query using that list of id's, and then render images from those returned games on the page.
   getGamesFromFirebase = games => {
     this.setState({ completedGameIds: games });
-    this.getAllCompletedGames(this.state.completedGameIds);
+    this.getAllCompletedGames(games);
     //API Function Call
   };
 
@@ -78,8 +77,6 @@ export default class WorldCompletedMurals extends Component {
           </Segment>
         </Container>
 <Divider/>
-
-        <h1>{this.state.WorldCompletedMurals}</h1>
         <FirebaseRetrieve
           callback={this.getGamesFromFirebase}
           //Tells Firebase to pull from completedGames folder in database
@@ -89,6 +86,7 @@ export default class WorldCompletedMurals extends Component {
         <Card.Group centered>
           {this.state.worldCompletedMurals.map(game => (
             <Link to={"/game/" + game._id}>
+            <br/>
               <Card key={game._id}>
                 <Container>
                   <strong>
