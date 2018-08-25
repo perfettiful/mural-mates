@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { List, ListItem } from "../../components/List";
-import Counter from "../../components/Counter";
 import JoinMural from "../../components/JoinMural";
-import Carousel from "../../components/Carousel";
+import GameButtons from "../../components/GameButtons";
 import "./Home.css";
 import API from "../../utils/API";
 import {
@@ -79,67 +77,8 @@ class Home extends React.Component {
 
     return (
       <div>
-               <Grid
-              id="mural-selection"
-              textAlign="center"
-              style={{ height: "100%" }}
-              verticalAlign="middle"
-            >
-              <Grid.Row>
-               {!isAuthenticated() ? (
-                  <Grid.Column style={{ maxWidth: 450 }}>
-                    <Segment stacked>
-                      <Header as="h1" color="grey" textAlign="center">
-                        <Image>
-                          <i className="fas fa-skull" />{" "}
-                        </Image>
-                        Welcome to Mural Mates
-                      </Header>
-                      <Segment stacked>
-                        <Button
-                          className="inverted"
-                          color="black"
-                          fluid
-                          size="large"
-                          name="logIn"
-                          className="btn-margin"
-                          onClick={this.login.bind(this)}
-                        >
-                          Log In
-                        </Button>
-                      </Segment>
-                    </Segment>
-                  </Grid.Column>
-                ) : (
-                  <Grid.Column>
-                    <Segment stacked>
-                      <Link to={`/about`}>
-                      
-                        <Button
-                          color="grey"
-                          fluid
-                          size="large"
-                        >How To Play</Button>
-                      </Link>
-                      <Divider horizontal />
-                       <Link to={`/game/`}><Button color="black" fluid size="large">
-                       Create New Mural
-                      </Button></Link>
-                      <Divider horizontal>Or</Divider>
-                      <Button
-                        color="blue"
-                        fluid
-                        size="large"
-                        onClick={this.handleWillJoin}
-                      >
-                        Join Open Murals
-                      </Button>
-                    </Segment>
-                  </Grid.Column>
-                )}
-              </Grid.Row>
-            </Grid>
-          
+       <GameButtons auth={this.props.auth} callbackFromParent={this.props.callbackFromParent}/>
+        
       </div>
     );
   }

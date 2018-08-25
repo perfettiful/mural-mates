@@ -29,6 +29,7 @@ class MenuDropdown extends Component {
     this.state = {
       profile: {},
       loggedIn: false,
+      willJoin:false,
       userCompletedMurals: []
     };
   }
@@ -42,8 +43,8 @@ class MenuDropdown extends Component {
       this.populateProfile();
     }
   }
-  componentDidMount(){
-    if(auth.isAuthenticated()){
+  componentDidMount() {
+    if (auth.isAuthenticated()) {
       this.populateProfile();
     }
   }
@@ -180,13 +181,16 @@ class MenuDropdown extends Component {
             </Dropdown.Item>
             <Dropdown.Item>
               {isAuthenticated() && (
-                <Menu.Item
-                  name="logOut"
-                  className="btn-margin"
-                  onClick={this.logout}
-                >
-                  Log Out
-                </Menu.Item>
+                <Link to="/">
+                  {" "}
+                  <Menu.Item
+                    name="logOut"
+                    className="btn-margin"
+                    onClick={this.logout}
+                  >
+                    Log Out
+                  </Menu.Item>
+                </Link>
               )}
             </Dropdown.Item>
           </Dropdown.Menu>

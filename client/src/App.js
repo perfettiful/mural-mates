@@ -125,7 +125,8 @@ class App extends Component {
               </Menu.Menu>
             ) : null}
           </Menu>
-          <Switch>
+             <Switch>
+       
             <Route 
             exact 
             path="/"
@@ -157,7 +158,8 @@ class App extends Component {
               return <Callback {...props} />;
             }}
           />
-            <Route
+          
+          {isAuthenticated() ? (  <div>  <Route
               exact
               path="/game"
               render={props => {
@@ -249,7 +251,8 @@ class App extends Component {
               }}
             />{" "}
             <Route exact path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
+            <Route path="/contact" component={Contact} /> 
+            </div>):null}
           </Switch>
         </div>
       </Router>
