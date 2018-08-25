@@ -168,7 +168,7 @@ class StartGame extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <br />
+              
                 <Check
                   className="toggleCheck"
                   onChange={this.handleCheckbox}
@@ -179,27 +179,26 @@ class StartGame extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <br />
+             
                 <DrawApp fluid />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <br />
+               
                 {this.state.successfulSubmission ? (
                   <Message>
                     {`Submission Sucessful! Send the link below to a friend to complete the game!`}
-                    <br />
+                   
                     <Input
                       fluid
                       type="text"
                       className="visible-input"
                       id="shareLink"
-                      value={`${window.location.href}/${this.state.id}`}
+                      value={`${window.location.href}${this.state.id}`}
                       action={
                         <Button
-                          onClick={this.handleCopyToClipboard}
-                          onPress={this.handleCopyToClipboard}
+                          onClick={this.handleCopyToClipboard} 
                           color="blue"
                           labelPosition="right"
                           icon="copy"
@@ -259,7 +258,7 @@ class StartGame extends React.Component {
             {!this.state.successfulSubmission?(
             <Grid.Row>
               <Grid.Column>
-                <br />
+              
                 <Button
                   fluid
                   animated
@@ -267,7 +266,6 @@ class StartGame extends React.Component {
                   disabled={isDisabled}
                   color="blue"
                   onClick={this.handleMuralSubmit}
-                  onPress={this.handleMuralSubmit}
                 >
                   <Button.Content visible>Save Mural</Button.Content>
                   <Button.Content hidden>
@@ -280,7 +278,6 @@ class StartGame extends React.Component {
            
           </Grid>
         </Container>
-        <WorldCompletedMurals />
       </div>
     );
   }

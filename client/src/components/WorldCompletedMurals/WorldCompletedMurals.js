@@ -19,7 +19,9 @@ export default class WorldCompletedMurals extends Component {
       worldCompletedMurals: []
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getGamesFromFirebase();
+  }
 
   componentWillMount() {
     this.checkAndUpdateState(this.props);

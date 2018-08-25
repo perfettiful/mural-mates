@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import "./GameButtons.css";
 import JoinMural from "../../components/JoinMural";
+import WorldCompletedMurals from "../../components/WorldCompletedMurals";
 const styles = {
   color: "#555"
 };
@@ -24,9 +25,12 @@ class GameButtons extends React.Component {
       willJoin: false
     };
   }
-componentDidMount(){
-  this.setState({loggedIn:this.state.willJoin, willJoin:this.state.loggedIn});
-}
+  componentDidMount() {
+    this.setState({
+      loggedIn: this.state.willJoin,
+      willJoin: this.state.loggedIn
+    });
+  }
   componentDidUpdate(prevProps, prevState) {
     if (
       this.props.auth.isAuthenticated() &&
@@ -107,40 +111,62 @@ componentDidMount(){
                 </Segment>
               </Grid.Column>
             ) : (
-              <Grid.Column style={{ maxWidth:350 }}>
+              <Grid.Column style={{ maxWidth: 350 }}>
                 <Segment stacked>
-                  <Modal trigger={<Button fluid size="large">How To Play</Button>} closeIcon>
+                  <Modal
+                    trigger={
+                      <Button fluid size="large">
+                        How To Play
+                      </Button>
+                    }
+                    closeIcon
+                  >
                     <Header icon="paint brush" content="How To Play" />
                     <Modal.Content style={styles}>
-                    <h3>
-                    {" "}
-                    Mural Mates is a game based on the surrealist concept of "Exquisite
-                    Corpse", a practice in collaborative creativity.
-                  </h3>
-                  <p>
-                    {" "}
-                    In order to play, you can create a new game and draw out the
-                    "head" of the corpse. Alternatively, you can join an
-                    incomplete mural and complete the body based on the sliver
-                    of a hint given.
-                  </p>
+                      <h3>
+                        {" "}
+                        Mural Mates is a game based on the surrealist concept of
+                        "Exquisite Corpse", a practice in collaborative
+                        creativity.
+                      </h3>
+                      <p>
+                        {" "}
+                        In order to play, you can create a new game and draw out
+                        the "head" of the corpse. Alternatively, you can join an
+                        incomplete mural and complete the body based on the
+                        sliver of a hint given.
+                      </p>
 
-                  <p>
-                    Once the second player has finished drawing the body you can
-                    see the combined "Mural" made up of the two separate images.
-                  </p>
+                      <p>
+                        Once the second player has finished drawing the body you
+                        can see the combined "Mural" made up of the two separate
+                        images.
+                      </p>
 
-                  <p>
-                    {" "}
-                    Don't worry too much about trying to draw the perfect image.
-                    The fun in the game is seeing what you and a friend or a
-                    stranger can create together.
-                  </p>
+                      <p>
+                        {" "}
+                        Don't worry too much about trying to draw the perfect
+                        image. The fun in the game is seeing what you and a
+                        friend or a stranger can create together.
+                      </p>
                     </Modal.Content>
                   </Modal>
                   <Divider horizontal />
-                  <Link to={`/game/`}>
+                  <Link
+                    to={`/archives`}
+                    className={
+                      window.location.pathname === "/archives"
+                        ? "nav-link active"
+                        : "nav-link"
+                    }
+                  >
                     <Button color="black" fluid size="large">
+                      See All Completed Murals
+                    </Button>
+                  </Link>
+                  <Divider horizontal />
+                  <Link to={`/game/`}>
+                    <Button color="blue" fluid size="large">
                       Create New Mural
                     </Button>
                   </Link>
@@ -153,12 +179,11 @@ componentDidMount(){
                   >
                     Join Open Murals
                   </Button>
-                  
                 </Segment>
               </Grid.Column>
             )}
           </Grid.Row>
-          {(isAuthenticated && willJoin) ?(<JoinMural/>):null}
+          {isAuthenticated && willJoin ? <JoinMural /> : null}
         </Grid>
       </div>
     );

@@ -95,7 +95,6 @@ class MenuDropdown extends Component {
       <div>
         <Dropdown
           pointing
-          floating
           placeholder={
             this.state.loggedIn ? (
               <div>
