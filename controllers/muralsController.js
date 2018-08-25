@@ -179,12 +179,13 @@ module.exports = {
 
   getAllCompletedGames: function (req, res) {
     // console.log(req.body.data);
-    // const objectIds = req.body.data.map((element) => mongoose.Types.ObjectId(element) );
+    const objectIds = req.body.data;
     // console.log(objectIds);
     db.Mural
-      // .find({ "_id": { $in: objectIds } })
-      .find(
-        { pImg2: { $ne: null } })
+      .find({ "_id": { $in: objectIds } })
+      // .find(
+      //   { pImg2: { $ne: null } })
+      .limit(12)
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

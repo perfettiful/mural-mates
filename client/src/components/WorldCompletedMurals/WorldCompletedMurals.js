@@ -73,7 +73,7 @@ export default class WorldCompletedMurals extends Component {
         <Container text textAlign="center">
           <Segment raised>
             {" "}
-            <h1> WORLD COMPLETED MURALS </h1>
+            <h1> ALL COMPLETED MURALS </h1>
           </Segment>
         </Container>
 <Divider/>
@@ -85,7 +85,7 @@ export default class WorldCompletedMurals extends Component {
 
         <Card.Group centered>
           {this.state.worldCompletedMurals.map(game => (
-            <Link to={"/game/" + game._id}>
+          <div>
             <br/>
               <Card key={game._id}>
                 <Container>
@@ -94,8 +94,8 @@ export default class WorldCompletedMurals extends Component {
                     Img2 : <Image src={game.pImg2} />
                   </strong>
                 </Container>
-              </Card>{" "}
-            </Link>
+              </Card>
+           </div>
           ))}
         </Card.Group>
       </div>
