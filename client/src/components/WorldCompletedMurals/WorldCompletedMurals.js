@@ -5,7 +5,7 @@ import { Card, Image, Container, Segment } from "semantic-ui-react";
 import API from "../../utils/API";
 import "./WorldCompletedMurals.css";
 import FirebaseRetrieve from "../FirebaseRetrieve";
-
+import Firebase from "../../Firebase";
 const styles = {
   mural: {
     border: "10px solid #333"
@@ -14,13 +14,15 @@ const styles = {
 export default class WorldCompletedMurals extends Component {
   constructor(props) {
     super(props);
+   
     this.state = {
       completedGameIds: [],
       worldCompletedMurals: []
     };
+    this.getGamesFromFirebase=this.getGamesFromFirebase.bind(this);
   }
   componentDidMount() {
-    this.getGamesFromFirebase();
+   
   }
 
   componentWillMount() {
@@ -69,7 +71,12 @@ export default class WorldCompletedMurals extends Component {
       //I've added the below html just for testing purposes- we need this to render the completed pairs of images in a way
       //that shows multiple on a page, etc.
       <div>
-        <Container text textAlign="center"><Segment raised> <h1> WORLD COMPLETED MURALS </h1></Segment></Container>
+        <Container text textAlign="center">
+          <Segment raised>
+            {" "}
+            <h1> WORLD COMPLETED MURALS </h1>
+          </Segment>
+        </Container>
         <h1>{this.state.WorldCompletedMurals}</h1>
         <FirebaseRetrieve
           callback={this.getGamesFromFirebase}
@@ -81,10 +88,11 @@ export default class WorldCompletedMurals extends Component {
           {this.state.worldCompletedMurals.map(game => (
             <Link to={"/game/" + game._id}>
               <Card key={game._id}>
-                <Container><strong>
-                  Img1: <Image src={game.pImg1} />
-                  Img2 : <Image src={game.pImg2} />
-                </strong>
+                <Container>
+                  <strong>
+                    Img1: <Image src={game.pImg1} />
+                    Img2 : <Image src={game.pImg2} />
+                  </strong>
                 </Container>
               </Card>{" "}
             </Link>
