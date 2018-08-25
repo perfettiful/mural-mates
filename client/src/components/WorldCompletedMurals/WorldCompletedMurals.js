@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { Card, Image, Container, Segment } from "semantic-ui-react";
+import { Card, Image, Container, Segment, Divider } from "semantic-ui-react";
 import API from "../../utils/API";
 import "./WorldCompletedMurals.css";
 import FirebaseRetrieve from "../FirebaseRetrieve";
@@ -77,6 +77,8 @@ export default class WorldCompletedMurals extends Component {
             <h1> WORLD COMPLETED MURALS </h1>
           </Segment>
         </Container>
+<Divider/>
+
         <h1>{this.state.WorldCompletedMurals}</h1>
         <FirebaseRetrieve
           callback={this.getGamesFromFirebase}

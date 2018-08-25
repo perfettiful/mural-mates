@@ -82,6 +82,8 @@ export default class CompletedMurals extends Component {
         <Container text textAlign="center"><Segment raised> <h1> MY COMPLETED MURALS </h1></Segment></Container>
         <br/>
         {/* <List> */}
+<Divider/>
+
         <Card.Group centered>
           {" "}
           {this.state.userCompletedMurals.map(game => (

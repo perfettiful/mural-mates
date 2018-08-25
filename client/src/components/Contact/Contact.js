@@ -4,13 +4,8 @@ import {
   Button,
   Divider,
   Container,
-  Header,
   Icon,
-  Grid,
-  Message,
-  Form,
   Image,
-  GridColumn,
   Card
 } from "semantic-ui-react";
 
@@ -26,7 +21,8 @@ class Contact extends React.Component {
               <h1>MURAL-MATEYS</h1>
             </Segment>
           </Container>
-          <br />
+          <Divider />
+
           <Card.Group centered>
             <Card>
               <Card.Content>
