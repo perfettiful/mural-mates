@@ -27,8 +27,17 @@ import Auth from "./Auth/Auth";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import JoinMural from "./components/JoinMural";
 import Home from "./pages/Home";
-
+import Callback from "./Callback/Callback";
+import history from "./history";
 // App.js
+
+const handleAuthentication = (auth, nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication();
+  }
+};
+
+const auth = new Auth(history);
 
 class App extends Component {
   constructor(props) {
@@ -40,10 +49,16 @@ class App extends Component {
       willJoin: false
     };
   }
-
+  callbackFromParent = boolean => {
+    if (boolean === true) {
+      this.forceUpdate();
+    } else {
+      this.setState({ profile: {}, loggedIn: false });
+    }
+  };
   componentDidUpdate(prevProps, prevState) {
     if (
-      this.props.auth.isAuthenticated() &&
+      auth.isAuthenticated() &&
       prevState.loggedIn == false &&
       this.state.loggedIn == false
     ) {
@@ -52,46 +67,46 @@ class App extends Component {
   }
 
   populateProfile() {
-    let authorized = this.props.auth.isAuthenticated();
+    let authorized = auth.isAuthenticated();
     if (authorized) {
       this.setState({ profile: {}, loggedIn: true });
-      const { userProfile, getProfile } = this.props.auth;
+      const { userProfile, getProfile } = auth;
       if (!userProfile) {
         getProfile((err, profile) => {
           this.setState({ profile });
-          this.props.callbackFromParent(true);
+          this.callbackFromParent(true);
         });
       } else {
         this.setState({ profile: userProfile });
-        this.props.callbackFromParent(true);
+        this.callbackFromParent(true);
       }
     }
   }
 
   goTo(route) {
-    this.props.history.replace(`/${route}`);
+    history.replace(`/${route}`);
   }
 
   login() {
-    this.props.auth.login();
+    auth.login();
   }
 
   logout() {
-    this.props.auth.logout();
+    auth.logout();
     this.setState({ loggedIn: false });
-    this.props.callbackFromParent(false);
+    this.callbackFromParent(false);
   }
   handleWillJoin = () => {
     this.setState({ willJoin: true });
   };
 
   render() {
-    const isAuthenticated = this.props.auth.isAuthenticated;
+    const isAuthenticated = auth.isAuthenticated;
     const willJoin = this.state.willJoin;
     let openMurals;
 
     return (
-      <Router>
+      <Router history={history} >
         <div>
           <Menu size="large">
             <Menu.Item header>
@@ -104,13 +119,44 @@ class App extends Component {
             {isAuthenticated() ? (
               <Menu.Menu position="right">
                 <MenuDropdown
-                  auth={this.props.auth}
-                  callbackFromParent={this.props.callbackFromParent}
+                  auth={auth}
+                  callbackFromParent={this.callbackFromParent}
                 />
               </Menu.Menu>
             ) : null}
           </Menu>
           <Switch>
+            <Route 
+            exact 
+            path="/"
+            render={props =>{
+              const auth = new Auth(props.history);
+              return(<Home  auth={auth}
+                {...props}
+                profile={this.state.profile}
+                loggedIn={this.state.loggedIn}
+                callbackFromParent={this.callbackFromParent}/>)
+            }}/>
+             <Route 
+            exact 
+            path="/home"
+            render={props =>{
+              const auth = new Auth(props.history);
+              return(<Home  auth={auth}
+                {...props}
+                profile={this.state.profile}
+                loggedIn={this.state.loggedIn}
+                callbackFromParent={this.callbackFromParent}/>)
+            }}/>
+              <Route
+            exact
+            path="/callback"
+            render={props => {
+              const auth = new Auth(props.history);
+              handleAuthentication(auth, props);
+              return <Callback {...props} />;
+            }}
+          />
             <Route
               exact
               path="/game"
@@ -118,6 +164,7 @@ class App extends Component {
                 const auth = new Auth(props.history);
                 return (
                   <StartGame
+
                     auth={auth}
                     {...props}
                     profile={this.state.profile}
