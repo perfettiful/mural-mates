@@ -90,7 +90,7 @@ class Routes extends React.Component {
                   profile={this.state.profile}
                   loggedIn={this.state.loggedIn}
                   callbackFromParent={this.myCallback}
-                />
+                ></App>
               );
             }}
           />

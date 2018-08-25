@@ -102,7 +102,6 @@ class MenuDropdown extends Component {
               <Icon name="sidebar" size="large" />
             )
           }
-          fluid
         >
           <Dropdown.Menu>
             <Dropdown.Header
