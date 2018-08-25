@@ -12,19 +12,14 @@ import {
   Grid,
   Message,
   Form,
-  Image
+  Image,
+  Card
 } from "semantic-ui-react";
 import API from "../../utils/API";
 import "./CompletedMurals.css";
-import FinalMural from "../../pages/FinalMural"
-const styles = {
-  mural: {
-    border: "10px solid #333"
-  }
-};
-export default class CompletedMurals extends Component {
-  
+import FinalMural from "../../pages/FinalMural";
 
+export default class CompletedMurals extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,16 +58,12 @@ export default class CompletedMurals extends Component {
     this.setState({ profile: props.profile, loggedIn: props.loggedIn });
   }
 
- 
-
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.profile.sub !== prevProps.profile.sub) {
       this.getCompletedMuralsByUser();
     }
   }
-
-  
 
   //API request to load Completed murals for background carousel
   getCompletedMuralsByUser = () => {
@@ -88,31 +79,22 @@ export default class CompletedMurals extends Component {
   render() {
     return (
       <div>
-        <h3>
-          My Completed Murals
-        </h3>
+        <Container text textAlign="center"><Segment raised> <h1> MY COMPLETED MURALS </h1></Segment></Container>
+        <br/>
         {/* <List> */}
-            {this.state.userCompletedMurals.map(game => (
-              <FinalMural key={game._id} match={{params:{id:game._id}}}/>
-              // <ListItem key={game._id}>
-              //   Title: {game.title}
-              //   Created By : {game.playerName1}{" "}
-              //   <Image src={game.playerPhoto1} alt={game.playerName1} avatar />
-              //   Completed By : {game.playerName2}
-              //   <Image src={game.playerPhoto2} alt={game.playerName2} avatar />
-              //    <Grid verticalAlign="middle" columns={3} centered>
-              //   <Grid.Row>
-              //     <Grid.Column>
-              //       <Image src={game.pImg1} />
-              //       <Image src={game.pImg2} />
-              //     </Grid.Column>s
-              //   </Grid.Row>
-              // </Grid>  
-        // {/* Method for displaying something different to user if they have not seen this mural */}
-        // {game.p1seen ? null : <h3> NEW MURAL </h3>}
-        //       </ListItem>  ))}
-        //   </List>
-            ))}
+        <Card.Group centered>
+          {" "}
+          {this.state.userCompletedMurals.map(game => (
+            <Card key={game._id}>
+              <Card.Content>
+                <FinalMural
+                 
+                  match={{ params: { id: game._id } }}
+                />
+              </Card.Content>
+            </Card>
+          ))}
+        </Card.Group>
       </div>
     );
   }

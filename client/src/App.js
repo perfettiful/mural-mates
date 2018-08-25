@@ -109,12 +109,10 @@ class App extends Component {
       <Router>
         <div>
           <Menu size="large">
-            <Menu.Item header>
-              <Link to="/">
-                <h2>
+             <Menu.Item header>
+               <Link to="/"> <h1>
                   Mural <i className="fas fa-skull fa-x" /> Mates
-                </h2>
-              </Link>
+                </h1></Link>
             </Menu.Item>
             {isAuthenticated() ? (
               <Menu.Menu position="right">

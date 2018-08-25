@@ -107,7 +107,7 @@ componentDidMount(){
                 </Segment>
               </Grid.Column>
             ) : (
-              <Grid.Column style={{ maxWidth: 450 }}>
+              <Grid.Column style={{ maxWidth:350 }}>
                 <Segment stacked>
                   <Modal trigger={<Button fluid size="large">How To Play</Button>} closeIcon>
                     <Header icon="paint brush" content="How To Play" />

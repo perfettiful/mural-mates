@@ -29,7 +29,7 @@ class MenuDropdown extends Component {
     this.state = {
       profile: {},
       loggedIn: false,
-      willJoin:false,
+      willJoin: false,
       userCompletedMurals: []
     };
   }
@@ -119,55 +119,48 @@ class MenuDropdown extends Component {
               size="medium"
               content={"Welcome Back " + this.state.profile.given_name}
             />
-            <Dropdown.Item>
-              <Link
-                to="/about"
-                className={
-                  window.location.pathname === "/about"
-                    ? "nav-link active"
-                    : "nav-link"
-                }
-              >
-                About
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link
-                to="/contact"
-                className={
-                  window.location.pathname === "/contact"
-                    ? "nav-link active"
-                    : "nav-link"
-                }
-              >
-                Contact
-              </Link>
-            </Dropdown.Item>
-
-            <Dropdown.Item>
-              <Link
-                to="/myopenmurals"
-                className={
-                  window.location.pathname === "/openmurals"
-                    ? "nav-link active"
-                    : "nav-link"
-                }
-              >
-                My Open Murals
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link
-                to="/completedmurals"
-                className={
-                  window.location.pathname === "/completedmurals"
-                    ? "nav-link active"
-                    : "nav-link"
-                }
-              >
-                Completed Murals
-              </Link>
-            </Dropdown.Item>
+            <Link
+              to="/about"
+              className={
+                window.location.pathname === "/about"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <Dropdown.Item>About</Dropdown.Item>
+            </Link>{" "}
+            <Link
+              to="/contact"
+              className={
+                window.location.pathname === "/contact"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <Dropdown.Item>Contact</Dropdown.Item>
+            </Link>
+            <Link
+              to="/myopenmurals"
+              className={
+                window.location.pathname === "/openmurals"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              {" "}
+              <Dropdown.Item>My Open Murals</Dropdown.Item>{" "}
+            </Link>
+            <Link
+              to="/completedmurals"
+              className={
+                window.location.pathname === "/completedmurals"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              {" "}
+              <Dropdown.Item>Completed Murals</Dropdown.Item>
+            </Link>
             <Dropdown.Item>
               {!isAuthenticated() && (
                 <Menu.Item
