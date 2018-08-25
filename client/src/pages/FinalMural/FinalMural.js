@@ -4,11 +4,8 @@ import API from "../../utils/API";
 import {
   Container,
   Image,
-  Header,
-  Icon,
-  Grid,
-  Message,
-  GridRow
+ Divider,
+  CardHeader
 } from "semantic-ui-react";
 import styles from "./FinalMural.css";
 
@@ -56,38 +53,20 @@ class FinalMural extends React.Component {
   render() {
     return (
       <div className="finalMural">
-        <Container>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <h3>
-                  {this.state.title} By:
-                  <br/>
-                  <Image
-                    src={this.state.playerPhoto1}
-                    alt={this.state.playerName1}
-                    avatar
-                  />
-                  {this.state.playerName1}{" "} and {" "}
-                  <Image
-                    src={this.state.playerPhoto2}
-                    alt={this.state.playerName2}
-                    avatar
-                  />{" "}
-                  {this.state.playerName2}
-                </h3>
-              </Grid.Column>
-            </Grid.Row>
+        <CardHeader>
+          <h2>
+            <u>{this.state.title} By:</u>
+          </h2>
+          <Image src={this.state.playerPhoto1} alt={this.state.playerName1} size="mini"/>
+          {this.state.playerName1} and{" "}
+          <Image src={this.state.playerPhoto2} alt={this.state.playerName2} size="mini"/>{" "}
+          {this.state.playerName2}
+          <Divider/>
+        </CardHeader>
 
-            <Grid.Row>
-              <Grid.Column>
-              <Container fluid className="mural">
-                <Image className="topImage"src={this.state.pImg1} />
-                <Image className="bottomImage" src={this.state.pImg2} />
-                </Container>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+        <Container fluid className="mural">
+          <Image className="topImage" src={this.state.pImg1} />
+          <Image className="bottomImage" src={this.state.pImg2} />
         </Container>
       </div>
     );

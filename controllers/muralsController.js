@@ -1,4 +1,5 @@
 const db = require("../models");
+const mongoose=require("mongoose");
 
 // Defining methods for the muralsController
 module.exports = {
@@ -177,8 +178,13 @@ module.exports = {
   },
 
   getAllCompletedGames: function (req, res) {
+    // console.log(req.body.data);
+    // const objectIds = req.body.data.map((element) => mongoose.Types.ObjectId(element) );
+    // console.log(objectIds);
     db.Mural
-      .find({ _id: { $in: req.body.data } })
+      // .find({ "_id": { $in: objectIds } })
+      .find(
+        { pImg2: { $ne: null } })
       .sort({ date: 'desc' })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

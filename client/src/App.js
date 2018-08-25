@@ -29,6 +29,7 @@ import JoinMural from "./components/JoinMural";
 import Home from "./pages/Home";
 import Callback from "./Callback/Callback";
 import history from "./history";
+import WorldCompletedMurals from "./components/WorldCompletedMurals";
 // App.js
 
 const handleAuthentication = (auth, nextState, replace) => {
@@ -111,9 +112,10 @@ class App extends Component {
           <Menu size="large">
             <Menu.Item header>
               <Link to="/">
-                <h2>
+                {" "}
+                <h1>
                   Mural <i className="fas fa-skull fa-x" /> Mates
-                </h2>
+                </h1>
               </Link>
             </Menu.Item>
             {isAuthenticated() ? (
@@ -126,130 +128,161 @@ class App extends Component {
             ) : null}
           </Menu>
           <Switch>
-            <Route 
-            exact 
-            path="/"
-            render={props =>{
-              const auth = new Auth(props.history);
-              return(<Home  auth={auth}
-                {...props}
-                profile={this.state.profile}
-                loggedIn={this.state.loggedIn}
-                callbackFromParent={this.callbackFromParent}/>)
-            }}/>
-             <Route 
-            exact 
-            path="/home"
-            render={props =>{
-              const auth = new Auth(props.history);
-              return(<Home  auth={auth}
-                {...props}
-                profile={this.state.profile}
-                loggedIn={this.state.loggedIn}
-                callbackFromParent={this.callbackFromParent}/>)
-            }}/>
-              <Route
-            exact
-            path="/callback"
-            render={props => {
-              const auth = new Auth(props.history);
-              handleAuthentication(auth, props);
-              return <Callback {...props} />;
-            }}
-          />
             <Route
               exact
-              path="/game"
+              path="/"
               render={props => {
                 const auth = new Auth(props.history);
                 return (
-                  <StartGame
+                  <Home
+                    auth={auth}
+                    {...props}
+                    profile={this.state.profile}
+                    loggedIn={this.state.loggedIn}
+                    callbackFromParent={this.callbackFromParent}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/home"
+              render={props => {
+                const auth = new Auth(props.history);
+                return (
+                  <Home
+                    auth={auth}
+                    {...props}
+                    profile={this.state.profile}
+                    loggedIn={this.state.loggedIn}
+                    callbackFromParent={this.callbackFromParent}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/callback"
+              render={props => {
+                const auth = new Auth(props.history);
+                handleAuthentication(auth, props);
+                return <Callback {...props} />;
+              }}
+            />
 
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />
-            {/* Route for when user joins a game */}
-            <Route
-              exact
-              path="/game/:id"
-              render={props => {
-                const auth = new Auth(props.history);
-                return (
-                  <ContinueGame
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/game/mural/:id"
-              render={props => {
-                const auth = new Auth(props.history);
-                return (
-                  <FinalMural
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />
-            <Route
-              exact
-              path="/openmurals"
-              render={props => {
-                const auth = new Auth(props.history);
-                return (
-                  <JoinMural
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />
-            <Route
-              exact
-              path="/myopenmurals"
-              render={props => {
-                const auth = new Auth(props.history);
-                return (
-                  <MyOpenMurals
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />
-            <Route
-              exact
-              path="/completedmurals"
-              render={props => {
-                const auth = new Auth(props.history);
-                return (
-                  <CompletedMurals
-                    auth={auth}
-                    {...props}
-                    profile={this.state.profile}
-                    loggedIn={this.state.loggedIn}
-                  />
-                );
-              }}
-            />{" "}
-            <Route exact path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
+            {isAuthenticated() ? (
+              <div>
+                {" "}
+                <Route
+                  exact
+                  path="/game"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <StartGame
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
+                {/* Route for when user joins a game */}
+                <Route
+                  exact
+                  path="/game/:id"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <ContinueGame
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  path="/game/mural/:id"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <FinalMural
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/openmurals"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <JoinMural
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/myopenmurals"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <MyOpenMurals
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/completedmurals"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <CompletedMurals
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                      />
+                    );
+                  }}
+                />{" "}
+                <Route
+                  exact
+                  path="/archives"
+                  render={props => {
+                    const auth = new Auth(props.history);
+                    return (
+                      <WorldCompletedMurals
+                        auth={auth}
+                        {...props}
+                        profile={this.state.profile}
+                        loggedIn={this.state.loggedIn}
+                        callback={this.getGamesFromFirebase}
+                      />
+                    );
+                  }}
+                />
+                <Route exact path="/about" component={About} />
+                <Route path="/contact" component={Contact} />
+              </div>
+            ) : null}
           </Switch>
         </div>
       </Router>

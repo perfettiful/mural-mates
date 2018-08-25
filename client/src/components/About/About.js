@@ -13,7 +13,7 @@ import {
   Item, Link
 } from "semantic-ui-react";
 const styles = {
-  color: "#999",
+  color: "#ddd",
 };
 class About extends React.Component {
 
@@ -77,12 +77,12 @@ class About extends React.Component {
                   <h3>
                     {" "}
                     You can find more information on Exquisite Corpses{" "}
-                    <a href="https://en.wikipedia.org/wiki/Exquisite_corpse">here</a>.
+                    <a href="https://en.wikipedia.org/wiki/Exquisite_corpse" style={styles}><u>here</u></a>.
                   </h3>
                   <h3>
                     {" "}
                     You can take a look at some amazing corpses{" "}
-                    <a href="http://www.jabcstudio.com/collaborations/exquisite-corpse/">here</a>.
+                    <a href="http://www.jabcstudio.com/collaborations/exquisite-corpse/" style={styles}><u>here</u></a>.
                   </h3>
                 </Item.Description>
               </Item.Content>

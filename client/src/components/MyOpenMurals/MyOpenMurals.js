@@ -3,23 +3,17 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "../List";
 import {
+  Card,
+  Image,
+  Container, 
   Segment,
-  Button,
-  Divider,
-  Container,
-  Header,
-  Icon,
-  Grid,
-  Message,
-  Form,
-  Image
+  Divider
 } from "semantic-ui-react";
 import API from "../../utils/API";
 import "./MyOpenMurals.css";
 const styles = {
-  mural: {
-    border: "10px solid #333"
-  }
+    padding:"5px"
+  
 };
 export default class MyOpenMurals extends Component {
   constructor(props) {
@@ -65,22 +59,24 @@ export default class MyOpenMurals extends Component {
   render() {
     return (
       <div>
-        <h3>
-          My Open Murals
-        </h3>
-
-        <List>
+       <Container text textAlign="center"><Segment raised> <h1> MY OPEN MURALS </h1></Segment></Container>
+<Divider/>
+        <Card.Group centered>
           {this.state.userOpenMurals.map(game => (
-            <ListItem key={game._id}>
+            <Card key={game._id} style={styles}>
               <Link to={"/game/" + game._id}>
-                <strong>
+                <Card.Header> Title : {game.title}
+                </Card.Header>
+                <Divider horizontal />
+                
+                <Card.Content><strong>
                   Img: <Image src={game.pImg1} />
-                  Title : {game.title}
-                </strong>
+                 
+                </strong></Card.Content>
               </Link>
-            </ListItem>
+            </Card>
           ))}
-        </List>
+        </Card.Group>
       </div>
     );
   }
